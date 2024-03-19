@@ -4,7 +4,7 @@
 //De esa ruta sino podemos redirigir a una publica
 
 import { Outlet,Navigate } from "react-router-dom" //nos va a ayudar a poner un placeHolder
-import {useAuth} from "./auth/AuthProvider.jsx";
+import { useAuth } from './auth/AuthProvider';
 
 export default function ProtectedRoute() {
     const auth = useAuth(); // Invocamos useAuth como una función
