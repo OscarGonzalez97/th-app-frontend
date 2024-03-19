@@ -5,6 +5,7 @@ import { AuthProvider } from './pages/login/auth/AuthProvider';
 import ProtectedRoute from './pages/login/ProtectedRoute';
 import Login from './pages/login/Login.jsx';
 import Principal from './pages/Principal';
+import OlvidasteContrasenha from './pages/login/OlvidasteContrasenha.jsx';
 const router = createBrowserRouter([
     {
         path: "/", // Ruta de inicio de sesión
@@ -19,6 +20,10 @@ const router = createBrowserRouter([
                 element: <Principal />,
             }
         ]
+    },
+     {
+        path: "/Recuperar", // Ruta de inicio de sesión
+        element: <OlvidasteContrasenha />,
     },
 ]);
 

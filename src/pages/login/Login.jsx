@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import './login.css';
 
 
-export default function MyComponent() {
+export default function Login() {
   //Estados del formulario LOGIN
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,7 +99,7 @@ const handleRegistroSubmit = async (e) => {
 
             <button type="submit" className="button">Ingresar</button>
 
-            <a href="/olvidaste-contrasena" className="forgot-password-link">¿Olvidaste tu contraseña?</a>
+            <a href="/Recuperar" className="forgot-password-link">¿Olvidaste tu contraseña?</a>
           </form>
         </div>
 
