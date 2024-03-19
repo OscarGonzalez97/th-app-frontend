@@ -2,14 +2,21 @@
 import React, { useState } from 'react';
 import { useAuth } from './auth/AuthProvider';
 import { Navigate } from 'react-router-dom';
-import './login.css'; // Asegúrate de importar tu archivo CSS
+import './login.css';
 
 export default function MyComponent() {
+  //const del login
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  //const de registro
+
+  const [correoElectronico, setCorreoElectronico] = useState("");
+
+
   const [error, setError] = useState(null);
   const { handleLogin, isAuthenticated } = useAuth();
   const [isSignUpActive, setIsSignUpActive] = useState(false);
+
 
 
   // Función para activar el formulario de registro
