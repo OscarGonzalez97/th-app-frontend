@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
-import { Outlet, Link } from 'react-router-dom';
-
+import {  Link } from 'react-router-dom';
+import LogoImage from "../imagenes/ima.png";
 
 
 
@@ -22,12 +22,38 @@ const NavBarExample = () => {
         
         <Container>
 
-          <Navbar.Brand as={Link} to="/">ROSHKA</Navbar.Brand>
+
+        <Navbar.Brand as={Link} to="/">
+            <img
+              src={LogoImage}
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+              alt="Logo"
+              style={{ marginRight: '10px' }} // Espacio entre el logo y el texto "ROSHKA"
+            />
+            ROSHKA
+          </Navbar.Brand>
+
+
+
+
+
+
+
+         
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
+
+
+
+
+
+
+
 
 
               <NavDropdown title="Cargos" id="cargos-dropdown">
@@ -44,6 +70,8 @@ const NavBarExample = () => {
 
               <NavDropdown title="Postulante" id="post-dropdown">
                 <NavDropdown.Item as={Link} to="/postulante/listar">Listar</NavDropdown.Item> 
+                <NavDropdown.Item as={Link} to="/postulante/resumen">Resumen</NavDropdown.Item> 
+
               </NavDropdown>
 
 
@@ -58,7 +86,9 @@ const NavBarExample = () => {
                 <NavDropdown.Item as={Link} to="/cumpleaños/listar">Listar</NavDropdown.Item> 
               </NavDropdown>
  
+
               <Nav.Link as={Link} to="/editarperfil">Editar Perfil</Nav.Link>
+
 
               <Nav.Link as={Link} to="/salir">Salir</Nav.Link>
 

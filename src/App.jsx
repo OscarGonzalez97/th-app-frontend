@@ -5,7 +5,7 @@ import Home from './components/home';
 
 
 
-import NavBarExample from './layouts/navbar';
+import NavBarExample from './components/layouts/navbar';
 
 function App() {
   return (
