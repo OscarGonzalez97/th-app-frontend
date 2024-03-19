@@ -1,8 +1,8 @@
 import NavBar from "../Navbar"
 
 export const Layout = ({ children }) => {
-  return <>
+  return <div className="base">
     <NavBar/>
     {children}
-  </>
+  </div>
 }

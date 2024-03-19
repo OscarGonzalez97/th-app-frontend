@@ -1,10 +1,6 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LogoImage from "../imagenes/ima.png"
-import "./navbar.css"
-
-
-
 
 const NavBar = () => {
   return (
