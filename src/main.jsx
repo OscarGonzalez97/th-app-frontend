@@ -1,31 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AuthProvider } from './pages/login/auth/AuthProvider';
-import ProtectedRoute from './pages/login/ProtectedRoute';
-import Login from './pages/login/Login.jsx';
-import Principal from './pages/Principal';
-import OlvidasteContrasenha from './pages/login/OlvidasteContrasenha.jsx';
-const router = createBrowserRouter([
-    {
-        path: "/", // Ruta de inicio de sesión
-        element: <Login />,
-    },
-    {
-        path: "/", // Ruta protegida
-        element: <ProtectedRoute />,
-        children: [
-            {
-                path: "/Principal", // Ruta de la página principal
-                element: <Principal />,
-            }
-        ]
-    },
-     {
-        path: "/Recuperar", // Ruta de inicio de sesión
-        element: <OlvidasteContrasenha />,
-    },
-]);
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
