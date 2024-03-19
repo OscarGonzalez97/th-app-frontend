@@ -15,9 +15,8 @@ npm install react-router-dom
 npm install react-bootstrap bootstrap
 
 
-/* La siguiente línea se debe añadir en el archivo src/App.jsx */
-
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 /* COLORES */
 
