@@ -11,7 +11,7 @@ export default function Login() {
   const [error, setError] = useState(null); // Estado para controlar los errores
   const { handleLogin, isAuthenticated } = useAuth();
 
-  
+
   // Estados del formulario de registro
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasenha, setContrasenha] = useState("");
@@ -40,84 +40,116 @@ export default function Login() {
     if (!success) setError("Usuario o contraseña incorrectos"); //sino manda un error
   };
 
-   // Función para manejar el registro
-const handleRegistroSubmit = async (e) => {
-  e.preventDefault();
+  // Función para manejar el registro
+  const handleRegistroSubmit = async (e) => {
+    e.preventDefault();
 
-  // Validar que las contraseñas coincidan
-  if (contrasenha !== confirmarContrasenha) {
-    setErrorContrasenha("Las contraseñas no coinciden. Inténtalo de nuevo");
-    return;
-  } else {
-    setErrorContrasenha(""); // Limpiar el error si las contraseñas coinciden
-  }
+    // Validar que las contraseñas coincidan
+    if (contrasenha !== confirmarContrasenha) {
+      setErrorContrasenha("Las contraseñas no coinciden. Inténtalo de nuevo");
+      return;
+    } else {
+      setErrorContrasenha(""); // Limpiar el error si las contraseñas coinciden
+    }
 
-  // Validar dominio de correo electrónico
-  if (!/^[\w-\.]+@roshka\.com$/.test(correoElectronico.trim())) {
-    setRegistroError("Correo electrónico debe ser de dominio @roshka.com");
-    return;
-  } else {
-    setRegistroError(""); // Limpiar el error si el correo electrónico es válido
-  }
+    // Validar dominio de correo electrónico
+    if (!/^[\w-\.]+@roshka\.com$/.test(correoElectronico.trim())) {
+      setRegistroError("Correo electrónico debe ser de dominio @roshka.com");
+      return;
+    } else {
+      setRegistroError(""); // Limpiar el error si el correo electrónico es válido
+    }
 
   // Si las contraseñas coinciden y el correo electrónico es válido, continuamos con el registro
   // aca debemos enviar la solicitud de registro ()
-};
+  };
 
   if (isAuthenticated) return <Navigate to="/Principal" />;
 
   return (
-      <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`}>
-        <div className="form-container sign-up-container">
-          {/* Formulario de registro */}
-        <form className="form" onSubmit={handleRegistroSubmit}>
+    <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`}>
+      <div className="form-container sign-up-container">
+        {/* Formulario de registro */}
+        <form className="form"
+          onSubmit={handleRegistroSubmit}>
           <h1>Crea tu Cuenta</h1>
-          <input type="text" className="input-field" placeholder="Correo Electrónico" value={correoElectronico} onChange={(e) => setCorreoElectronico(e.target.value)} />
-          {registroError && <div className="error" style={{ color: 'red' }}>{registroError}</div>}
-          <input type="password" className="input-field" placeholder="Contraseña" value={contrasenha} onChange={(e) => setContrasenha(e.target.value)} />
-          <input type="password" className="input-field" placeholder="Confirmar Contraseña" value={confirmarContrasenha} onChange={(e) => setConfirmarContrasenha(e.target.value)} />
-          {errorContrasenha && <div className="error" style={{ color: 'red' }}>{errorContrasenha}</div>}
+          <input type="text"
+            className="input-field"
+            placeholder="Correo Electrónico"
+            value={correoElectronico}
+            onChange={(e) => setCorreoElectronico(e.target.value)} />
+          {registroError && <div className="error"
+            style={{ color: 'red' }}>{registroError}</div>}
+          <input type="password"
+            className="input-field"
+            placeholder="Contraseña"
+            value={contrasenha}
+            onChange={(e) => setContrasenha(e.target.value)} />
+          <input type="password"
+            className="input-field"
+            placeholder="Confirmar Contraseña"
+            value={confirmarContrasenha}
+            onChange={(e) => setConfirmarContrasenha(e.target.value)} />
+          {errorContrasenha && <div className="error"
+            style={{ color: 'red' }}>{errorContrasenha}</div>}
 
-          <button type="submit" className="button">Registrarse</button>
-          
+          <button type="submit"
+            className="button">Registrarse</button>
+
         </form>
-        </div>
-        <div className="form-container sign-in-container">
-          {/* Formulario de inicio de sesión */}
-          <form className="form" onSubmit={handleSubmit}>
-            <h1>Iniciar Sesión</h1>
+      </div>
+      <div className="form-container sign-in-container">
+        {/* Formulario de inicio de sesión */}
+        <form className="form"
+          onSubmit={handleSubmit}>
+          <h1>Iniciar Sesión</h1>
 
-            <label htmlFor="email" className="label"></label>
-            <input type="text" id="email" className="input-field" placeholder="Correo Electrónico" value={email}
-                   onChange={(e) => setEmail(e.target.value)}/>
+          <label htmlFor="email"
+            className="label"></label>
+          <input type="text"
+            id="email"
+            className="input-field"
+            placeholder="Correo Electrónico"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}/>
 
-            <label htmlFor="password" className="label"></label>
-            <input type="password" id="password" className="input-field" placeholder="Contraseña" value={password}
-                   onChange={(e) => setPassword(e.target.value)}/>
+          <label htmlFor="password"
+            className="label"></label>
+          <input type="password"
+            id="password"
+            className="input-field"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}/>
 
-            {error && <div className="error" style={{color: 'red'}}>{error}</div>}
+          {error && <div className="error"
+            style={{color: 'red'}}>{error}</div>}
 
-            <button type="submit" className="button">Ingresar</button>
+          <button type="submit"
+            className="button">Ingresar</button>
 
-            <a href="/Recuperar" className="forgot-password-link">¿Olvidaste tu contraseña?</a>
-          </form>
-        </div>
+          <a href="/Recuperar"
+            className="forgot-password-link">¿Olvidaste tu contraseña?</a>
+        </form>
+      </div>
 
-        <div className="overlay-container">
-          <div className="overlay">
-            <div className="overlay-panel overlay-left">
-              <h1>¡Bienvenido!</h1>
-              <p>Inicia sesión con tu cuenta</p>
-              <button className="ghost" onClick={handleSignInClick}>Inicia sesión</button>
-            </div>
+      <div className="overlay-container">
+        <div className="overlay">
+          <div className="overlay-panel overlay-left">
+            <h1>¡Bienvenido!</h1>
+            <p>Inicia sesión con tu cuenta</p>
+            <button className="ghost"
+              onClick={handleSignInClick}>Inicia sesión</button>
+          </div>
 
           <div className="overlay-panel overlay-right">
             <h1>¿No tienes una cuenta?</h1>
             <p>Crea una </p>
-            <button className="ghost" onClick={handleSignUpClick}>Registrar</button>
+            <button className="ghost"
+              onClick={handleSignUpClick}>Registrar</button>
           </div>
         </div>
-        </div>
       </div>
+    </div>
   );
 }
