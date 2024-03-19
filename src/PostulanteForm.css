@@ -1,0 +1,27 @@
+.postulante-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    color: white;
+    background-color: #0B316E;
+}
+
+.postulante-container h1, .postulante-container h2 {
+    text-align: center;
+}
+
+.postulante-container h4, .postulante-container h6 {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.postulante-container form {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.postulante-container button {
+    margin-top: 20px;
+}
