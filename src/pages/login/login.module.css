@@ -6,8 +6,12 @@
 }
 
 
-.login-base {
+body {
     font-family: "Poppins", sans-serif;
+    background: linear-gradient(45deg, rgba(20, 99, 155, 0.25), rgba(30, 148, 227, 0.25)), url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.com/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1560%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='url(%23SvgjsRadialGradient1561)'%3e%3c/rect%3e%3cpath d='M0 0L52.91 0L0 5.82z' fill='rgba(255%2c 255%2c 255%2c .1)'%3e%3c/path%3e%3cpath d='M0 5.82L52.91 0L223.41 0L0 198.10999999999999z' fill='rgba(255%2c 255%2c 255%2c .075)'%3e%3c/path%3e%3cpath d='M0 198.10999999999999L223.41 0L876.5699999999999 0L0 320.44z' fill='rgba(255%2c 255%2c 255%2c .05)'%3e%3c/path%3e%3cpath d='M0 320.44L876.5699999999999 0L1264.6799999999998 0L0 414.01z' fill='rgba(255%2c 255%2c 255%2c .025)'%3e%3c/path%3e%3cpath d='M1440 560L1266.7 560L1440 289.19z' fill='rgba(0%2c 0%2c 0%2c .1)'%3e%3c/path%3e%3cpath d='M1440 289.19L1266.7 560L701.63 560L1440 233.49z' fill='rgba(0%2c 0%2c 0%2c .075)'%3e%3c/path%3e%3cpath d='M1440 233.49L701.6299999999999 560L375.40999999999985 560L1440 115.81z' fill='rgba(0%2c 0%2c 0%2c .05)'%3e%3c/path%3e%3cpath d='M1440 115.81L375.40999999999985 560L223.58999999999986 560L1440 34.019999999999996z' fill='rgba(0%2c 0%2c 0%2c .025)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1560'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3cradialGradient cx='100%25' cy='100%25' r='1545.06' gradientUnits='userSpaceOnUse' id='SvgjsRadialGradient1561'%3e%3cstop stop-color='rgba(9%2c 82%2c 158%2c 1)' offset='1'%3e%3c/stop%3e%3cstop stop-color='rgba(0%2c 69%2c 158%2c 0)' offset='1'%3e%3c/stop%3e%3c/radialGradient%3e%3c/defs%3e%3c/svg%3e");
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -49,7 +53,7 @@ a {
 }
 
 
-.container-login {
+.container {
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0, 10px 10px rgba(0, 0, 0, 0.22);
@@ -60,7 +64,7 @@ a {
     min-height: 480px;
 }
 
-.form-container-login form {
+.form-container form {
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -71,15 +75,15 @@ a {
     text-align: center;
 }
 
-.form-container-login.sign-in-container-login h1 {
+.form-container.sign-in-container h1 {
     color: #2873ea; /* Cambia #ff0000 por el color que desees */
 }
 
-.form-container-login.sign-up-container-login h1 {
+.form-container.sign-up-container h1 {
     color: rgba(6, 52, 125, 0.95)
 }
 
-.form-container-login input {
+.form-container input {
     background: #eee;
     border: none;
     padding: 12px 15px;
@@ -100,7 +104,7 @@ button {
     transition: transform 80ms ease-in;
 }
 
-.form-container-login.sign-up-container-login button {
+.form-container.sign-up-container button {
     border: 1px solid rgba(6, 52, 125, 0.95);
     background: rgba(6, 52, 125, 0.95);
 }
@@ -128,26 +132,26 @@ button.ghost {
     margin: 15px 0;
 }
 
-.container-login .form-container-login {
+.container .form-container {
     position: absolute;
     top: 0;
     height: 100%;
     transition: all 0.6s ease-in-out;
 }
 
-.container-login .sign-in-container-login {
+.container .sign-in-container {
     left: 0;
     width: 50%;
     z-index: 2;
 }
 
-.container-login .sign-up-container-login {
+.container .sign-up-container {
     left: 0;
     width: 50%;
     z-index: 2;
 }
 
-.container-login .overlay-container {
+.container .overlay-container {
     position: absolute;
     top: 0;
     left: 50%;
@@ -203,30 +207,30 @@ button.ghost {
 
 /* Animación */
 
-.container-login.right-panel-active .sign-in-container-login {
+.container.right-panel-active .sign-in-container {
     transform: translateX(100%);
 
 }
 
-.container-login.right-panel-active .overlay-container {
+.container.right-panel-active .overlay-container {
     transform: translateX(-100%);
 
 }
 
-.container-login.right-panel-active .sign-up-container-login {
+.container.right-panel-active .sign-up-container {
     transform: translateX(100%);
     opacity: 1;
     z-index: 5;
 }
 
-.container-login.right-panel-active .overlay {
+.container.right-panel-active .overlay {
     transform: translateX(50%);
 }
 
-.container-login.right-panel-active .overlay-left {
+.container.right-panel-active .overlay-left {
     transform: translateX(0);
 }
 
-.container-login.right-panel-active .overlay-right {
+.container.right-panel-active .overlay-right {
     transform: translateX(20%);
 }
