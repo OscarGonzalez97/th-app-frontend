@@ -1,6 +1,6 @@
 import React from 'react';
-import '../pages/PostulanteForm.css';
-import imagen from '../imagenes/prog_backend.png';
+import './PostulanteForm.css';
+import imagen from '../../imagenes/prog_backend.png';
 
 const PostulanteForm = () => {
     return (
