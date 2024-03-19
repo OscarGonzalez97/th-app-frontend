@@ -5,14 +5,16 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     color: white;
-    background-color: #0B316E;
+    background-color: rgba(87, 145, 238, 0.25);
 }
 
-.postulante-container h1, .postulante-container h2 {
+.postulante-container h1,
+.postulante-container h2 {
     text-align: center;
 }
 
-.postulante-container h4, .postulante-container h6 {
+.postulante-container h4,
+.postulante-container h6 {
     margin-top: 20px;
     text-align: left;
 }

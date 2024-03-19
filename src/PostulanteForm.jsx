@@ -7,7 +7,7 @@ const PostulanteForm = () => {
         <div className="postulante-container">
             <h1>Título</h1>
             <h2>Descripción</h2>
-            <img src={imagen} alt="Vacante" />
+            <img src={imagen} alt="Vacante" className="img-fluid" />
 
             <h4>Datos Personales</h4>
             <h6>Todos los campos con (*) deben estar rellenados</h6>
@@ -15,17 +15,20 @@ const PostulanteForm = () => {
             <form className="row g-3">
                 <div className="col-md-6">
                     <label htmlFor="nombre" className="form-label">Nombre *</label>
-                    <input type="text" className="form-control" id="nombre" name="nombre" />
+                    <input type="text" className="form-control" id="nombre" name="nombre" 
+                    placeholder="Ingrese su nombre"/>
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="apellido" className="form-label">Apellido *</label>
-                    <input type="text" className="form-control" id="apellido" name="apellido" />
+                    <input type="text" className="form-control" id="apellido" name="apellido" 
+                    placeholder="Ingrese su apellido"/>
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="email" className="form-label">Email *</label>
-                    <input type="email" className="form-control" id="email" name="email" />
+                    <input type="email" className="form-control" id="email" name="email" 
+                    placeholder="Ingrese su email"/>
                 </div>
 
                 <div className="col-md-6">
@@ -49,7 +52,8 @@ const PostulanteForm = () => {
 
                 <div className="col-md-6">
                     <label htmlFor="nro_documento" className="form-label">Número de documento *</label>
-                    <input type="text" className="form-control" id="nro_documento" name="nro_documento" />
+                    <input type="text" className="form-control" id="nro_documento" name="nro_documento" 
+                    placeholder="Ingrese su número de documento"/>
                 </div>
 
                 <div className="col-md-6">
@@ -72,16 +76,18 @@ const PostulanteForm = () => {
 
                 <div className="col-md-6">
                     <label htmlFor="direccion" className="form-label">Dirección *</label>
-                    <input type="text" className="form-control" id="direccion" name="direccion" />
+                    <input type="text" className="form-control" id="direccion" name="direccion" 
+                    placeholder="Ingrese su dirección"/>
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="telefono" className="form-label">Teléfono *</label>
-                    <input type="text" className="form-control" id="telefono" name="telefono" />
+                    <input type="text" className="form-control" id="telefono" name="telefono" 
+                    placeholder="Ingrese su número de teléfono"/>
                 </div>
 
                 <div className="col-md-6">
-                    <label htmlFor="fecha_nacimiento" className="form-label">Fecha de Nacimiento *</label>
+                    <label htmlFor="fecha_nacimiento" className="form-label">Fecha de nacimiento *</label>
                     <input type="date" className="form-control" id="fecha_nacimiento" name="fecha_nacimiento" />
                 </div>
 
@@ -128,7 +134,8 @@ const PostulanteForm = () => {
 
                 <div className="col-12">
                     <h4>Otras Tecnologías</h4>
-                    <textarea className="form-control" id="otras_tecnologias" name="otras_tecnologias" placeholder="Si tienes alguna tecnología que no figura en la sección anterior. Escribelo aquí." rows="3"></textarea>
+                    <textarea className="form-control" id="otras_tecnologias" name="otras_tecnologias" 
+                    placeholder="Si tienes alguna tecnología que no figura en la sección anterior. Escribelo aquí." rows="3"></textarea>
                 </div>
 
                 <div className="col-12">
