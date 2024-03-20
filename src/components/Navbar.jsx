@@ -15,7 +15,7 @@ const NavBar = () => {
 
       
 
-        <Container>
+        <Container  fluid>
           <Navbar.Brand as={Link}
             to="/">
              
