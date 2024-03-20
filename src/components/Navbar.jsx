@@ -8,31 +8,28 @@ const NavBar = () => {
       <Navbar className="navBg "
         variant="dark"
         expand="lg"
-        style={{backgroundColor: '#0B316E' , padding: '5px' }}>
- 
+        style={{ backgroundColor: '#0B316E', padding: '5px' }}>
 
 
 
-      
-
-        <Container  fluid>
+        <Container fluid>
           <Navbar.Brand as={Link}
             to="/">
-             
+
             <img
               src={LogoImage}
               width="30"
               height="30"
               className="d-inline-block align-top rounded-circle"
               alt="Logo"
-              style={{ marginRight: '10px' }}/>
+              style={{ marginRight: '10px' }} />
             ROSHKA
-            
+
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-              
+
               <Nav.Link as={Link}
                 to="/">Home
               </Nav.Link>
@@ -42,7 +39,7 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link}
                   to="/convocatoria">Agregar
                 </NavDropdown.Item>
-                
+
                 <NavDropdown.Item as={Link}
                   to="/cargos/listarco ">Listar convocatorias
                 </NavDropdown.Item>
@@ -68,7 +65,6 @@ const NavBar = () => {
                 </NavDropdown.Item>
               </NavDropdown>
 
-             
 
 
               <Nav.Link as={Link}
@@ -80,9 +76,9 @@ const NavBar = () => {
               </Nav.Link>
 
             </Nav>
-            
 
-            
+
+
           </Navbar.Collapse>
         </Container>
       </Navbar>

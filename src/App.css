@@ -48,3 +48,23 @@ body{
   will-change: filter;
   transition: filter 300ms;
 }
+
+.contenido-home {
+  display: flex;
+  flex-direction: row; /* Esto coloca el texto a la izquierda y la imagen a la derecha */
+  justify-content: space-between; /* Espacio entre los elementos */
+  align-items: center; /* Alinea verticalmente los elementos */
+}
+
+.texto-home {
+  flex: 1; /* El texto ocupará todo el espacio restante */
+}
+
+.grafico-home {
+  flex: 1; /* La imagen ocupará todo el espacio restante */
+  text-align: center; /* Alinea la imagen en el centro horizontalmente */
+}
+
+.seccion.hero {
+  padding: 20px; /* Añade un poco de espacio alrededor de la sección */
+}
