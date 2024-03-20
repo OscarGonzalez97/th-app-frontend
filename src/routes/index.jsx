@@ -5,6 +5,7 @@ import Login from "../pages/login/Login"
 import Convocatoria from '../pages/convocatoria/Convocatoria'
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
 import { AuthProvider } from '../pages/login/auth/AuthProvider';
+import PostulanteForm from '../pages/postulante/PostulanteForm';
 
 export function Routing() {
   return (
@@ -12,11 +13,11 @@ export function Routing() {
       <Routes>
         {/* rutas que usan Layout */}
         <Route path="/"
-          element={<Home/>}>
+          element={<Home />}>
         </Route>
 
         <Route path="/home"
-          element={<OtraRuta/>}>
+          element={<OtraRuta />}>
         </Route>
 
 
@@ -39,8 +40,11 @@ export function Routing() {
 
         <Route path="/Recuperar"
           element={
-            <OlvidasteContrasenha/>
+            <OlvidasteContrasenha />
           }>
+        </Route>
+        <Route path="/postulante"
+          element={<PostulanteForm />}>
         </Route>
         {/* rutas desprotegidas */}
       </Routes>
