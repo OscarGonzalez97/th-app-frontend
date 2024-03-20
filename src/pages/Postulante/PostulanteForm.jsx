@@ -13,6 +13,8 @@ const PostulanteForm = () => {
                 <img src={imagen} alt="Vacante" className="img-fluid" />
             </div>
 
+
+
             <h4>Datos Personales</h4>
             <h6>Todos los campos con (*) deben estar rellenados</h6>
 
