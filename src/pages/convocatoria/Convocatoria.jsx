@@ -8,13 +8,13 @@ const Convocatoria = () => {
          
 
             <form className="row g-3">
-                <div className="col-md-6">
+                <div className="col-md-12">
                     <label htmlFor="titulo" className="form-label">Título *</label>
                     <input type="text" className="form-control" id="titulo" name="titulo"
                         placeholder="Ingrese el titulo" />
                 </div>
 
-                <div className="col-md-6">
+                <div className="col-md-12">
                     <label htmlFor="descripcion" className="form-label">Descripción *</label>
                     <input type="text" className="form-control" id="descripcion" name="descripcion"
                         placeholder="Ingrese la descripcion" />
