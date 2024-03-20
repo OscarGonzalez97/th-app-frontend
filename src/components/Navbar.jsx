@@ -42,7 +42,7 @@ const NavBar = () => {
               <NavDropdown title="Convocatorias"
                 id="convo-dropdown">
                 <NavDropdown.Item as={Link}
-                  to="/convo/agregar">Agregar
+                  to="/convocatoria">Agregar
                 </NavDropdown.Item>
                 
                 <NavDropdown.Item as={Link}
@@ -53,7 +53,7 @@ const NavBar = () => {
               <NavDropdown title="Tecnologías"
                 id="tec-dropdown">
                 <NavDropdown.Item as={Link}
-                  to="/tecnologias/agregar">Agregar
+                  to="/tecnologia">Agregar
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link}
                   to="/tecnologias/listar">Listar
