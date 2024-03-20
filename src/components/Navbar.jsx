@@ -39,14 +39,12 @@ const NavBar = () => {
                 to="/">Home
               </Nav.Link>
 
-              <NavDropdown title="Cargos"
-                id="cargos-dropdown">
+              <NavDropdown title="Convocatorias"
+                id="convo-dropdown">
                 <NavDropdown.Item as={Link}
-                  to="/cargos/agregar">Agregar
+                  to="/convo/agregar">Agregar
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link}
-                  to="/cargos/listar">Listar cargos
-                </NavDropdown.Item>
+                
                 <NavDropdown.Item as={Link}
                   to="/cargos/listarco ">Listar convocatorias
                 </NavDropdown.Item>
