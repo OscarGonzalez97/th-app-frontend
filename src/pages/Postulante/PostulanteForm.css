@@ -27,3 +27,27 @@
 .postulante-container button {
     margin-top: 20px;
 }
+
+.postulante-modal .modal-content {
+    background-color: white;
+    color: #001840;
+    border: 1px solid #001840;
+    border-radius: 5px;
+}
+
+.postulante-modal .modal-header,
+.postulante-modal .modal-footer {
+    border-bottom: 1px solid #ccc;
+}
+
+.postulante-modal .modal-title {
+    text-align: center;
+}
+
+.postulante-modal .modal-body {
+    text-align: left;
+}
+
+.postulante-modal button {
+    margin-top: 20px;
+}
