@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from './auth/AuthProvider';
 import { Navigate } from 'react-router-dom';
-import './login.css';
+import CustomAlert from '../../components/login/CustomAlert';
+import './styles/login.css';
 
 
 export default function Login() {
@@ -18,6 +19,9 @@ export default function Login() {
   const [confirmarContrasenha, setConfirmarContrasenha] = useState("");
   const [registroError, setRegistroError] = useState(null);
   const [errorContrasenha, setErrorContrasenha] = useState("");
+
+  //Estado para validar si el registro fue exitoso
+  const[registroExitoso, setRegistroExitoso] = useState (false);
 
   const [isSignUpActive, setIsSignUpActive] = useState(false);
 
@@ -62,6 +66,11 @@ export default function Login() {
 
   // Si las contraseñas coinciden y el correo electrónico es válido, continuamos con el registro
   // aca debemos enviar la solicitud de registro ()
+    setRegistroExitoso(true);
+     // Limpiar los campos del formulario después del registro exitoso
+    setCorreoElectronico("");
+    setContrasenha("");
+    setConfirmarContrasenha("");
   };
 
   if (isAuthenticated) return <Navigate to="/Principal" />;
@@ -95,10 +104,13 @@ export default function Login() {
               style={{ color: 'red' }}>{errorContrasenha}</div>}
 
             <button type="submit"
-              className="button">Registrarse</button>
-
+              className="button registrar-button ">Registrarse</button>
           </form>
+          <div className="login-custom-alert-container">
+            {registroExitoso && <CustomAlert message="¡Registro exitoso!" />}
+          </div>
         </div>
+
         <div className="form-container-login sign-in-container-login">
           {/* Formulario de inicio de sesión */}
           <form className="form"
