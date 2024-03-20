@@ -5,14 +5,11 @@ import LogoImage from "../imagenes/ima.png"
 const NavBar = () => {
   return (
     <>
-      <Navbar className="navBg"
+      <Navbar className="navBg "
         variant="dark"
         expand="lg"
-        style={{backgroundColor: '#0B316E' , padding: '2px' }}>
+        style={{backgroundColor: '#0B316E' , padding: '5px' }}>
  
-          
-
-
 
 
 
@@ -35,6 +32,7 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
+              
               <Nav.Link as={Link}
                 to="/">Home
               </Nav.Link>
