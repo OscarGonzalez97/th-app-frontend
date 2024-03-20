@@ -1,0 +1,28 @@
+.tecnologia-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 3px solid #ccc;
+    color: white;
+    background-color: rgba(87, 145, 238, 0.5);
+}
+
+.tecnologia-container h1,
+.tecnologia-container h2 {
+    text-align: left;
+}
+
+.tecnologia-container h4,
+.tecnologia-container h6 {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.tecnologia-container form {
+    margin-top: 10px;
+    text-align: left;
+}
+
+.tecnologia-container button {
+    margin-top: 20px;
+}

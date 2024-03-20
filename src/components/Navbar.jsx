@@ -8,34 +8,43 @@ const NavBar = () => {
       <Navbar className="navBg"
         variant="dark"
         expand="lg"
-        style={{backgroundColor: '#0B316E' }}>
+        style={{backgroundColor: '#0B316E' , padding: '2px' }}>
+ 
+          
+
+
+
+
+
+      
+
         <Container>
           <Navbar.Brand as={Link}
             to="/">
+             
             <img
               src={LogoImage}
               width="30"
               height="30"
-              className="d-inline-block align-top"
+              className="d-inline-block align-top rounded-circle"
               alt="Logo"
               style={{ marginRight: '10px' }}/>
             ROSHKA
+            
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="ml-auto">
               <Nav.Link as={Link}
                 to="/">Home
               </Nav.Link>
 
-              <NavDropdown title="Cargos"
-                id="cargos-dropdown">
+              <NavDropdown title="Convocatorias"
+                id="convo-dropdown">
                 <NavDropdown.Item as={Link}
-                  to="/cargos/agregar">Agregar
+                  to="/convocatoria">Agregar
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link}
-                  to="/cargos/listar">Listar cargos
-                </NavDropdown.Item>
+                
                 <NavDropdown.Item as={Link}
                   to="/cargos/listarco ">Listar convocatorias
                 </NavDropdown.Item>
@@ -44,7 +53,7 @@ const NavBar = () => {
               <NavDropdown title="Tecnologías"
                 id="tec-dropdown">
                 <NavDropdown.Item as={Link}
-                  to="/tecnologias/agregar">Agregar
+                  to="/tecnologia">Agregar
                 </NavDropdown.Item>
                 <NavDropdown.Item as={Link}
                   to="/tecnologias/listar">Listar
@@ -61,25 +70,8 @@ const NavBar = () => {
                 </NavDropdown.Item>
               </NavDropdown>
 
-              <NavDropdown title="Beneficios"
-                id="bene-dropdown">
-                <NavDropdown.Item as={Link}
-                  to="/beneficios/agregar">Agregar
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link}
-                  to="/beneficios/listar">Listar
-                </NavDropdown.Item>
-              </NavDropdown>
+             
 
-              <NavDropdown title="Cumpleaños"
-                id="cumple-dropdown">
-                <NavDropdown.Item as={Link}
-                  to="/cumpleaños/agregar">Agregar
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link}
-                  to="/cumpleaños/listar">Listar
-                </NavDropdown.Item>
-              </NavDropdown>
 
               <Nav.Link as={Link}
                 to="/editarperfil">Editar Perfil
@@ -90,6 +82,9 @@ const NavBar = () => {
               </Nav.Link>
 
             </Nav>
+            
+
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>
