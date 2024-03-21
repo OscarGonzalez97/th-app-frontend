@@ -73,7 +73,7 @@ export default function Login() {
     setConfirmarContrasenha("");
   };
 
-  if (isAuthenticated) return <Navigate to="/Principal" />;
+  if (isAuthenticated) return <Navigate to="/" />;
 
   return (
     <div className='login-base'>
