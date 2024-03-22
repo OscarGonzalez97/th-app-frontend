@@ -64,7 +64,7 @@ export default function Login() {
   // aca debemos enviar la solicitud de registro ()
   };
 
-  if (isAuthenticated) return <Navigate to="/Principal" />;
+  if (isAuthenticated) return <Navigate to="/" />;
 
   return (
     <div className='login-base'>
