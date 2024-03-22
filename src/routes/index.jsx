@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/home/Home'
+import ListarPostulante from '../pages/postulante/ListarPostulante';
 import OtraRuta from '../pages/otraRuta/OtraRuta'
 import Login from "../pages/login/Login"
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
@@ -12,6 +13,9 @@ export function Routing() {
         {/* rutas que usan Layout */}
         <Route path="/"
           element={<Home/>}>
+        </Route>
+        <Route path="/postulante/listar"
+          element={<ListarPostulante/>}>
         </Route>
         <Route path="/home"
           element={<OtraRuta/>}>
