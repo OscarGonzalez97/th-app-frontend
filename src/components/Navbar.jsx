@@ -60,19 +60,17 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link}
                   to="/postulante/listar">Listar
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link}
-                  to="/postulante/resumen">Resumen
-                </NavDropdown.Item>
+                
               </NavDropdown>
 
 
 
               <Nav.Link as={Link}
-                to="/editarperfil">Editar Perfil
+                to="/cambiarcontra">Cambiar contraseña
               </Nav.Link>
 
               <Nav.Link as={Link}
-                to="/salir">Salir
+                to="/login">Salir
               </Nav.Link>
 
             </Nav>
