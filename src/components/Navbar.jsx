@@ -68,7 +68,7 @@ const NavBar = () => {
 
 
               <Nav.Link as={Link}
-                to="/editarperfil">Editar Perfil
+                to="/cambiarcontraseña">Restablecer Contraseña
               </Nav.Link>
 
               <Nav.Link as={Link}

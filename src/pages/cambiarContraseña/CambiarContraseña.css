@@ -1,0 +1,42 @@
+.cambContraseña-container {
+    max-width: 500px;
+    padding: 50px;
+    color: white;
+    background-color: white;
+    margin: 80px auto; 
+}
+
+.cambContraseña-container h1,
+.cambContraseña-container h2 {
+    text-align: left;
+    color:  #0056b3;
+    font-weight: bold; 
+}
+
+.cambContraseña-container h4,
+.cambContraseña-container h6 {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.cambContraseña-container form {
+    margin-top: 10px;
+    text-align: left;
+    color:  #0056b3;
+}
+
+.cambContraseña-container button {
+    margin-top: 20px;
+}
+
+.cambContraseña-container label {
+    margin-bottom: -10px; /* Ajusta el valor según el espacio deseado */
+}
+
+.cambContraseña-container input[type="password"] {
+    background-color:  #7bace024; /* Cambia 'lightblue' por el color que desees */
+}
+
+.cambContraseña-container .alert {
+    margin-top: 10px; /* Ajusta el valor según la cantidad de espacio que desees entre el mensaje y el formulario */
+}
