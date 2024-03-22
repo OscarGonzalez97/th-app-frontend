@@ -60,9 +60,7 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link}
                   to="/postulante/listar">Listar
                 </NavDropdown.Item>
-                <NavDropdown.Item as={Link}
-                  to="/postulante/resumen">Resumen
-                </NavDropdown.Item>
+                
               </NavDropdown>
 
 
@@ -72,7 +70,7 @@ const NavBar = () => {
               </Nav.Link>
 
               <Nav.Link as={Link}
-                to="/salir">Salir
+                to="/login">Salir
               </Nav.Link>
 
             </Nav>
