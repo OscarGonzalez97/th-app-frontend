@@ -5,6 +5,22 @@
     box-sizing: border-box;
 }
 
+.recuperar-container {
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+      
+}
+
+.recuperar-container h4{
+    font-size: 18px ;
+    color: rgba(6, 52, 125, 0.95);
+}
 
 .login-base {
     font-family: "Poppins", sans-serif;
@@ -15,6 +31,34 @@
     height: 100vh;
     margin: -20px 0 50px;
 }
+
+.top-left-button {
+    position: absolute;
+    top: 20px; /* Ajusta esta propiedad según sea necesario */
+    left: 20px; /* Ajusta esta propiedad según sea necesario */
+  }
+  
+  .button {
+    /* Estilos para tu botón */
+    padding: 10px 20px;
+    background-color:none;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+
+.login-base.recuperar h1{
+    color: #f2f2f2;
+    font-size: 30px;
+  }
+  
+  
 
 h1 {
     font-weight: bold;
@@ -72,15 +116,23 @@ a {
 }
 
 .form-container-login.sign-in-container-login h1 {
-    color: #2873ea; /* Cambia #ff0000 por el color que desees */
+    color: #2873ea;
 }
 
 .form-container-login.sign-up-container-login h1 {
-    color: rgba(6, 52, 125, 0.95)
+    color: rgba(6, 52, 125, 0.95);
 }
 
 .form-container-login input {
-    background: #eee;
+    background:  #347bc822;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
+    width: 100%;
+}
+
+.recuperar-container input {
+    background:  #347bc822;
     border: none;
     padding: 12px 15px;
     margin: 8px 0;
@@ -100,7 +152,7 @@ button {
     transition: transform 80ms ease-in;
 }
 
-.form-container-login.sign-up-container-login button {
+.button.registrar-button {
     border: 1px solid rgba(6, 52, 125, 0.95);
     background: rgba(6, 52, 125, 0.95);
 }

@@ -2,14 +2,13 @@
 //la unica caracteristica es la de validar
 //si el usuario este autenticado te deje mostrar el contenido
 //De esa ruta sino podemos redirigir a una publica
+import { Outlet, Navigate } from "react-router-dom";
+import { useAuth } from '../pages/login/auth/AuthProvider';
 
-import { Outlet,Navigate } from "react-router-dom" //nos va a ayudar a poner un placeHolder
-import { useAuth } from './auth/AuthProvider';
+export default function ProtectedRoute({ element }) {
+    const auth = useAuth();
 
-export default function ProtectedRoute() {
-    const auth = useAuth(); // Invocamos useAuth como una función
-
-    return auth.isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+    return auth.isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 }
 
 //si es verdadero mostramos lo que existe bajo el ProtectedRoute (la ruta protegida)

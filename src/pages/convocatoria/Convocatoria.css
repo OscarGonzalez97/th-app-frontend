@@ -1,0 +1,37 @@
+.convocatoria-container {
+    max-width: 1000px;
+    padding: 50px;
+    color: white;
+    background-color: #ffffff;
+    margin: 100px auto; 
+    border-radius: 10px;
+}
+
+
+.convocatoria-container h1,
+.convocatoria-container h2 {
+    text-align: left;
+    color:  #0056b3;
+    font-weight: bold; 
+}
+
+.convocatoria-container h4,
+.convocatoria-container h6 {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.convocatoria-container form {
+    margin-top: 10px;
+    text-align: left;
+    color:  #0056b3;
+    
+}
+
+.convocatoria-container button {
+    margin-top: 20px;
+}
+
+.convocatoria-container input {
+    background-color:   #347bc822; /* Cambia 'lightblue' por el color que desees */
+}
