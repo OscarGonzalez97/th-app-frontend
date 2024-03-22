@@ -2,8 +2,10 @@
     max-width: 500px;
     padding: 50px;
     color: white;
-    background-color: white;
+    background-color: #ffffff;
     margin: 80px auto; 
+    border-radius: 10px;
+
 }
 
 .cambContraseña-container h1,
@@ -34,7 +36,7 @@
 }
 
 .cambContraseña-container input[type="password"] {
-    background-color:  #7bace024; /* Cambia 'lightblue' por el color que desees */
+    background-color:   #347bc822; /* Cambia 'lightblue' por el color que desees */
 }
 
 .cambContraseña-container .alert {
