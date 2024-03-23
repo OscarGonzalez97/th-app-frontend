@@ -1,39 +1,38 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
 
 
-
-.datatable{
+.listarPostulantes .datatable {
     background-color: black;
     color: 'blue';
     font-Size: '16px';
 }
 
-.listarPostulantes{
-   padding-left: 50px;
-   padding-right: 50px;
-   padding-top: 10px;
-   margin-top: 2%;
+.listarPostulantes {
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    margin-top: 2%;
 }
 
-.row-spacing{
+.listarPostulantes .row-spacing {
     margin-bottom: 20px;
 }
 
-.col-md-2{
-   padding: 10px;
+.listarPostulantes .col-md-2 {
+    padding: 10px;
 }
 
-.datatable-spacing{
-    padding-top:20px;
+.listarPostulantes .datatable-spacing {
+    padding-top: 20px;
     margin-top: 20px;
 }
 
-.form-control{
+.listarPostulantes .form-control {
     width: 180px;
     height: 37px;
 }
 
-.form-label{
+.listarPostulantes .form-label {
     text-align: center;
     height: 25px;
     font-family: "Poppins", sans-serif;

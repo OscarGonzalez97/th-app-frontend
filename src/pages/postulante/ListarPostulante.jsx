@@ -2,8 +2,8 @@ import { Layout } from "../../components/layouts/Layout"
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './ListarPostulante.css';
-import  'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Row, Col, Button} from 'react-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Form, Row, Col, Button } from 'react-bootstrap'
 
 
 const ListarPostulante = () => {
@@ -13,7 +13,7 @@ const ListarPostulante = () => {
         <Form>
           <div className="container-wrapper">
             <div className="container-fluid">
-              <h1>Listado de postulante</h1>
+              <h1>Listado de postulantes</h1>
               <div className="row justify-content-start gy-2">
                 <div className="col-md-2">
                   <input type="text" className="form-control" placeholder="Nombre"></input>
@@ -98,13 +98,13 @@ const ListarPostulante = () => {
           </div>
         </Form>
         <DataTable className="datatable datatable-spacing">
-          <Column  header="#"></Column>
-          <Column  header="Nombre"></Column>
-          <Column  header="Nivel de ingles"></Column>
-          <Column  header="Experiencia"></Column>
-          <Column  header="Tecnologías"></Column>
-          <Column  header="Tecnologías"></Column>
-          <Column  footer="Total postulantes"></Column>
+          <Column header="#"></Column>
+          <Column header="Nombre"></Column>
+          <Column header="Nivel de ingles"></Column>
+          <Column header="Experiencia"></Column>
+          <Column header="Tecnologías"></Column>
+          <Column header="Tecnologías"></Column>
+          <Column footer="Total postulantes"></Column>
         </DataTable>
       </div>
     </Layout>
