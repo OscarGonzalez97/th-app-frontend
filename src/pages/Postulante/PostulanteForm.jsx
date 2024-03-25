@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './PostulanteForm.css';
 import imagen from '../../imagenes/prog_backend.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
+
+
+
+
+
+
+
+
 
 const PostulanteForm = () => {
 
@@ -23,6 +32,31 @@ const PostulanteForm = () => {
     const [showReferencias, setShowReferencias] = useState(false);
     const handleCloseReferencias = () => setShowReferencias(false);
     const handleShowReferencias = () => setShowReferencias(true);
+
+
+
+    useEffect(() => {
+        axios.get('http://localhost:8082/thbackend/v1/ciudades')
+            .then(response => {
+                // Maneja la respuesta del servidor
+                console.log('Respuesta del servidor:', response.data);
+            })
+            .catch(error => {
+                // Maneja los errores
+                console.error('Error al hacer la solicitud GET:', error);
+            });
+    }, [])
+
+
+
+
+
+
+
+
+
+
+
 
     return (
         <div className="postulante-container">
