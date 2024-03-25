@@ -1,4 +1,4 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './PostulanteForm.css';
 import imagen from '../../imagenes/prog_backend.png';
@@ -8,22 +8,11 @@ import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/fr
 import axios from 'axios';
 
 
-
-
-
-
-
-
-
 const PostulanteForm = () => {
 
     const [showEstudios, setShowEstudios] = useState(false);
     const handleCloseEstudios = () => setShowEstudios(false);
     const handleShowEstudios = () => setShowEstudios(true);
-
-    const [showTecnologias, setShowTecnologias] = useState(false);
-    const handleCloseTecnologias = () => setShowTecnologias(false);
-    const handleShowTecnologias = () => setShowTecnologias(true);
 
     const [showExperiencias, setShowExperiencias] = useState(false);
     const handleCloseExperiencias = () => setShowExperiencias(false);
@@ -33,29 +22,30 @@ const PostulanteForm = () => {
     const handleCloseReferencias = () => setShowReferencias(false);
     const handleShowReferencias = () => setShowReferencias(true);
 
-
+    const [ciudades, setCiudades] = useState([]);
+    const [tecnologias, setTecnologias] = useState([]);
+    const [showTecnologias, setShowTecnologias] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:8082/thbackend/v1/ciudades')
+        axios.get('http://localhost:8080/thbackend/v1/ciudades')
             .then(response => {
-                // Maneja la respuesta del servidor
-                console.log('Respuesta del servidor:', response.data);
+                setCiudades(response.data);
             })
             .catch(error => {
-                // Maneja los errores
-                console.error('Error al hacer la solicitud GET:', error);
+                console.error('Error fetching ciudades:', error);
             });
-    }, [])
 
+        axios.get('http://localhost:8080/thbackend/v1/tecnologia')
+            .then(response => {
+                setTecnologias(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching tecnologias:', error);
+            });
+    }, []);
 
-
-
-
-
-
-
-
-
+    const handleCloseTecnologias = () => setShowTecnologias(false);
+    const handleShowTecnologias = () => setShowTecnologias(true);
 
 
     return (
@@ -125,9 +115,9 @@ const PostulanteForm = () => {
                 <div className="col-md-6">
                     <label htmlFor="ciudad" className="form-label">Ciudad</label>
                     <select id="ciudad" className="form-select" name="ciudad">
-                        <option value="asu">Asunción</option>
-                        <option value="fdo">Fernando de la Mora</option>
-                        {/* Agrega más opciones según sea necesario */}
+                        {ciudades.map(ciudad => (
+                            <option key={ciudad.id} value={ciudad.id}>{ciudad.nombre}</option>
+                        ))}
                     </select>
                 </div>
 
@@ -240,7 +230,6 @@ const PostulanteForm = () => {
                     </Modal>
                 </>
 
-
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faCode} /> Tecnologías *</h4>
                     <Button variant="light" size="sm" onClick={handleShowTecnologias}>
@@ -258,14 +247,18 @@ const PostulanteForm = () => {
                                 <Form.Group className="col-md-12" controlId="tecnologia">
                                     <Form.Label>Tecnología</Form.Label>
                                     <Form.Select>
-                                        <option>Java</option>
-                                        <option>Python</option>
-                                        <option>Otro</option>
+                                        {tecnologias.map(tecnologia => (
+                                            <option key={tecnologia.id} value={tecnologia.id}>{tecnologia.nombre}</option>
+                                        ))}
                                     </Form.Select>
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="nivel">
                                     <Form.Label>Nivel</Form.Label>
-                                    <Form.Range />
+                                    <Form.Select>
+                                        <option>Básico</option>
+                                        <option>Intermedio</option>
+                                        <option>Avanzado</option>
+                                    </Form.Select>
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -279,7 +272,6 @@ const PostulanteForm = () => {
                         </Modal.Footer>
                     </Modal>
                 </>
-
 
                 <div className="col-12">
                     <h4>Otras Tecnologías</h4>
