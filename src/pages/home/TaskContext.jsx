@@ -65,18 +65,6 @@ const LaneSection = () => {
 
 
 
-    useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/estados')
-            .then(response => {
-                // Aquí deberías manejar los estados obtenidos de la API
-                console.log(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching estados:', error);
-            });
-    }, []);
-
-
 
 
 
@@ -117,6 +105,47 @@ const FormComponent = ({ id }) => {
     const { lane, setLanes } = useContext(TaskContext);
     const [name, setName] = useState("");
 
+    const [selectedState, setSelectedState] = useState("");//agregue
+    const [estados, setEstados] = useState([]);//agregue
+
+
+
+
+
+
+
+
+
+
+       
+    useEffect(() => {
+        axios.get('http://localhost:8080/thbackend/v1/estados')
+            .then(response => {
+                
+                console.log(response.data);
+                setEstados(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching estados:', error);
+            });
+    }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const createTask = (e) => {
         e.preventDefault();
         let currentID = parseInt(e.target.id);
@@ -128,7 +157,7 @@ const FormComponent = ({ id }) => {
                         return {
                             ...t,
                             tasks: [
-                                { id: uuidv4(), name: name, timestamp: new Date().toDateString() },
+                                { id: uuidv4(), name: name, timestamp: new Date().toDateString(),  state: selectedState },
                                 ...t.tasks
                             ]
                         };
@@ -136,6 +165,7 @@ const FormComponent = ({ id }) => {
                 })
             );
             setName("");
+            setSelectedState("");
         }
     };
 
@@ -150,6 +180,27 @@ const FormComponent = ({ id }) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
+
+            <select
+                className="form__select"
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
+            >
+                <option value="">Seleccionar estado</option>
+                {estados.map((estado) => (
+                    <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
+                ))}
+            </select>
+
+
+
+
+
+
+
+
+
+
             <button className="form__submit" type="submit" id={id} onClick={createTask}>
                 <FontAwesomeIcon icon={faPlus} />
             </button>
