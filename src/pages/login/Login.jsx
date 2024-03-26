@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/login/CustomAlert';
 import './styles/login.css';
@@ -42,26 +43,25 @@ export default function Login() {
     e.preventDefault();
     console.log("@", import.meta.env.VITE_API_URL);
     try {
-      const response = await fetch("http://localhost:8080/thbackend/auth/signin", {
-        method: 'POST',
+      const response = await axios.post("http://192.168.67.86:8080/thbackend/auth/signin", {
+        email,
+        password
+      }, {
         headers: {
           'Content-Type': 'application/json',
-        },
-        body:{
-          email,
-          password
-        },
+        }
       });
-      if (response.ok) { //si la respuesta es exitosa (cód de estado 200)
+    
+      if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
         navigate('/home'); //se va a la pag de inicio 
       } else {
-        const data = await response.json();
-        setError(data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+        setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
     }
+    
   };
 
 
