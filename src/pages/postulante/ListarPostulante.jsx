@@ -15,10 +15,10 @@ const ListarPostulante = () => {
             <div className="container-fluid">
               <h1>Listado de postulante</h1>
               <div className="row justify-content-start gy-2">
-                <div className="col-md-2">
+                <div className="col-auto">
                   <input type="text" className="form-control" placeholder="Nombre"></input>
                 </div>
-                <div className="col-md-2">
+                <div className="col-auto">
                   <button type="button" className="btn btn-primary">Buscar</button>
                 </div>
               </div>
