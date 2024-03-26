@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useAuth } from './auth/AuthProvider';
 import { Navigate } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/login/CustomAlert';
@@ -7,7 +6,6 @@ import './styles/login.css';
 
 
 export default function Login() {
-  const apiUrl = import.meta.env.VITE_API_URL;
 
   //Estados del formulario LOGIN
   const [email, setEmail] = useState("");
@@ -42,30 +40,30 @@ export default function Login() {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    console.log("@", import.meta.env.VITE_API_URL);
     try {
-        // Obtener la lista de usuarios
-        const userListResponse = await fetch(`${apiUrl}/usuarios`);
-        if (!userListResponse.ok) {
-            throw new Error('Error al obtener la lista de usuarios');
-        }
-        const userList = await userListResponse.json();
-        
-        // Verificar las credenciales
-        const user = userList.find(user => user.email === email && user.password === password);
-        if (user) {
-            // Las credenciales son válidas, iniciar sesión
-            // Aquí puedes realizar cualquier acción adicional necesaria, como guardar el usuario en el estado global de la aplicación, etc.
-            console.log('Usuario autenticado:', user);
-            navigate('/home');
-        } else {
-            // Las credenciales son inválidas
-            setError('Credenciales inválidas. Por favor, inténtalo de nuevo.');
-        }
+      const response = await fetch("http://localhost:8080/thbackend/auth/signin", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body:{
+          email,
+          password
+        },
+      });
+      if (response.ok) { //si la respuesta es exitosa (cód de estado 200)
+        navigate('/home'); //se va a la pag de inicio 
+      } else {
+        const data = await response.json();
+        setError(data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      }
     } catch (error) {
-        console.error('Error al iniciar sesión:', error);
-        setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+      console.error('Error al iniciar sesión:', error);
+      setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
     }
-};
+  };
+
 
   // Función para manejar el registro
   const handleRegistroSubmit = async (e) => {
@@ -89,7 +87,7 @@ export default function Login() {
 
   // Si las contraseñas coinciden y el correo electrónico es válido, continuamos con el registro
   try {
-    const response = await fetch('http://localhost:8080/thbackend/auth/signup', {
+    const response = await fetch(`${apiUrl}/auth/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +100,6 @@ export default function Login() {
 
     if (response.ok) {
       setRegistroExitoso(true);
-     // Limpiar los campos del formulario después del registro exitoso
       setCorreoElectronico("");
       setContrasenha("");
       setConfirmarContrasenha("");
@@ -116,9 +113,6 @@ export default function Login() {
     setRegistroError('Error al registrar. Por favor, inténtalo de nuevo.');
   }
   };
-
-  if (isAuthenticated) return <Navigate to="/" />;
-
   return (
     <div className='login-base'>
       <div className={`container-login ${isSignUpActive ? 'right-panel-active' : ''}`}>
@@ -158,7 +152,7 @@ export default function Login() {
         <div className="form-container-login sign-in-container-login">
           {/* Formulario de inicio de sesión */}
           <form className="form"
-            onSubmit={handleSubmit}>
+            onSubmit={handleLoginSubmit}>
             <h1>Iniciar Sesión</h1>
 
             <label htmlFor="email"
