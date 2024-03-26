@@ -13,6 +13,8 @@ Currently, two official plugins are available:
 npm install
 npm install react-router-dom
 npm install react-bootstrap bootstrap
+npm install uuid
+npm install primereact
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
