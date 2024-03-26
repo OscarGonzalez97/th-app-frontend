@@ -14,6 +14,8 @@ export default function Login() {
 
 
   // Estados del formulario de registro
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasenha, setContrasenha] = useState("");
   const [confirmarContrasenha, setConfirmarContrasenha] = useState("");
@@ -52,6 +54,7 @@ export default function Login() {
           password
         },
       });
+      
       if (response.ok) { //si la respuesta es exitosa (cód de estado 200)
         navigate('/home'); //se va a la pag de inicio 
       } else {
@@ -87,12 +90,12 @@ export default function Login() {
 
   // Si las contraseñas coinciden y el correo electrónico es válido, continuamos con el registro
   try {
-    const response = await fetch(`${apiUrl}/auth/signin`, {
+    const response = await fetch("http://localhost:8080/thbackend/auth/signup", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
+      body:({
         email: correoElectronico,
         password: contrasenha
       }),
@@ -100,6 +103,8 @@ export default function Login() {
 
     if (response.ok) {
       setRegistroExitoso(true);
+      setNombre("");
+      setApellido("");
       setCorreoElectronico("");
       setContrasenha("");
       setConfirmarContrasenha("");
@@ -121,6 +126,18 @@ export default function Login() {
           <form className="form"
             onSubmit={handleRegistroSubmit}>
             <h1>Crea tu Cuenta</h1>
+            <input type="text"
+              className="input-field"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)} />
+
+            <input type="text"
+            className="input-field"
+            placeholder="Apellido"
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)} />
+
             <input type="text"
               className="input-field"
               placeholder="Correo Electrónico"
