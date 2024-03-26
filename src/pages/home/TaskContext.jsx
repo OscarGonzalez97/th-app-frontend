@@ -66,7 +66,7 @@ const LaneSection = () => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:8082/thbackend/v1/estados')
+        axios.get('http://localhost:8080/thbackend/v1/estados')
             .then(response => {
                 // Aquí deberías manejar los estados obtenidos de la API
                 console.log(response.data);
