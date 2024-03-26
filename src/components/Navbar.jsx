@@ -38,9 +38,6 @@ const NavBar = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
 
-              <Nav.Link as={Link}
-                to="/">Home
-              </Nav.Link>
 
               <NavDropdown title="Convocatorias"
                 id="convo-dropdown">
