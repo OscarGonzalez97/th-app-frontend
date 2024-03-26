@@ -6,7 +6,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 const initialTasks = [
     {
         id: 0,
-        title: "TO DO",
+        title: "PRESELECCIONADOS",
         tasks: [
             {
                 id: uuidv4(),
@@ -17,7 +17,7 @@ const initialTasks = [
     },
     {
         id: 1,
-        title: "DOING",
+        title: "ENTREVISTA 1",
         tasks: [
             {
                 id: uuidv4(),
@@ -28,7 +28,7 @@ const initialTasks = [
     },
     {
         id: 2,
-        title: "DONE",
+        title: "ENTREVISTA 2",
         tasks: [
             {
                 id: uuidv4(),
@@ -64,11 +64,11 @@ const LaneSection = () => {
     const getTaskTitle = (id) => {
         switch (id) {
             case 0:
-                return "TO DO";
+                return "PRESELECCIONADOS";
             case 1:
-                return "DOING";
+                return "ENTREVISTA 1";
             case 2:
-                return "DONE";
+                return "ENTREVISTA 2";
             default:
                 return "";
         }
@@ -130,6 +130,7 @@ const FormComponent = ({ id }) => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
+
             <button className="form__submit" type="submit" id={id} onClick={createTask}>
                 <FontAwesomeIcon icon={faPlus} />
             </button>
@@ -137,6 +138,7 @@ const FormComponent = ({ id }) => {
         </form>
     );
 };
+
 
 const TasksComponent = ({ tasks, type, title }) => {
     const { lane, setLanes } = useContext(TaskContext);
@@ -179,7 +181,7 @@ const TasksComponent = ({ tasks, type, title }) => {
     return (
         <>
             {tasks.length === 0 ? (
-                <p className="task__empty">Nada por hacer...</p>
+                <p className="task__empty">No hay nada aún...</p>
             ) : (
                 tasks.map((t) => (
                     <article className={`task task--${title}`} key={t.id}>
@@ -191,7 +193,7 @@ const TasksComponent = ({ tasks, type, title }) => {
                                     <button
                                         className="task__button"
                                         type="button"
-                                        title="Previous Stage"
+                                        title="Anterior"
                                         value={t.id}
                                         id={type}
                                         onClick={(e) => changeTask(e, "-")}
@@ -203,7 +205,7 @@ const TasksComponent = ({ tasks, type, title }) => {
                                     <button
                                         className="task__button"
                                         type="button"
-                                        title="Next Stage"
+                                        title="Siguiente"
                                         value={t.id}
                                         id={type}
                                         onClick={(e) => changeTask(e, "+")}
@@ -214,7 +216,7 @@ const TasksComponent = ({ tasks, type, title }) => {
                                 <button
                                     className="task__button"
                                     type="button"
-                                    title="Delete Task"
+                                    title="Eliminar"
                                     value={t.id}
                                     id={type}
                                     onClick={deleteTask}

@@ -35,3 +35,14 @@
 .convocatoria-container input {
     background-color:   #347bc822; /* Cambia 'lightblue' por el color que desees */
 }
+ 
+.convocatoria-container textarea {
+    background-color: #347bc822; 
+    color: #0056b3; 
+    border: 1px solid #ced4da; 
+    border-radius: 5px; 
+    padding: 10px; 
+    width: 100%; 
+    resize: vertical; 
+    
+}
