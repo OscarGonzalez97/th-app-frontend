@@ -9,7 +9,7 @@ const Home = () => {
       <TaskProvider>
         <div className="kanban">
           <header className="header">
-            <h1 className="header__title">Tablero</h1>
+            <h1 className="header__title"></h1>
           </header>
           <main className="main">
             <LaneSection />
