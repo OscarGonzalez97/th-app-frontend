@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const initialTasks = [
     {
@@ -60,6 +61,25 @@ const TaskProvider = ({ children }) => {
 
 const LaneSection = () => {
     const { lane } = useContext(TaskContext);
+
+
+
+
+    useEffect(() => {
+        axios.get('http://localhost:8082/thbackend/v1/estados')
+            .then(response => {
+                // Aquí deberías manejar los estados obtenidos de la API
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching estados:', error);
+            });
+    }, []);
+
+
+
+
+
 
     const getTaskTitle = (id) => {
         switch (id) {
