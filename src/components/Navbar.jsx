@@ -1,6 +1,7 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LogoImage from "../imagenes/ima.png"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar = () => {
   return (
@@ -69,6 +70,9 @@ const NavBar = () => {
                 to="/cambiarcontraseña">Restablecer Contraseña
               </Nav.Link>
 
+
+
+             
               <Nav.Link as={Link}
                 to="/login">Salir
               </Nav.Link>
