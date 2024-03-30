@@ -33,3 +33,14 @@
 .tecnologia-container  input{
     background-color:   #347bc822; /* Cambia 'lightblue' por el color que desees */
 }
+
+.tecnologia-container {
+    margin-bottom: 20px;
+  }
+.alert {
+    margin-top: 30px; 
+  }
+
+  
+ 
+  
