@@ -9,6 +9,8 @@ import { AuthProvider } from '../pages/login/auth/AuthProvider';
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
+import Usuario from '../pages/usuario/Usuario';
+
 
 export function Routing() {
   return (
@@ -35,6 +37,14 @@ export function Routing() {
         <Route path="/tecnologia/listar"
           element={<ListarTecnologia/>}>
         </Route>
+
+        
+        <Route path="/usuario"
+          element={<Usuario/>}>
+        </Route>
+
+
+
 
         {/* rutas que usan Layout */}
         {/* rutas desprotegidas */}

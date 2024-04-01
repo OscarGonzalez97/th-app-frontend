@@ -38,7 +38,7 @@ const NavBar = () => {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item as={Link}
-                  to="/cargos/listarco ">Listar convocatorias
+                  to="/cargos/listarco ">Listar
                 </NavDropdown.Item>
 
               </NavDropdown>
@@ -48,10 +48,14 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link}
                   to="/tecnologia">Agregar
                 </NavDropdown.Item>
+
                 <NavDropdown.Item as={Link}
                   to="/tecnologias/listar">Listar
                 </NavDropdown.Item>
               </NavDropdown>
+
+
+
 
               <NavDropdown title="Postulante"
                 id="post-dropdown">
@@ -60,9 +64,34 @@ const NavBar = () => {
                 </NavDropdown.Item>
               </NavDropdown>
 
+              
+
+
+              
+              <NavDropdown title="Usuarios permitidos"
+                id="usuario-dropdown">
+                <NavDropdown.Item as={Link}
+                  to="/usuario">Agregar
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={Link}
+                  to="/usuarios/listar">Listar
+                </NavDropdown.Item>
+              </NavDropdown>
+
+
+
+
+
               <Nav.Link as={Link}
                 to="/cambiarcontraseña">Restablecer Contraseña
               </Nav.Link>
+
+
+
+
+
+
 
               <Nav.Link as={Link}
                 to="/login">
