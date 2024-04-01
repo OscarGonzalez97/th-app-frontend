@@ -2,9 +2,17 @@ import React from "react";
 import { Layout } from "../../components/layouts/Layout";
 import { TaskProvider, LaneSection } from "./TaskContext";
 import "./Kanban.css";
+import { useSelector } from "react-redux";
+
 
 const Home = () => {
-  return (
+  const token = useSelector(state => state.auth);
+  React.useEffect(() => {
+    if (token){
+      console.log(token);
+    }
+  }, [])
+  return  (
     <Layout>
       <TaskProvider>
         <div className="kanban">
