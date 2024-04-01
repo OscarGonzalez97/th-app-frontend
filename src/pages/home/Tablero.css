@@ -1,0 +1,29 @@
+.tablero-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tablero {
+    display: flex;
+    flex-wrap: wrap;
+    color: #001840;
+    padding: 10px;
+}
+
+.columna {
+    flex: 1;
+    margin: 0 10px 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 5px #145acb;
+    border: 1px solid #2873ea;
+}
+
+.postulante {
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #ccc;
+}
