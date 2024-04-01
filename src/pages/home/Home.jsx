@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 
 const Home = () => {
+  //PRUEBA DEL TOKEN
   const token = useSelector(state => state.token);
   React.useEffect(() => {
     if (token){

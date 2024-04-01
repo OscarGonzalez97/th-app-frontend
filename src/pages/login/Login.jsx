@@ -57,9 +57,7 @@ export default function Login() {
       });
       
       if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
-        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux
-
-        navigate('/'); //se va a la pag de inicio 
+        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        navigate('/'); //se va a la pag de inicio 
       } else {
         setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
