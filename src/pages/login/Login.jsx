@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
-import { useAuth } from './auth/AuthProvider';
 import { Navigate } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/login/CustomAlert';
 import './styles/login.css';
 
 
 export default function Login() {
+
   //Estados del formulario LOGIN
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null); // Estado para controlar los errores
-  const { handleLogin, isAuthenticated } = useAuth();
 
 
   // Estados del formulario de registro
+  const [nombre, setNombre] = useState("");
+  const [apellido, setApellido] = useState("");
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasenha, setContrasenha] = useState("");
   const [confirmarContrasenha, setConfirmarContrasenha] = useState("");
@@ -25,6 +28,7 @@ export default function Login() {
 
   const [isSignUpActive, setIsSignUpActive] = useState(false);
 
+  const navigate = useNavigate();
 
 
   // Función para activar el formulario de registro
@@ -37,12 +41,31 @@ export default function Login() {
     setIsSignUpActive(false);
   };
 
-  const handleSubmit = async (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-
-    const success = await handleLogin(email, password); //aca mandamos para validar que existe esa cuenta
-    if (!success) setError("Usuario o contraseña incorrectos"); //sino manda un error
+    console.log("@", import.meta.env.VITE_API_URL);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, {
+        email,
+        password
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+    
+      if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
+        navigate('/home'); //se va a la pag de inicio 
+      } else {
+        setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
+      }
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      setError('Error al iniciar sesión. Por favor, inténtalo de nuevo.');
+    }
+    
   };
+
 
   // Función para manejar el registro
   const handleRegistroSubmit = async (e) => {
@@ -65,16 +88,35 @@ export default function Login() {
     }
 
   // Si las contraseñas coinciden y el correo electrónico es válido, continuamos con el registro
-  // aca debemos enviar la solicitud de registro ()
-    setRegistroExitoso(true);
-     // Limpiar los campos del formulario después del registro exitoso
-    setCorreoElectronico("");
-    setContrasenha("");
-    setConfirmarContrasenha("");
+  try {
+    const response = await fetch("http://localhost:8080/thbackend/auth/signup", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body:({
+        email: correoElectronico,
+        password: contrasenha
+      }),
+    });
+
+    if (response.ok) {
+      setRegistroExitoso(true);
+      setNombre("");
+      setApellido("");
+      setCorreoElectronico("");
+      setContrasenha("");
+      setConfirmarContrasenha("");
+      navigate('/home');
+    } else {
+      const data = await response.json();
+      setRegistroError(data.message || "Error al registrar. Por favor, inténtalo de nuevo.");
+    }
+  } catch (error) {
+    console.error('Error al registrar:', error);
+    setRegistroError('Error al registrar. Por favor, inténtalo de nuevo.');
+  }
   };
-
-  if (isAuthenticated) return <Navigate to="/" />;
-
   return (
     <div className='login-base'>
       <div className={`container-login ${isSignUpActive ? 'right-panel-active' : ''}`}>
@@ -83,6 +125,18 @@ export default function Login() {
           <form className="form"
             onSubmit={handleRegistroSubmit}>
             <h1>Crea tu Cuenta</h1>
+            <input type="text"
+              className="input-field"
+              placeholder="Nombre"
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)} />
+
+            <input type="text"
+            className="input-field"
+            placeholder="Apellido"
+            value={apellido}
+            onChange={(e) => setApellido(e.target.value)} />
+
             <input type="text"
               className="input-field"
               placeholder="Correo Electrónico"
@@ -114,7 +168,7 @@ export default function Login() {
         <div className="form-container-login sign-in-container-login">
           {/* Formulario de inicio de sesión */}
           <form className="form"
-            onSubmit={handleSubmit}>
+            onSubmit={handleLoginSubmit}>
             <h1>Iniciar Sesión</h1>
 
             <label htmlFor="email"

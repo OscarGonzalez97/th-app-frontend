@@ -5,7 +5,6 @@ import Login from "../pages/login/Login"
 import Convocatoria from '../pages/convocatoria/Convocatoria'
 import Tecnologia from '../pages/tecnologia/Tecnologia'
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
-import { AuthProvider } from '../pages/login/auth/AuthProvider';
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
@@ -40,9 +39,7 @@ export function Routing() {
         {/* rutas desprotegidas */}
         <Route path="/login"
           element={
-            <AuthProvider>
               <Login />
-            </AuthProvider>
           }>
         </Route>
 
