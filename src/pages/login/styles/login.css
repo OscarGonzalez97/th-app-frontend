@@ -282,3 +282,10 @@ button.ghost {
 .container-login.right-panel-active .overlay-right {
     transform: translateX(20%);
 }
+
+.top-right-button {
+    position: absolute;
+    top: 20px; /* ajusta este valor según sea necesario para la separación deseada */
+    right: 20px; /* ajusta este valor según sea necesario para la separación deseada */
+}
+
