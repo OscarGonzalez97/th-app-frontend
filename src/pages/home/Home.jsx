@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 
 const Home = () => {
-  const token = useSelector(state => state.auth);
+  const token = useSelector(state => state.token);
   React.useEffect(() => {
     if (token){
       console.log(token);
