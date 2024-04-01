@@ -285,7 +285,7 @@ button.ghost {
 
 .top-right-button {
     position: absolute;
-    top: 20px; /* ajusta este valor según sea necesario para la separación deseada */
-    right: 20px; /* ajusta este valor según sea necesario para la separación deseada */
+    top: 20px;
+    right: 20px;
 }
 
