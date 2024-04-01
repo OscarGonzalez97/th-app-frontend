@@ -1,6 +1,8 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import LogoImage from "../imagenes/ima.png"
+import LogoImage from "../imagenes/logo.png"
+import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar = () => {
   return (
@@ -11,11 +13,10 @@ const NavBar = () => {
         style={{ backgroundColor: '#0B316E', padding: '5px' }}>
 
 
-
         <Container fluid>
+
           <Navbar.Brand as={Link}
             to="/">
-
             <img
               src={LogoImage}
               width="30"
@@ -24,15 +25,11 @@ const NavBar = () => {
               alt="Logo"
               style={{ marginRight: '10px' }} />
             ROSHKA
-
           </Navbar.Brand>
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ml-auto">
-
-              <Nav.Link as={Link}
-                to="/">Home
-              </Nav.Link>
 
               <NavDropdown title="Convocatorias"
                 id="convo-dropdown">
@@ -45,6 +42,7 @@ const NavBar = () => {
                 </NavDropdown.Item>
 
               </NavDropdown>
+
               <NavDropdown title="Tecnologías"
                 id="tec-dropdown">
                 <NavDropdown.Item as={Link}
@@ -60,22 +58,18 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link}
                   to="/postulante/listar">Listar
                 </NavDropdown.Item>
-                
               </NavDropdown>
-
-
 
               <Nav.Link as={Link}
                 to="/cambiarcontraseña">Restablecer Contraseña
               </Nav.Link>
 
               <Nav.Link as={Link}
-                to="/login">Salir
+                to="/login">
+                <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
               </Nav.Link>
 
             </Nav>
-
-
 
           </Navbar.Collapse>
         </Container>
@@ -83,6 +77,5 @@ const NavBar = () => {
     </>
   );
 };
-
 
 export default NavBar;

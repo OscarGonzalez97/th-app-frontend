@@ -16,8 +16,12 @@ const Convocatoria = () => {
 
                 <div className="col-md-12">
                     <label htmlFor="descripcion" className="form-label">Descripción *</label>
-                    <input type="text" className="form-control" id="descripcion" name="descripcion"
-                        placeholder="Ingrese la descripcion" />
+                    <textarea 
+                      className="form-control  description-input" 
+                      id="descripcion" 
+                      name="descripcion" 
+                     rows="4" 
+                    placeholder="Ingrese la descripción"></textarea>
                 </div>
             
 

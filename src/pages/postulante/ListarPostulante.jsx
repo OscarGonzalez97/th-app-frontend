@@ -1,12 +1,37 @@
+import React, { useState, useEffect } from 'react';
+
 import { Layout } from "../../components/layouts/Layout"
+
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './ListarPostulante.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row, Col, Button } from 'react-bootstrap'
+import axios from 'axios';
 
 
 const ListarPostulante = () => {
+
+
+  const [selectedState, setSelectedState] = useState("");
+  const [estados, setEstados] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/thbackend/v1/estados')
+      .then(response => {
+        console.log(response.data);
+        setEstados(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching estados:', error);
+      });
+  }, []);
+
+
+
+
+
+
   return (
     <Layout>
       <div className="listarPostulantes container">
@@ -15,10 +40,10 @@ const ListarPostulante = () => {
             <div className="container-fluid">
               <h1>Listado de postulantes</h1>
               <div className="row justify-content-start gy-2">
-                <div className="col-md-2">
+                <div className="col-auto">
                   <input type="text" className="form-control" placeholder="Nombre"></input>
                 </div>
-                <div className="col-md-2">
+                <div className="col-auto">
                   <button type="button" className="btn btn-primary">Buscar</button>
                 </div>
               </div>
@@ -26,16 +51,17 @@ const ListarPostulante = () => {
                 <div className="col-md-2">
                   <label className="form-label">Estado</label>
                 </div>
+
+
                 <div className="col-md-2">
-                  <select className="form-select form-select-sm">
-                    <option selected>Todas</option>
-                    <option value="1">Nuevo</option>
-                    <option value="2">Contactado</option>
-                    <option value="3">Rechazado</option>
-                    <option value="4">Contratado</option>
-                    <option value="5">Volver a llamar</option>
+                  <select className="form-select form-select-sm" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+                    <option value="">Seleccionar estado</option>
+                    {estados.map((estado) => (
+                      <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
+                    ))}
                   </select>
                 </div>
+
                 <div className="col-md-2">
                   <label className="form-label">Experiencia en general</label>
                 </div>
