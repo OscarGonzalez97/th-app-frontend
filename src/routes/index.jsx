@@ -8,6 +8,9 @@ import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
+import Usuario from '../pages/usuario/Usuario';
+import Beneficios from '../pages/beneficios/Beneficios';
+
 
 export function Routing() {
   return (
@@ -33,6 +36,17 @@ export function Routing() {
 
         <Route path="/tecnologia/listar"
           element={<ListarTecnologia/>}>
+        </Route>
+
+        
+        <Route path="/usuario"
+          element={<Usuario/>}>
+        </Route>
+
+
+
+        <Route path="/beneficios"
+          element={<Beneficios/>}>
         </Route>
 
         {/* rutas que usan Layout */}
