@@ -66,6 +66,22 @@ const NavBar = () => {
 
               
 
+              <NavDropdown title="Beneficios"
+                id="beneficios-dropdown">
+                <NavDropdown.Item as={Link}
+                  to="/beneficios">Agregar
+                </NavDropdown.Item>
+
+                <NavDropdown.Item as={Link}
+                  to="/beneficios/listar">Listar
+                </NavDropdown.Item>
+              </NavDropdown>
+
+
+                
+
+
+            
 
               
               <NavDropdown title="Usuarios permitidos"

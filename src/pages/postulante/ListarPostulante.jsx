@@ -15,17 +15,26 @@ const ListarPostulante = () => {
 
   const [selectedState, setSelectedState] = useState("");
   const [estados, setEstados] = useState([]);
+  const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/thbackend/v1/estados')
-      .then(response => {
+    axios.get('http://localhost:8080/thbackend/v1/estados',{
+      
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+    
+    
+    .then(response => {
         console.log(response.data);
         setEstados(response.data);
       })
       .catch(error => {
         console.error('Error fetching estados:', error);
       });
-  }, []);
+    }, [accessToken]);
+ 
 
 
 
