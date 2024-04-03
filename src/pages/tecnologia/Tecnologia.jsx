@@ -1,39 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect ,useState } from 'react';
 
 import { Layout } from "../../components/layouts/Layout"
 import './Tecnologia.css';
 import axios from "axios";
 import Alert from 'react-bootstrap/Alert';
-
+import { useSelector } from "react-redux";
 
 
 const Tecnologia = () => {
   const [nombre, setNombre] = useState('');
   const [showAlert, setShowAlert] = useState(false);
+  const token = useSelector(state => state.token);
+
+
+
+
+
+
+   useEffect(() => {
+    
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-  
-
-      try {
-        const data = {
-          nombre: nombre 
-        };
-
-const response = await axios.post('http://localhost:8080/thbackend/v1/tecnologia/agregar', data);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/tecnologia/agregar`, {
+        
+        
+nombre: nombre 
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
 
       console.log('Respuesta del servidor:', response.data);
-      
-      
-   
-setNombre(''); 
-setShowAlert(true);
+
+      setNombre(''); 
+      setShowAlert(true);
     } catch (error) {
       console.error('Error al enviar el pedido POST:', error);
     }
   };
-
 
 
 

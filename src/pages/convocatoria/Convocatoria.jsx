@@ -26,7 +26,7 @@ const Convocatoria = () => {
             fechaFin: fechaFin,
             link: linkConvocatoria,
             file_path: fileConvocatoria,
-            tecnologias: [4]
+            tecnologias: tecnologias
 
         };
         const response = await axios.post('http://localhost:8082/thbackend/v1/convocatoria', formData);
@@ -97,6 +97,8 @@ const Convocatoria = () => {
                   <label className="form-label">Lista de Tecnologias</label>
                   <select className="form-select form-select-sm" >
                     <option value="">Seleccionar tecnologias</option>
+                    <option value="1">Tecnología 1</option>
+                     <option value="2">Tecnología 2</option>
                     </select>
                 </div>
 
