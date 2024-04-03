@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/login/CustomAlert';
 import './styles/login.css';
+import { useDispatch } from 'react-redux';
 
 
 export default function Login() {
@@ -30,6 +31,8 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch(); // inicializamos useDispatch
+
 
   // Función para activar el formulario de registro
   const handleSignUpClick = () => {
@@ -43,7 +46,6 @@ export default function Login() {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log("@", import.meta.env.VITE_API_URL);
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, {
         email,
@@ -53,9 +55,9 @@ export default function Login() {
           'Content-Type': 'application/json',
         }
       });
-    
+      
       if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
-        navigate('/home'); //se va a la pag de inicio 
+        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        navigate('/'); //se va a la pag de inicio 
       } else {
         setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
@@ -65,7 +67,6 @@ export default function Login() {
     }
     
   };
-
 
   // Función para manejar el registro
   const handleRegistroSubmit = async (e) => {

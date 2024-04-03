@@ -26,23 +26,38 @@ const PostulanteForm = () => {
     const [tecnologias, setTecnologias] = useState([]);
     const [showTecnologias, setShowTecnologias] = useState(false);
 
+    const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
+
     useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/ciudades')
+        axios.get('http://localhost:8080/thbackend/v1/ciudades' , {
+
+        headers: {
+            'Authorization': `Bearer ${accessToken}` 
+        }
+    })
             .then(response => {
                 setCiudades(response.data);
             })
             .catch(error => {
                 console.error('Error fetching ciudades:', error);
-            });
+            }, [accessToken])
 
-        axios.get('http://localhost:8080/thbackend/v1/tecnologia')
+
+
+
+        axios.get('http://localhost:8080/thbackend/v1/tecnologia' , {
+            headers: {
+                'Authorization': `Bearer ${accessToken}` 
+            }
+        })
+        
             .then(response => {
                 setTecnologias(response.data);
             })
             .catch(error => {
                 console.error('Error fetching tecnologias:', error);
             });
-    }, []);
+        }, [accessToken])
 
     const handleCloseTecnologias = () => setShowTecnologias(false);
     const handleShowTecnologias = () => setShowTecnologias(true);

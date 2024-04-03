@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import CustomAlert from '../../components/login/CustomAlert';
 import './styles/login.css';
+import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function OlvidasteContrasenha() {
   const [correoElectronico, setCorreoElectronico] = useState("");
@@ -27,8 +29,10 @@ function OlvidasteContrasenha() {
 
   return (
     <div className='login-base recuperar'>
-      <div className="top-left-button">
-        <a href="/login" className="button">&#8592; Atrás</a>
+      <div className="top-right-button">
+        <a href="/login" className="button">
+          <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
+        </a>
       </div>
 
       <h1>Recuperación de la cuenta</h1>
