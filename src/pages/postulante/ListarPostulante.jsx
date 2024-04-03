@@ -57,8 +57,8 @@ const ListarPostulante = () => {
                   <select className="form-select form-select-sm" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
                     <option value="">Seleccionar estado</option>
                     {estados.map((estado) => (
-                      <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
-                    ))}
+                    <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
+))}
                   </select>
                 </div>
 
