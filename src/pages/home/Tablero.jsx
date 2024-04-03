@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useSelector } from "react-redux";
 
 function Tablero() {
-    const [estados, setEstados] = useState([]);
     const token = useSelector(state => state.token);
+    
+    const [estados, setEstados] = useState([]);
     const postulantes = [
         { id: 1, nombre: 'John', apellido: 'Doe', estado_id: 1 },
         { id: 2, nombre: 'Jane', apellido: 'Smith', estado_id: 2 },
@@ -17,23 +18,19 @@ function Tablero() {
         { id: 9, nombre: 'Joseph', apellido: 'Wilson', estado_id: 6 },
         { id: 10, nombre: 'Abigail', apellido: 'Martinez', estado_id: 3 },
     ];
-    
-
-
-
 
 
     useEffect(() => {
-        if(token) {
-            axios.get(`${import.meta.env.VITE_API_URL}/v1/estados` , {
+        if (token) {
+            axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
             })
-            .then(response => setEstados(response.data))
-            .catch(error => console.error(error));
+                .then(response => setEstados(response.data))
+                .catch(error => console.error(error));
         }
-    }, []); 
+    }, []);
 
     return (
         <div className="tablero">

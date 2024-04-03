@@ -1,7 +1,7 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LogoImage from "../imagenes/logo.png"
-import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
+import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar = () => {
@@ -40,8 +40,8 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link}
                   to="/cargos/listarco ">Listar
                 </NavDropdown.Item>
-
               </NavDropdown>
+
 
               <NavDropdown title="Tecnologías"
                 id="tec-dropdown">
@@ -50,11 +50,9 @@ const NavBar = () => {
                 </NavDropdown.Item>
 
                 <NavDropdown.Item as={Link}
-                  to="/tecnologias/listar">Listar
+                  to="/tecnologia/listar">Listar
                 </NavDropdown.Item>
               </NavDropdown>
-
-
 
 
               <NavDropdown title="Postulante"
@@ -64,7 +62,6 @@ const NavBar = () => {
                 </NavDropdown.Item>
               </NavDropdown>
 
-              
 
               <NavDropdown title="Beneficios"
                 id="beneficios-dropdown">
@@ -78,12 +75,6 @@ const NavBar = () => {
               </NavDropdown>
 
 
-                
-
-
-            
-
-              
               <NavDropdown title="Usuarios permitidos"
                 id="usuario-dropdown">
                 <NavDropdown.Item as={Link}
@@ -96,17 +87,9 @@ const NavBar = () => {
               </NavDropdown>
 
 
-
-
-
               <Nav.Link as={Link}
                 to="/cambiarcontraseña">Restablecer Contraseña
               </Nav.Link>
-
-
-
-
-
 
 
               <Nav.Link as={Link}
