@@ -66,7 +66,7 @@ email: email
 
             <form className="row g-3"onSubmit={handleSubmit}>
                 <div className="col-md-12">
-                <label htmlFor="email" className="form-label">Nombre*</label>
+                
                     <input type="text" className="form-control" id="email" name="email"
                         placeholder="Ingresa el correo" 
                         value={email}
