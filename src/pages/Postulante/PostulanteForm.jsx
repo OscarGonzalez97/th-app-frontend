@@ -6,9 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+import { useSelector } from "react-redux";
 
 const PostulanteForm = () => {
+    const token = useSelector(state => state.token);
 
     const [showEstudios, setShowEstudios] = useState(false);
     const handleCloseEstudios = () => setShowEstudios(false);
@@ -26,38 +27,31 @@ const PostulanteForm = () => {
     const [tecnologias, setTecnologias] = useState([]);
     const [showTecnologias, setShowTecnologias] = useState(false);
 
-    const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
-
     useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/ciudades' , {
-
-        headers: {
-            'Authorization': `Bearer ${accessToken}` 
-        }
-    })
+        axios.get(`${import.meta.env.VITE_API_URL}/v1/ciudades`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(response => {
                 setCiudades(response.data);
             })
             .catch(error => {
                 console.error('Error fetching ciudades:', error);
-            }, [accessToken])
+            }, [token])
 
-
-
-
-        axios.get('http://localhost:8080/thbackend/v1/tecnologia' , {
+            axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
             headers: {
-                'Authorization': `Bearer ${accessToken}` 
+                'Authorization': `Bearer ${token}`
             }
         })
-        
             .then(response => {
                 setTecnologias(response.data);
             })
             .catch(error => {
                 console.error('Error fetching tecnologias:', error);
             });
-        }, [accessToken])
+    }, [token])
 
     const handleCloseTecnologias = () => setShowTecnologias(false);
     const handleShowTecnologias = () => setShowTecnologias(true);
