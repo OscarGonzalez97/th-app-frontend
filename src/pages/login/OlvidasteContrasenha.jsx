@@ -3,6 +3,7 @@ import CustomAlert from '../../components/login/CustomAlert';
 import './styles/login.css';
 import {faRightFromBracket} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 function OlvidasteContrasenha() {
   const [correoElectronico, setCorreoElectronico] = useState("");
@@ -22,9 +23,22 @@ function OlvidasteContrasenha() {
       return;
     }
 
-    // Aquí iría el código para enviar el link de recuperación de la cuenta
-    // Supongamos que el envío se realizó con éxito
-    setEnvioExitoso(true);
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/forgot-password`, {
+        correoElectronico
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      if (response.status === 200) {
+        setEnvioExitoso(true);
+        navigate('/login');
+      } 
+      } catch (error) {
+      console.error('Error al registrar:', error);
+      setRegistroError(error.response.data.mensaje);
+    }
   }
 
   return (

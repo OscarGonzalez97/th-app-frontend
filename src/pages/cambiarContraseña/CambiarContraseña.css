@@ -35,10 +35,9 @@
     margin-bottom: -10px; /* Ajusta el valor según el espacio deseado */
 }
 
-.cambContraseña-container input[type="password"] {
+.cambContraseña-container input {
     background-color:   #347bc822; /* Cambia 'lightblue' por el color que desees */
 }
-
 .cambContraseña-container .alert {
     margin-top: 10px; /* Ajusta el valor según la cantidad de espacio que desees entre el mensaje y el formulario */
 }

@@ -8,6 +8,7 @@ import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
+import RecuperarContrasenha from '../pages/login/RecuperarContrasenha';
 
 export function Routing() {
   return (
@@ -44,11 +45,18 @@ export function Routing() {
         </Route>
 
 
-        <Route path="/Recuperar"
+        <Route path="/recuperar"
           element={
             <OlvidasteContrasenha />
           }>
         </Route>
+
+        <Route path="/reset-password"
+          element={
+            <RecuperarContrasenha />
+          }>
+        </Route>
+
         <Route path="/postulante"
           element={<PostulanteForm />}>
         </Route>

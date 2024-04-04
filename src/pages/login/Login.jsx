@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/login/CustomAlert';
@@ -148,6 +147,7 @@ export default function Login() {
               onChange={(e) => setCorreoElectronico(e.target.value)} />
             {registroError && <div className="error"
               style={{ color: 'red' }}>{registroError}</div>}
+              
             <input type="password"
               id="password_r"
               className="input-field"
