@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Layout } from "../../components/layouts/Layout";
 import './CambiarContraseña.css';
 import axios from 'axios';
+import { useSelector } from "react-redux";
 
 const CambiarContraseña = () => {
   const [contraseñaActual, setContraseñaActual] = useState('');
@@ -11,6 +12,7 @@ const CambiarContraseña = () => {
   const [registroError, setRegistroError] = useState(null);
   const [envioExitoso, setEnvioExitoso] = useState(false);
   const [correoElectronico, setCorreoElectronico] = useState("");
+  const token = useSelector(state => state.token);
 
 
   const handleSubmit = async (e) => {
@@ -30,6 +32,10 @@ const CambiarContraseña = () => {
         email: correoElectronico,
         oldPassword: contraseñaActual,
         password: nuevaContraseña
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       });
 
       // Manejar la respuesta según la necesidad
