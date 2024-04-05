@@ -15,17 +15,26 @@ const ListarPostulante = () => {
 
   const [selectedState, setSelectedState] = useState("");
   const [estados, setEstados] = useState([]);
+  const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
 
   useEffect(() => {
-    axios.get('http://localhost:8080/thbackend/v1/estados')
-      .then(response => {
+    axios.get('http://localhost:8080/thbackend/v1/estados',{
+      
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  })
+    
+    
+    .then(response => {
         console.log(response.data);
         setEstados(response.data);
       })
       .catch(error => {
         console.error('Error fetching estados:', error);
       });
-  }, []);
+    }, [accessToken]);
+ 
 
 
 
@@ -47,6 +56,7 @@ const ListarPostulante = () => {
                   <button type="button" className="btn btn-primary">Buscar</button>
                 </div>
               </div>
+              <br/>
               <div className="row justify-content-start gy-2">
                 <div className="col-md-2">
                   <label className="form-label">Estado</label>
@@ -57,8 +67,8 @@ const ListarPostulante = () => {
                   <select className="form-select form-select-sm" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
                     <option value="">Seleccionar estado</option>
                     {estados.map((estado) => (
-                      <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
-                    ))}
+                    <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
+))}
                   </select>
                 </div>
 
@@ -84,6 +94,7 @@ const ListarPostulante = () => {
                   </select>
                 </div>
               </div>
+              <br/> 
               <div className="row justify-content-start gy-2">
                 <div className="col-md-2">
                   <label className="form-label">Tipo de estudio</label>
@@ -123,14 +134,13 @@ const ListarPostulante = () => {
             </div>
           </div>
         </Form>
-        <DataTable className="datatable datatable-spacing">
-          <Column header="#"></Column>
-          <Column header="Nombre"></Column>
-          <Column header="Nivel de ingles"></Column>
-          <Column header="Experiencia"></Column>
-          <Column header="Tecnologías"></Column>
-          <Column header="Tecnologías"></Column>
-          <Column footer="Total postulantes"></Column>
+        <DataTable className="datatable datatable-spacing custom-datatable p-datatable-responsive" resizableColumns columnResizeMode="fit">
+          <Column header="#"  style={{width: '20%'}}/>
+          <Column header="Nombre"  style={{width: '20%'}}/>
+          <Column header="Nivel de inglés"  style={{width: '20%'}}/>
+          <Column header="Experiencia"  style={{width: '20%'}}/>
+          <Column header="Tecnologías"  style={{width: '20%'}}/>
+          <Column footer="Total postulantes: "  style={{width: '20%'}}/>
         </DataTable>
       </div>
     </Layout>

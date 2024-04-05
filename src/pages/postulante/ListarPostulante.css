@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
 
-
-.listarPostulantes .datatable {
-    background-color: black;
-    color: 'blue';
-    font-Size: '16px';
-}
-
 .listarPostulantes {
     padding-left: 50px;
     padding-right: 50px;
@@ -40,4 +33,21 @@
 
 h1{
     margin-bottom: 20px;
+}
+
+/* Estilos para la tabla */
+.custom-datatable .p-datatable-thead > tr > th {
+    background-color: #f2f2f2; /* Color de fondo del encabezado (blanco ligeramente más oscuro) */
+    color: #000; /* Color del texto en el encabezado (negro) */
+}
+
+.custom-datatable .p-datatable-tbody > tr > td {
+    background-color: white; /* Color de fondo del cuerpo de la tabla (blanco) */
+    color: #000; /* Color del texto en el cuerpo de la tabla (negro) */
+}
+
+/* Estilos para el footer de la tabla */
+.custom-datatable .p-datatable-tfoot > tr > td {
+    background-color: #ccc; /* Color de fondo gris para el footer */
+    color: #000; /* Color del texto en el footer (negro) */
 }

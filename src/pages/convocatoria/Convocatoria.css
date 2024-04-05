@@ -33,8 +33,12 @@
 }
 
 .convocatoria-container input {
-    background-color:   #347bc822; /* Cambia 'lightblue' por el color que desees */
+    background-color:   #347bc822; 
 }
+.convocatoria-container select {
+    background-color:   #347bc822; 
+}
+ 
  
 .convocatoria-container textarea {
     background-color: #347bc822; 

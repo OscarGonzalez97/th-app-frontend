@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from "react-redux";
 
 function Tablero() {
+    const token = useSelector(state => state.token);
+    
     const [estados, setEstados] = useState([]);
     const postulantes = [
         { id: 1, nombre: 'John', apellido: 'Doe', estado_id: 1 },
@@ -16,10 +19,17 @@ function Tablero() {
         { id: 10, nombre: 'Abigail', apellido: 'Martinez', estado_id: 3 },
     ];
 
+
     useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/estados')
-            .then(response => setEstados(response.data))
-            .catch(error => console.error(error));
+        if (token) {
+            axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => setEstados(response.data))
+                .catch(error => console.error(error));
+        }
     }, []);
 
     return (

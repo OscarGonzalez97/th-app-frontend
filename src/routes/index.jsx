@@ -9,6 +9,12 @@ import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
 import RecuperarContrasenha from '../pages/login/RecuperarContrasenha';
+import Usuario from '../pages/usuario/Usuario';
+import Beneficios from '../pages/beneficios/Beneficios';
+import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
+import ListarUsuarios from '../pages/usuario/ListarUsuarios';
+
+
 
 export function Routing() {
   return (
@@ -34,6 +40,23 @@ export function Routing() {
 
         <Route path="/tecnologia/listar"
           element={<ListarTecnologia/>}>
+        </Route>
+
+        
+        <Route path="/usuario"
+          element={<Usuario/>}>
+        </Route>
+
+        <Route path="/usuario/listar"
+          element={<ListarUsuarios/>}>
+        </Route>
+
+        <Route path="/beneficios"
+          element={<Beneficios/>}>
+        </Route>
+
+        <Route path="/beneficios/listar"
+          element={<ListarBeneficios />}>
         </Route>
 
         {/* rutas que usan Layout */}
