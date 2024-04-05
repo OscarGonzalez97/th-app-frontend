@@ -35,6 +35,7 @@ const PostulanteForm = () => {
             'Authorization': `Bearer ${accessToken}` 
         }
     })
+    
             .then(response => {
                 setCiudades(response.data);
             })
