@@ -19,9 +19,7 @@ export default function Login() {
   const [apellido, setApellido] = useState("");
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasenha, setContrasenha] = useState("");
-  const [confirmarContrasenha, setConfirmarContrasenha] = useState("");
   const [registroError, setRegistroError] = useState(null);
-  const [errorContrasenha, setErrorContrasenha] = useState("");
 
   //Estado para validar si el registro fue exitoso
   const[registroExitoso, setRegistroExitoso] = useState (false);
@@ -70,15 +68,7 @@ export default function Login() {
 
   const handleRegistroSubmit = async (e) => {
     e.preventDefault();
-  
-    // Validar que las contraseñas coincidan
-    if (contrasenha !== confirmarContrasenha) {
-      setErrorContrasenha("Las contraseñas no coinciden. Inténtalo de nuevo");
-      return;
-    } else {
-      setErrorContrasenha(""); // Limpiar el error si las contraseñas coinciden
-    }
-  
+
     // Validar dominio de correo electrónico
     if (!/^[\w-\.]+@roshka\.com$/.test(correoElectronico.trim())) {
       setRegistroError("Correo electrónico debe ser de dominio @roshka.com");
@@ -154,13 +144,7 @@ export default function Login() {
               placeholder="Contraseña"
               value={contrasenha}
               onChange={(e) => setContrasenha(e.target.value)} />
-            <input type="password"
-              className="input-field"
-              placeholder="Confirmar Contraseña"
-              value={confirmarContrasenha}
-              onChange={(e) => setConfirmarContrasenha(e.target.value)} />
-            {errorContrasenha && <div className="error"
-              style={{ color: 'red' }}>{errorContrasenha}</div>}
+           
 
             <button type="submit"
               className="button registrar-button ">Registrarse</button>

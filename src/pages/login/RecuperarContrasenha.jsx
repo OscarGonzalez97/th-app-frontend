@@ -4,7 +4,7 @@ import './styles/login.css';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 function RecuperarContrasenha() {
   const [contrasenha, setContrasenha] = useState("");

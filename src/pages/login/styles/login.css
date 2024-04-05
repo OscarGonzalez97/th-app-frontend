@@ -122,6 +122,9 @@ a {
 
 .form-container-login.sign-up-container-login h1 {
     color: rgba(6, 52, 125, 0.95);
+    margin-top: -10px; /* Ajusta según sea necesario */
+    margin-bottom: 10px; 
+
 }
 
 .form-container-login input {

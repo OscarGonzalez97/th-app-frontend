@@ -5,6 +5,7 @@
     background-color: #ffffff;
     margin: 80px auto; 
     border-radius: 10px;
+    
 
 }
 
@@ -40,4 +41,14 @@
 }
 .cambContraseña-container .alert {
     margin-top: 10px; /* Ajusta el valor según la cantidad de espacio que desees entre el mensaje y el formulario */
+    position: relative;
+    width: 90%; /* Ancho del contenedor al 100% del padre */
+    
+}
+
+
+.cambContraseña-container .alert .btn-close {
+    position: absolute; /* Hacer que el botón de cierre tenga posición absoluta dentro del contenedor */
+    top: -10px; /* Posicionar 5px desde la parte superior */
+    right: 10px; /* Posicionar 5px desde el lado derecho */
 }
