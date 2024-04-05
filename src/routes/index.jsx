@@ -51,7 +51,7 @@ export function Routing() {
           }>
         </Route>
 
-        <Route path="/reset-password"
+        <Route path="/confirm-reset"
           element={
             <RecuperarContrasenha />
           }>

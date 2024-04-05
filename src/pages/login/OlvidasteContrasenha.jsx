@@ -25,7 +25,7 @@ function OlvidasteContrasenha() {
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/forgot-password`, {
-        correoElectronico
+        email: correoElectronico
       }, {
         headers: {
           'Content-Type': 'application/json',

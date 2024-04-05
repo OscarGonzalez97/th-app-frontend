@@ -4,7 +4,7 @@ import './styles/login.css';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 function RecuperarContrasenha() {
   const [contrasenha, setContrasenha] = useState("");
@@ -12,14 +12,9 @@ function RecuperarContrasenha() {
   const [errorContrasenha, setErrorContrasenha] = useState("");
   const [registroError, setRegistroError] = useState(null);
   const [envioExitoso, setEnvioExitoso] = useState(false);
-  const [token, setToken] = useState(""); // Para guardar el token
-
-  const { token: tokenParam } = useParams(); // Capturar el token de la URL
-
-  useEffect(() => {
-    // Actualizar el estado del token cuando cambie el parámetro de la URL
-    setToken(tokenParam);
-  }, [tokenParam]);
+  const location = useLocation();
+  const token = location.search.substring(location.search.indexOf("=") + 1)
+  
 
   const handleRegistroSubmit = async (e) => {
     e.preventDefault();
@@ -50,7 +45,6 @@ function RecuperarContrasenha() {
       setRegistroError(error.response.data.message);
     }
   };
-
   return (
     <div className='login-base recuperar'>
       <div className="top-right-button">
