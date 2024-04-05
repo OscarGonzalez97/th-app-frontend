@@ -3,6 +3,9 @@ import { Layout } from "../../components/layouts/Layout"
 import './Convocatoria.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Alert from 'react-bootstrap/Alert';
+
+
 
 const Convocatoria = () => {
    
@@ -11,15 +14,14 @@ const Convocatoria = () => {
     const [description, setDescription] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFin, setFechaFin] = useState('');
-    const [link, setLink] = useState('');
+    
     const [file, setFile] = useState(null);
     const [tecnologias, setTecnologias] = useState([]);
     const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
     const token = useSelector(state => state.token);
 
 
- 
-    
 
     useEffect(() => {
         const fetchTecnologias = async () => {
@@ -58,8 +60,8 @@ fetchTecnologias();
                 description: description,
                 fecha_inicio: fechaInicio,
                 fecha_fin: fechaFin,
-                link: link,
-                // Asegúrate de incluir otros campos necesarios aquí
+            
+                
             }));
             formData.append('file', file);
             formData.append('convocatorias_tecnologias_ids', JSON.stringify(tecnologiaSeleccionada)); 
@@ -74,14 +76,14 @@ fetchTecnologias();
             console.log('Respuesta del servidor:', response.data);
             console.log(formData);
     
-            // Restablecer los campos del formulario después de enviar la solicitud
+            
             setTitle('');
             setDescription('');
             setFechaInicio('');
             setFechaFin('');
-            setLink('');
             setFile(null);
             setTecnologias([]);
+            setShowAlert(true);
     
         } catch (error) {
             console.log("aquiasdasd")
@@ -124,10 +126,7 @@ fetchTecnologias();
                             placeholder="Ingrese la fecha" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
                     </div>
 
-                    <div className="col-md-6">
-                        <label htmlFor="link" className="form-label">Cargar link*</label>
-                        <input href="link" className="form-control" id="link" name="link" placeholder="Ingrese la url" value={link} onChange={(e) => setLink(e.target.value)} />
-                    </div>
+                   
 
                     <div className="col-md-6">
                         <label htmlFor="file" className="form-label">Cargar imagen*</label>
@@ -148,6 +147,14 @@ fetchTecnologias();
                         <button type="submit" className="btn btn-success">Guardar</button>
                     </div>
                 </form>
+
+
+
+                {showAlert && (
+          <Alert variant="success" >
+            Se ha guardado correctamente.
+          </Alert>
+        )}
             </div>
 
         </Layout>

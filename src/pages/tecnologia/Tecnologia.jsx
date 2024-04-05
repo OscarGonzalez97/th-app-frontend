@@ -1,4 +1,4 @@
-import React, { useEffect ,useState } from 'react';
+import React, { useState } from 'react';
 
 import { Layout } from "../../components/layouts/Layout"
 import './Tecnologia.css';
@@ -12,14 +12,6 @@ const Tecnologia = () => {
   const [showAlert, setShowAlert] = useState(false);
   const token = useSelector(state => state.token);
 
-
-
-
-
-
-   useEffect(() => {
-    
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -43,8 +35,6 @@ nombre: nombre
       console.error('Error al enviar el pedido POST:', error);
     }
   };
-
-
 
 
   return (
@@ -72,7 +62,7 @@ nombre: nombre
 
 
             {showAlert && (
-          <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+          <Alert variant="success" >
             Se ha guardado correctamente.
           </Alert>
         )}

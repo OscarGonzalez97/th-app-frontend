@@ -47,14 +47,6 @@ descripcion: descripcion
   };
 
 
-
-
-
-
-
-
-
-
   return (
     <Layout>
     
@@ -92,7 +84,7 @@ descripcion: descripcion
 
             </form>
        {showAlert && (
-          <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+          <Alert variant="success">
             Se ha guardado correctamente.
           </Alert>
             )}
