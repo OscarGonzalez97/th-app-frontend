@@ -10,6 +10,9 @@ import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
 import Usuario from '../pages/usuario/Usuario';
 import Beneficios from '../pages/beneficios/Beneficios';
+import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
+import ListarUsuarios from '../pages/usuario/ListarUsuarios';
+
 
 
 export function Routing() {
@@ -43,10 +46,16 @@ export function Routing() {
           element={<Usuario/>}>
         </Route>
 
-
+        <Route path="/usuario/listar"
+          element={<ListarUsuarios/>}>
+        </Route>
 
         <Route path="/beneficios"
           element={<Beneficios/>}>
+        </Route>
+
+        <Route path="/beneficios/listar"
+          element={<ListarBeneficios />}>
         </Route>
 
         {/* rutas que usan Layout */}
