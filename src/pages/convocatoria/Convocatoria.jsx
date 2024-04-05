@@ -5,51 +5,92 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const Convocatoria = () => {
-    const token = useSelector(state => state.token);
+   
 
-    const [titulo, setTitulo] = useState('');
-    const [descripcion, setDescripcion] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFin, setFechaFin] = useState('');
-    const [linkConvocatoria, setLinkConvocatoria] = useState('');
-    const [fileConvocatoria, setFileConvocatoria] = useState('');
+    const [link, setLink] = useState('');
+    const [file, setFile] = useState(null);
     const [tecnologias, setTecnologias] = useState([]);
+    const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
+    const token = useSelector(state => state.token);
 
+
+ 
     
+
     useEffect(() => {
-        axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+        const fetchTecnologias = async () => {
+            try {
+                
+           
+const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
+                
+            
+setTecnologias(response.data); // Asignas las tecnologías recibidas del backend al estado
+            } 
+   
+catch (error) {
+                console.error('Error al obtener las tecnologías:', error);
             }
-        })
-            .then(response => {
-                setTecnologias(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching tecnologias:', error);
-            });
-    }, [token])
-
-
+        
+        
+            }
+        
+fetchTecnologias();
+    }, []);
+    
+    const handleTecnologiaChange = (e) => {
+        const inputsArray = Array.from(e.target.selectedOptions);
+        const valoresArray = inputsArray.map(input => input.value);
+        setTecnologiaSeleccionada(valoresArray);
+    };
+  
     const handleSubmit = async (event) => {
         event.preventDefault();
+    
         try {
-            const formData = {
-                titulo: titulo,
-                descripcion: descripcion,
-                fechaInicio: fechaInicio,
-                fechaFin: fechaFin,
-                link: linkConvocatoria,
-                file_path: fileConvocatoria,
-                tecnologias: [4]
-
-            };
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, formData);
+            const formData = new FormData();
+            formData.append('convocatoria_info', JSON.stringify({
+                title: title,
+                description: description,
+                fecha_inicio: fechaInicio,
+                fecha_fin: fechaFin,
+                link: link,
+                convocatorias_tecnologias_ids: tecnologiaSeleccionada
+            
+                // Asegúrate de incluir otros campos necesarios aquí
+            }));
+            formData.append('file', file);
+    
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, formData, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+    
             console.log('Respuesta del servidor:', response.data);
+            console.log(formData);
+    
+            // Restablecer los campos del formulario después de enviar la solicitud
+            setTitle('');
+            setDescription('');
+            setFechaInicio('');
+            setFechaFin('');
+            setLink('');
+            setFile(null);
+            setTecnologias([]);
+    
         } catch (error) {
-            console.error('Error al enviar los datos:', error);
+            console.log("aquiasdasd")
+            console.error('Error al enviar el pedido POST:', error);
         }
-    }
+    };
+
+    
 
     return (
         <Layout>
@@ -57,19 +98,19 @@ const Convocatoria = () => {
                 <h2>Convocatorias</h2>
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <div className="col-md-12">
-                        <label htmlFor="titulo" className="form-label">Título *</label>
-                        <input type="text" className="form-control" id="titulo" name="titulo"
-                            placeholder="Ingrese el titulo" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
+                        <label htmlFor="title" className="form-label">Título *</label>
+                        <input type="title" className="form-control" id="title" name="title"
+                            placeholder="Ingrese el titulo" value={title} onChange={(e) => setTitle(e.target.value)} />
                     </div>
 
                     <div className="col-md-12">
-                        <label htmlFor="descripcion" className="form-label">Descripción *</label>
+                        <label htmlFor="description" className="form-label">Descripción *</label>
                         <textarea
                             className="form-control  description-input"
-                            id="descripcion"
-                            name="descripcion"
+                            id="description"
+                            name="description"
                             rows="4"
-                            placeholder="Ingrese la descripción" value={descripcion} onChange={(e) => setDescripcion(e.target.value)}  ></textarea>
+                            placeholder="Ingrese la descripción" value={description} onChange={(e) => setDescription(e.target.value)}  ></textarea>
                     </div>
 
                     <div className="col-md-6">
@@ -85,21 +126,21 @@ const Convocatoria = () => {
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="link_convocatoria" className="form-label">Cargar link*</label>
-                        <input href="#" className="form-control" id="link_convocatoria" name="link_convocatoria" placeholder="Ingrese la url" value={linkConvocatoria} onChange={(e) => setLinkConvocatoria(e.target.value)} />
+                        <label htmlFor="link" className="form-label">Cargar link*</label>
+                        <input href="link" className="form-control" id="link" name="link" placeholder="Ingrese la url" value={link} onChange={(e) => setLink(e.target.value)} />
                     </div>
 
                     <div className="col-md-6">
-                        <label htmlFor="file_convocatoria" className="form-label">Cargar imagen*</label>
-                        <input type="file" className="form-control" id="file_convocatoria" name="file_convocatoria" value={fileConvocatoria} onChange={(e) => setFileConvocatoria(e.target.value)} />
+                        <label htmlFor="file" className="form-label">Cargar imagen*</label>
+                        <input type="file" className="form-control" id="file" name="file" onChange={(e) => setFile(e.target.files[0])} />
                     </div>
 
                     <div className="col-md-6">
                         <label className="form-label">Tecnologías</label>
-                        <select className="form-select" id="tecnologia">
-                            {tecnologias.map(tecnologia => (
-                                <option key={tecnologia.id} value={tecnologia.id}>{tecnologia.nombre}</option>
-                            ))}
+                        <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
+                            {tecnologias.map((tecnologia, index) => {
+                                return  <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
+                            })}
                         </select>
                     </div>
 
