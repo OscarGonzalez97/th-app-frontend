@@ -59,11 +59,10 @@ fetchTecnologias();
                 fecha_inicio: fechaInicio,
                 fecha_fin: fechaFin,
                 link: link,
-                convocatorias_tecnologias_ids: tecnologiaSeleccionada
-            
                 // Asegúrate de incluir otros campos necesarios aquí
             }));
             formData.append('file', file);
+            formData.append('convocatorias_tecnologias_ids', JSON.stringify(tecnologiaSeleccionada)); 
     
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, formData, {
                 headers: {
