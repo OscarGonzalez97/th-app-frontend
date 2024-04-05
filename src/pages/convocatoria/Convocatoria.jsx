@@ -14,6 +14,7 @@ const Convocatoria = () => {
     const [link, setLink] = useState('');
     const [file, setFile] = useState(null);
     const [tecnologias, setTecnologias] = useState([]);
+    const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
     const token = useSelector(state => state.token);
 
 
@@ -42,8 +43,9 @@ fetchTecnologias();
     }, []);
     
     const handleTecnologiaChange = (e) => {
-        const selectedTecnologias = Array.from(e.target.selectedOptions, option => option.value);
-        setTecnologias(selectedTecnologias);
+        const inputsArray = Array.from(e.target.selectedOptions);
+        const valoresArray = inputsArray.map(input => input.value);
+        setTecnologiaSeleccionada(valoresArray);
     };
   
     const handleSubmit = async (event) => {
@@ -57,11 +59,11 @@ fetchTecnologias();
                 fecha_inicio: fechaInicio,
                 fecha_fin: fechaFin,
                 link: link,
+                convocatorias_tecnologias_ids: tecnologiaSeleccionada
             
                 // Asegúrate de incluir otros campos necesarios aquí
             }));
             formData.append('file', file);
-            formData.append('convocatorias_tecnologias_ids', JSON.stringify(tecnologias));
     
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, formData, {
                 headers: {
@@ -87,26 +89,6 @@ fetchTecnologias();
             console.error('Error al enviar el pedido POST:', error);
         }
     };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-   
 
     
 
@@ -156,9 +138,9 @@ fetchTecnologias();
                     <div className="col-md-6">
                         <label className="form-label">Tecnologías</label>
                         <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
-                            {tecnologias.map(tecnologia => (
-                                <option key={tecnologia.id} value={tecnologia.id}>{tecnologia.nombre}</option>
-                            ))}
+                            {tecnologias.map((tecnologia, index) => {
+                                return  <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
+                            })}
                         </select>
                     </div>
 
