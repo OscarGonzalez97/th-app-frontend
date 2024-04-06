@@ -7,6 +7,7 @@ import { Column } from 'primereact/column';
 import './ListarPostulante.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row, Col, Button } from 'react-bootstrap'
+import { useSelector } from "react-redux";
 import axios from 'axios';
 
 
@@ -15,26 +16,38 @@ const ListarPostulante = () => {
 
   const [selectedState, setSelectedState] = useState("");
   const [estados, setEstados] = useState([]);
-  const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
-
-  useEffect(() => {
-    axios.get('http://localhost:8080/thbackend/v1/estados',{
-      
-    headers: {
-      'Authorization': `Bearer ${accessToken}`
-    }
-  })
-    
-    
-    .then(response => {
-        console.log(response.data);
-        setEstados(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching estados:', error);
-      });
-    }, [accessToken]);
+  const [postulantes, setPostulantes] = useState([]);
+  const token = useSelector(state => state.token);
  
+  useEffect(() => {
+    const fetchData = async () => {
+      if (token) {
+   
+        try {
+          console.log("token set", token);
+          const estadosResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            }
+          });
+          setEstados(estadosResponse.data);
+
+          const postulantesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/postulante`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          setPostulantes(postulantesResponse.data);
+        } catch (error) {
+          console.error('Error al obtener los estados o postulantes:', error);
+        }
+      }
+    };
+
+    fetchData();
+    console.log(estados);
+    console.log(postulantes);
+  }, []);
 
 
 
@@ -147,4 +160,4 @@ const ListarPostulante = () => {
   )
 }
 
-export default ListarPostulante
+export default ListarPostulante;

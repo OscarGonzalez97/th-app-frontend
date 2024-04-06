@@ -46,6 +46,7 @@ export default function Login() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
+      localStorage.removeItem('token');
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, {
         email,
         password
@@ -56,6 +57,14 @@ export default function Login() {
       });
       
       if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
+        localStorage.setItem('token', response.data.accessToken);
+       
+        
+        setTimeout(() => {
+          localStorage.removeItem('token');
+      }, 10000);
+
+
         dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        
         navigate('/'); //se va a la pag de inicio 
       } else {

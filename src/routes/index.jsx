@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/home/Home'
-import ListarPostulante from '../pages/postulante/ListarPostulante';
+import ListarPostulante from '../pages/Postulante/ListarPostulante';
 import Login from "../pages/login/Login"
 import Convocatoria from '../pages/convocatoria/Convocatoria'
 import Tecnologia from '../pages/tecnologia/Tecnologia'
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
-import PostulanteForm from '../pages/postulante/PostulanteForm';
+import PostulanteForm from '../pages/Postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
 import Usuario from '../pages/usuario/Usuario';
