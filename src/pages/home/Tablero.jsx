@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 
 function Tablero() {
     const token = useSelector(state => state.token);
-    
     const [estados, setEstados] = useState([]);
     const postulantes = [
         { id: 1, nombre: 'John', apellido: 'Doe', estado_id: 1 },
@@ -21,6 +20,7 @@ function Tablero() {
 
 
     useEffect(() => {
+        console.log("token", token);
         if (token) {
             axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
                 headers: {

@@ -18,8 +18,9 @@ const ListarPostulante = () => {
   const [estados, setEstados] = useState([]);
   const [postulantes, setPostulantes] = useState([]);
   const token = useSelector(state => state.token);
- 
+  console.log(token);
   useEffect(() => {
+    console.log(token);
     const fetchData = async () => {
       if (token) {
    

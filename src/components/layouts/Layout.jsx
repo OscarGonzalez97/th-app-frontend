@@ -1,14 +1,11 @@
-import NavBar from "../Navbar"
-import { useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 export const Layout = ({ children }) => {
-  const token = useSelector(state => state.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
@@ -17,10 +14,8 @@ export const Layout = ({ children }) => {
       navigate("/login");
     }
   }, [dispatch, navigate]);
-  
 
-  return <div className="base">
-    <NavBar />
-    {children}
-  </div>
-}
+  return 
+  <div className="base">{children}</div>;
+};
+

@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../pages/home/Home'
-import ListarPostulante from '../pages/Postulante/ListarPostulante';
 import Login from "../pages/login/Login"
 import Convocatoria from '../pages/convocatoria/Convocatoria'
 import Tecnologia from '../pages/tecnologia/Tecnologia'
@@ -12,6 +11,7 @@ import Usuario from '../pages/usuario/Usuario';
 import Beneficios from '../pages/beneficios/Beneficios';
 import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
+import ListarPostulante from '../pages/Postulante/ListarPostulante';
 
 
 

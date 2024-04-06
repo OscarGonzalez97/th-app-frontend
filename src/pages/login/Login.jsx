@@ -56,18 +56,10 @@ export default function Login() {
         }
       });
       
-      if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
-        localStorage.setItem('token', response.data.accessToken);
-       
-        
-      //   setTimeout(() => {
-      //     localStorage.removeItem('token');
-      // }, 10000);
-
-
-        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        
-        navigate('/'); //se va a la pag de inicio 
-      
+      if (response.status === 200) {
+        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });
+        localStorage.setItem('token', response.data.accessToken); // Store token in localStorage
+        navigate('/');
       } else {
         setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
