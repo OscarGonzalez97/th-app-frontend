@@ -10,7 +10,7 @@ const Home = () => {
   const token = useSelector(state => state.token);
   React.useEffect(() => {
     if (token){
-      console.log(token);
+      console.log("home",token);
     }
   }, [])
   return  (

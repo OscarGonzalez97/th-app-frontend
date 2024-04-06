@@ -96,9 +96,7 @@ const NavBar = () => {
                 to="/login">
                 <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
               </Nav.Link>
-
             </Nav>
-
           </Navbar.Collapse>
         </Container>
       </Navbar>

@@ -9,6 +9,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector } from "react-redux";
 import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowRight, faBook, faBookAtlas, faBookBookmark, faBookDead, faBookOpen, faDeleteLeft, faPeopleArrows, faPeopleGroup, faPerson, faTrashCan, faUser } from '@fortawesome/free-solid-svg-icons'; // Import the right arrow icon
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import DeletePostulanteModal from '../../components/DeletePostulanteModal';
+
 
 
 const ListarPostulante = () => {
@@ -18,19 +24,19 @@ const ListarPostulante = () => {
   const [estados, setEstados] = useState([]);
   const [postulantes, setPostulantes] = useState([]);
   const token = useSelector(state => state.token);
-  console.log(token);
+  const navigate = useNavigate();
+
   useEffect(() => {
-    console.log(token);
     const fetchData = async () => {
       if (token) {
-   
         try {
-          console.log("token set", token);
+          console.log("token Listar postulantes", token);
           const estadosResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
             headers: {
               'Authorization': `Bearer ${token}`,
             }
           });
+          console.log("the response", estadosResponse.data);
           setEstados(estadosResponse.data);
 
           const postulantesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/postulante`, {
@@ -38,6 +44,7 @@ const ListarPostulante = () => {
               'Authorization': `Bearer ${token}`
             }
           });
+          console.log("the response2", postulantesResponse.data);
           setPostulantes(postulantesResponse.data);
         } catch (error) {
           console.error('Error al obtener los estados o postulantes:', error);
@@ -46,118 +53,148 @@ const ListarPostulante = () => {
     };
 
     fetchData();
-    console.log(estados);
-    console.log(postulantes);
-  }, []);
 
-
-
+  }, [token]);
 
 
 
   return (
-    <Layout>
-      <div className="listarPostulantes container">
-        <Form>
-          <div className="container-wrapper">
-            <div className="container-fluid">
-              <h1>Listado de postulantes</h1>
-              <div className="row justify-content-start gy-2">
-                <div className="col-auto">
-                  <input type="text" className="form-control" placeholder="Nombre"></input>
+    <>
+      <Layout>
+        <div className="listarPostulantes container">
+          <Form>
+            <div className="container-wrapper">
+              <div className="container-fluid">
+                <div className='d-flex gap-3 border-bottom mb-5'>
+      
+                  <FontAwesomeIcon icon={faUser} style={{ fontSize: '15px', color: "white" }} />
+            
+                  <h1 type="button" className='h6  fw-bold '>Listado de postulantes</h1>
                 </div>
-                <div className="col-auto">
-                  <button type="button" className="btn btn-primary">Buscar</button>
+
+                <div className="row justify-content-start gy-2">
+                  <div className="col-auto">
+                    <input type="text" className="form-control form-control-sm" placeholder="Nombre"></input>
+                  </div>
+                  <div className="col-auto">
+                    <button type="button" className="btn btn-primary">Buscar</button>
+                  </div>
                 </div>
-              </div>
-              <br/>
-              <div className="row justify-content-start gy-2">
-                <div className="col-md-2">
-                  <label className="form-label">Estado</label>
+
+                <br />
+                
+                <div className="row justify-content-start">
+                  <div className="col-md-2">
+                    <label className="form-label">Estado</label>
+                  </div>
+
+
+                  <div className="col-md-2">
+                    <select className="form-select form-select-sm" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+                      <option value="">Seleccionar estado</option>
+                      {estados.map((estado) => (
+                        <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
+                      ))}
+                    </select>
+                  </div>
+
+
+                  <div className="col-md-2">
+                    <label className="form-label h6 text-start">Años de experiencia</label>
+                  </div>
+                  <div className="col-md-2">
+                    <select className="form-select form-select-sm">
+                      <option>Todas</option>
+                      <option value="1">Menor a 6 meses</option>
+                      <option value="2">Menor a 1 año</option>
+                      <option value="3">Menor a 3 años</option>
+                      <option value="4">Menor a 5 año</option>
+                      <option value="5">Mayor a 5 años</option>
+                    </select>
+                  </div>
+
                 </div>
 
 
-                <div className="col-md-2">
-                  <select className="form-select form-select-sm" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
-                    <option value="">Seleccionar estado</option>
-                    {estados.map((estado) => (
-                    <option key={estado.id_estado} value={estado.estado}>{estado.estado}</option>
-))}
-                  </select>
-                </div>
 
-                <div className="col-md-2">
-                  <label className="form-label">Experiencia en general</label>
-                </div>
-                <div className="col-md-2">
-                  <select className="form-select form-select-sm">
-                    <option>Todas</option>
-                    <option value="1">Menor a 6 meses</option>
-                    <option value="2">Menor a 1 año</option>
-                    <option value="3">Menor a 3 años</option>
-                    <option value="4">Menor a 5 año</option>
-                    <option value="4">Mayor a 5 años</option>
-                  </select>
-                </div>
-                <div className="col-md-2">
-                  <label className="form-label">Cargo</label>
-                </div>
-                <div className="col-md-2">
-                  <select className="form-select form-select-sm">
-                    <option>Todas</option>
-                  </select>
-                </div>
-              </div>
-              <br/> 
-              <div className="row justify-content-start gy-2">
-                <div className="col-md-2">
-                  <label className="form-label">Tipo de estudio</label>
-                </div>
-                <div className="col-md-2">
-                  <select className="form-select form-select-sm">
-                    <option>Todas</option>
-                    <option value="1">Terciario</option>
-                    <option value="2">Secundario</option>
-                    <option value="3">Curso</option>
-                    <option value="4">Post Grado</option>
-                    <option value="4">Otro</option>
-                  </select>
-                </div>
-                <div className="col-md-2">
-                  <label className="form-label">Nivel de ingles</label>
-                </div>
-                <div className="col-md-2">
-                  <select className="form-select form-select-sm">
-                    <option>Todas</option>
-                    <option value="1">Basico</option>
-                    <option value="2">Regular</option>
-                    <option value="3">Intermedio</option>
-                    <option value="4">Avanzado</option>
-                    <option value="4">Proficiente</option>
-                  </select>
-                </div>
-                <div className="col-md-2">
-                  <label className="form-label">Tecnologias</label>
-                </div>
-                <div className="col-md-2">
-                  <select className="form-select form-select-sm">
-                    <option>Todas</option>
-                  </select>
+            
+                <div className="row justify-content-start gy-2">
+                  <div className="col-md-2">
+                    <label className="form-label">Tipo de estudio</label>
+                  </div>
+                  <div className="col-md-2">
+                    <select className="form-select form-select-sm">
+                      <option>Todas</option>
+                      <option value="1">Terciario</option>
+                      <option value="2">Secundario</option>
+                      <option value="3">Curso</option>
+                      <option value="4">Post Grado</option>
+                      <option value="4">Otro</option>
+                    </select>
+                  </div>
+                  <div className="col-md-2">
+                    <label className="form-label">Nivel de ingles</label>
+                  </div>
+                  <div className="col-md-2">
+                    <select className="form-select form-select-sm">
+                      <option>Todas</option>
+                      <option value="1">Basico</option>
+                      <option value="2">Regular</option>
+                      <option value="3">Intermedio</option>
+                      <option value="4">Avanzado</option>
+                      <option value="4">Proficiente</option>
+                    </select>
+                  </div>
+                  <div className="col-md-2">
+                    <label className="form-label">Tecnologias</label>
+                  </div>
+                  <div className="col-md-2">
+                    <select className="form-select form-select-sm">
+                      <option>Todas</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
+          </Form>
+
+          <div className="container mt-5">
+            <div className='row'>
+
+              {/* <div className="col-4">POSTULANTE</div>
+            <div className="col-3">EMAIL</div>
+            <div className="col">ESTADO</div>
+            <div className="col"></div> */}
+            </div>
+            {postulantes && postulantes.map(postulante => (
+              <div className="row mt-3 border-bottom pb-2 fs" key={postulante.id_postulante}>
+                <div className="col-4 d-flex align-items-center">{postulante.apellido}, {postulante.nombre}</div>
+                <div className="col-4 d-flex align-items-center">{postulante.correo} </div>
+                <div className="col d-flex align-items-center">{postulante.estado.estado} </div>
+                <div className='col-1 d-flex justify-content-end gap-3'>
+                  <span role='button' onClick={() => navigate(`/postulante/${postulante.id_postulante}`)}>
+                    <FontAwesomeIcon icon={faBook} style={{ fontSize: '20px', color: "white" }} />
+                  </span>
+                  {/* <span role='button' onClick={() => handleDelete(postulante.id_postulante)}>
+                    <FontAwesomeIcon icon={faTrashCan} style={{ fontSize: '20px', color: "white" }} />
+                  </span> */}
+                  <DeletePostulanteModal postulante={postulante} />
+                </div>
+              </div>
+            ))}
           </div>
-        </Form>
-        <DataTable className="datatable datatable-spacing custom-datatable p-datatable-responsive" resizableColumns columnResizeMode="fit">
-          <Column header="#"  style={{width: '20%'}}/>
-          <Column header="Nombre"  style={{width: '20%'}}/>
-          <Column header="Nivel de inglés"  style={{width: '20%'}}/>
-          <Column header="Experiencia"  style={{width: '20%'}}/>
-          <Column header="Tecnologías"  style={{width: '20%'}}/>
-          <Column footer="Total postulantes: "  style={{width: '20%'}}/>
-        </DataTable>
-      </div>
-    </Layout>
+
+
+        </div>
+
+
+
+
+
+
+      </Layout>
+    </>
+
   )
 }
 
