@@ -30,7 +30,7 @@ function Tablero() {
                 .then(response => setEstados(response.data))
                 .catch(error => console.error(error));
         }
-    }, []);
+    }, [token]);
 
     return (
         <div className="tablero">

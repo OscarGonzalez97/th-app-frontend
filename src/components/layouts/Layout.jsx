@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+
 export const Layout = ({ children }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -15,7 +16,12 @@ export const Layout = ({ children }) => {
     }
   }, [dispatch, navigate]);
 
-  return 
-  <div className="base">{children}</div>;
+  return (
+
+  <div className="base">
+  <NavBar/>
+  {children}
+  </div>
+  )
 };
 
