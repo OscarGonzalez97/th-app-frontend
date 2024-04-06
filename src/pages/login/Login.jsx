@@ -60,13 +60,14 @@ export default function Login() {
         localStorage.setItem('token', response.data.accessToken);
        
         
-        setTimeout(() => {
-          localStorage.removeItem('token');
-      }, 10000);
+      //   setTimeout(() => {
+      //     localStorage.removeItem('token');
+      // }, 10000);
 
 
         dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        
         navigate('/'); //se va a la pag de inicio 
+      
       } else {
         setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
