@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-
+import NavBar from "../Navbar";
 
 export const Layout = ({ children }) => {
   const dispatch = useDispatch();
