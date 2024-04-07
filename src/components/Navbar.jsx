@@ -28,7 +28,9 @@ const NavBar = () => {
           </Navbar.Brand>
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
           <Navbar.Collapse id="basic-navbar-nav">
+
             <Nav className="ml-auto">
 
               <NavDropdown title="Convocatorias"
@@ -43,7 +45,7 @@ const NavBar = () => {
               </NavDropdown>
 
 
-            
+
 
               <NavDropdown title="Postulante"
                 id="post-dropdown">
@@ -58,21 +60,21 @@ const NavBar = () => {
                   <h6 className="m-0">Salir</h6>
                 </div>
               </Nav.Link>
+
             </Nav>
           </Navbar.Collapse>
-
-          <NavDropdown className='d-none d-sm-block' align={{ lg: 'end' }} title={<FontAwesomeIcon icon={faGear} style={{ fontSize: '24px', marginRight: '5px' }} />} id="beneficios-dropdown">
-            <NavDropdown.Item as={Link} to="/beneficios">Beneficios</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/tecnologia">Tecnologias</NavDropdown.Item>
-            {/* <NavDropdown.Item as={Link} to="/beneficios/listar">Listar</NavDropdown.Item> */}
-            <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseñas</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/usuario">Usuarios permitidos</NavDropdown.Item>
-          </NavDropdown>
-          {/*  */}
-          <Nav.Link className='d-none d-sm-block' as={Link}
-            to="/login">
-            <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
-          </Nav.Link>
+          <Nav>
+            <NavDropdown className='d-none d-sm-block' align={{ lg: 'end' }} title={<FontAwesomeIcon icon={faGear} style={{ fontSize: '24px', marginRight: '5px' }} />} id="beneficios-dropdown">
+              <NavDropdown.Item as={Link} to="/tecnologia">Tecnologias</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseñas</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/usuario">Usuarios permitidos</NavDropdown.Item>
+            </NavDropdown>
+            {/*  */}
+            <Nav.Link className='d-none d-sm-block' as={Link}
+              to="/login">
+              <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
+            </Nav.Link>
+          </Nav>
         </Container>
       </Navbar>
 
