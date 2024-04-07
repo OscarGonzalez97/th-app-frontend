@@ -1,7 +1,7 @@
 import { Navbar, Nav, Container, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import LogoImage from "../imagenes/logo.png"
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faGbp, faGear, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const NavBar = () => {
@@ -62,44 +62,30 @@ const NavBar = () => {
                 </NavDropdown.Item>
               </NavDropdown>
 
-
-              <NavDropdown title="Beneficios"
-                id="beneficios-dropdown">
-                <NavDropdown.Item as={Link}
-                  to="/beneficios">Agregar
-                </NavDropdown.Item>
-
-                <NavDropdown.Item as={Link}
-                  to="/beneficios/listar">Listar
-                </NavDropdown.Item>
-              </NavDropdown>
-
-
-              <NavDropdown title="Usuarios permitidos"
-                id="usuario-dropdown">
-                <NavDropdown.Item as={Link}
-                  to="/usuario">Agregar
-                </NavDropdown.Item>
-
-                <NavDropdown.Item as={Link}
-                  to="/usuarios/listar">Listar
-                </NavDropdown.Item>
-              </NavDropdown>
-
-
-              <Nav.Link as={Link}
-                to="/cambiarcontraseña">Restablecer Contraseña
-              </Nav.Link>
-
-
-              <Nav.Link as={Link}
-                to="/login">
-                <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
+              <Nav.Link className='d-lg-none d-lg-block align-items-center' as={Link} to="/login">
+                <div className='d-flex gap-1 h6  align-items-center'>
+                  <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
+                  <h6 className="m-0">Salir</h6>
+                </div>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
+
+          <NavDropdown className='d-none d-sm-block' align={{ lg: 'end' }} title={<FontAwesomeIcon icon={faGear} style={{ fontSize: '24px', marginRight: '5px' }} />} id="beneficios-dropdown">
+            <NavDropdown.Item as={Link} to="/beneficios">Beneficios</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/tecnologia">Tecnologias</NavDropdown.Item>
+            {/* <NavDropdown.Item as={Link} to="/beneficios/listar">Listar</NavDropdown.Item> */}
+            <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseñas</NavDropdown.Item>
+          </NavDropdown>
+
+          <Nav.Link className='d-none d-sm-block' as={Link}
+            to="/login">
+            <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
+          </Nav.Link>
         </Container>
       </Navbar>
+
+
     </>
   );
 };
