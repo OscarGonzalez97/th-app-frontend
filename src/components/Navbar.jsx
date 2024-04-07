@@ -43,17 +43,7 @@ const NavBar = () => {
               </NavDropdown>
 
 
-              <NavDropdown title="Tecnologías"
-                id="tec-dropdown">
-                <NavDropdown.Item as={Link}
-                  to="/tecnologia">Agregar
-                </NavDropdown.Item>
-
-                <NavDropdown.Item as={Link}
-                  to="/tecnologia/listar">Listar
-                </NavDropdown.Item>
-              </NavDropdown>
-
+            
 
               <NavDropdown title="Postulante"
                 id="post-dropdown">
@@ -76,8 +66,9 @@ const NavBar = () => {
             <NavDropdown.Item as={Link} to="/tecnologia">Tecnologias</NavDropdown.Item>
             {/* <NavDropdown.Item as={Link} to="/beneficios/listar">Listar</NavDropdown.Item> */}
             <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseñas</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/usuario">Usuarios permitidos</NavDropdown.Item>
           </NavDropdown>
-
+          {/*  */}
           <Nav.Link className='d-none d-sm-block' as={Link}
             to="/login">
             <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
