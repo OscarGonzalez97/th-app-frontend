@@ -11,6 +11,7 @@ const Tecnologia = () => {
   const token = useSelector(state => state.token);
   const [selectedState, setSelectedState] = useState("");
   const [estados, setEstados] = useState([]);
+  const [errors, setErrors] = useState({});
   const [postulantes, setPostulantes] = useState(null);
 
 
@@ -63,6 +64,19 @@ const Tecnologia = () => {
     fetchData();
   }, []);
 
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@roshka\.com$/i;
+    return regex.test(email);
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!nombre.trim()) {
+      newErrors['nombre'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
   return (
     <>
     <Layout>
@@ -82,6 +96,7 @@ const Tecnologia = () => {
                   value={nombre}
                   onChange={(e) => setNombre(e.target.value)}
                 />
+                  {errors['nombre'] && <span className="error-message" style={{ color: 'red' }}>{errors['nombre']}</span>}
                 <div className="d-grid mt-3">
                   <button type="submit" className="btn btn-success">Guardar</button>
                 </div>
@@ -96,16 +111,18 @@ const Tecnologia = () => {
                <span key={tec.id_tecnologia} className='badge bg-secondary me-1 mt-1'>{tec.nombre}</span>
             ))}
             </div>
+
+            {showAlert && (
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+            Se ha guardado correctamente.
+            <button type="button" className="btn-close position-absolute top-6 end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+          </div>
+        )} 
           </div>
 
         </div>
 
-        {/* {showAlert && (
-          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
-            Se ha guardado correctamente.
-            <button type="button" className="btn-close position-absolute top-0 end-0 me-2" aria-label="Close" onClick={handleClose}></button>
-          </div>
-        )} */}
+       
       </div>
     </Layout>
     </>
