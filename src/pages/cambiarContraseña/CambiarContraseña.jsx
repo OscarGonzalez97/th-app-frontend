@@ -62,6 +62,7 @@ const CambiarContraseña = () => {
 
   return (
     <Layout>
+    
       <div className="cambContraseña-container">
         <h2>Restablecer Contraseña</h2>
         
