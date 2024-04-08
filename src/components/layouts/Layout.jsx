@@ -1,19 +1,21 @@
-import NavBar from "../Navbar"
-import { useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+import NavBar from "../Navbar";
 
 export const Layout = ({ children }) => {
-  const token = useSelector(state => state.token);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!token) {
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      dispatch({ type: 'SET_TOKEN', payload: storedToken });
+    } else {
       navigate("/login");
     }
-  }, [token, navigate]);
+  }, [dispatch, navigate]);
 
   return <div className="base">
     <style>{`
@@ -24,4 +26,5 @@ export const Layout = ({ children }) => {
     <NavBar/>
     {children}
   </div>
-}
+};
+
