@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from "react-redux";
 
 function Tablero() {
+    const token = useSelector(state => state.token);
+    
     const [estados, setEstados] = useState([]);
-    const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
     const postulantes = [
         { id: 1, nombre: 'John', apellido: 'Doe', estado_id: 1 },
         { id: 2, nombre: 'Jane', apellido: 'Smith', estado_id: 2 },
@@ -19,31 +21,16 @@ function Tablero() {
 
 
     useEffect(() => {
-        
-        axios.post('http://localhost:8080/thbackend/auth/signin', { usuario: 'tu_usuario', contraseña: 'tu_contraseña' })
-            .then(response => {
-                const token = response.data.token;
-                setAccessToken(token); 
+        if (token) {
+            axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
             })
-            .catch(error => console.error(error));
+                .then(response => setEstados(response.data))
+                .catch(error => console.error(error));
+        }
     }, []);
-    
-
-
-
-
-
-
-
-    useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/estados' , {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`
-            }
-        })
-            .then(response => setEstados(response.data))
-            .catch(error => console.error(error));
-        }, [accessToken]); 
 
     return (
         <div className="tablero">

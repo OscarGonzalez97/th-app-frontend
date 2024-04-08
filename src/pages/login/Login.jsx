@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import CustomAlert from '../../components/login/CustomAlert';
@@ -57,7 +56,8 @@ export default function Login() {
       });
       
       if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
-        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        navigate('/'); //se va a la pag de inicio 
+        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        
+        navigate('/'); //se va a la pag de inicio 
       } else {
         setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
@@ -68,10 +68,9 @@ export default function Login() {
     
   };
 
-  // Función para manejar el registro
   const handleRegistroSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validar que las contraseñas coincidan
     if (contrasenha !== confirmarContrasenha) {
       setErrorContrasenha("Las contraseñas no coinciden. Inténtalo de nuevo");
@@ -79,7 +78,7 @@ export default function Login() {
     } else {
       setErrorContrasenha(""); // Limpiar el error si las contraseñas coinciden
     }
-
+  
     // Validar dominio de correo electrónico
     if (!/^[\w-\.]+@roshka\.com$/.test(correoElectronico.trim())) {
       setRegistroError("Correo electrónico debe ser de dominio @roshka.com");
@@ -87,37 +86,37 @@ export default function Login() {
     } else {
       setRegistroError(""); // Limpiar el error si el correo electrónico es válido
     }
+  
+    try {
+      
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, {
+        nombre,
+        apellido,
+        "email": correoElectronico,
+        "password": contrasenha
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
 
-  // Si las contraseñas coinciden y el correo electrónico es válido, continuamos con el registro
-  try {
-    const response = await fetch("http://localhost:8080/thbackend/auth/signup", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body:({
-        email: correoElectronico,
-        password: contrasenha
-      }),
-    });
 
-    if (response.ok) {
-      setRegistroExitoso(true);
-      setNombre("");
-      setApellido("");
-      setCorreoElectronico("");
-      setContrasenha("");
-      setConfirmarContrasenha("");
-      navigate('/home');
-    } else {
-      const data = await response.json();
-      setRegistroError(data.message || "Error al registrar. Por favor, inténtalo de nuevo.");
+      if (response.status === 201) {
+        setRegistroExitoso(true);
+        setNombre("");
+        setApellido("");
+        setCorreoElectronico("");
+        setContrasenha("");
+        setConfirmarContrasenha("");
+        navigate('/login');
+      } 
+      } catch (error) {
+      console.error('Error al registrar:', error);
+      setRegistroError(error.response.data.mensaje);
     }
-  } catch (error) {
-    console.error('Error al registrar:', error);
-    setRegistroError('Error al registrar. Por favor, inténtalo de nuevo.');
-  }
   };
+  
+
   return (
     <div className='login-base'>
       <div className={`container-login ${isSignUpActive ? 'right-panel-active' : ''}`}>
@@ -127,18 +126,21 @@ export default function Login() {
             onSubmit={handleRegistroSubmit}>
             <h1>Crea tu Cuenta</h1>
             <input type="text"
+              id="nombre"
               className="input-field"
               placeholder="Nombre"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)} />
 
             <input type="text"
-            className="input-field"
-            placeholder="Apellido"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)} />
+              id="apellido"
+              className="input-field"
+              placeholder="Apellido"
+              value={apellido}
+              onChange={(e) => setApellido(e.target.value)} />
 
             <input type="text"
+              id="email_r"
               className="input-field"
               placeholder="Correo Electrónico"
               value={correoElectronico}
@@ -146,6 +148,7 @@ export default function Login() {
             {registroError && <div className="error"
               style={{ color: 'red' }}>{registroError}</div>}
             <input type="password"
+              id="password_r"
               className="input-field"
               placeholder="Contraseña"
               value={contrasenha}

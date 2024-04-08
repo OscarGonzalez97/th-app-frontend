@@ -6,62 +6,115 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
+import { useSelector } from "react-redux";
 
 const PostulanteForm = () => {
+    const token = useSelector(state => state.token);
 
+    // Estudios
     const [showEstudios, setShowEstudios] = useState(false);
     const handleCloseEstudios = () => setShowEstudios(false);
     const handleShowEstudios = () => setShowEstudios(true);
 
+    //Experiencias
     const [showExperiencias, setShowExperiencias] = useState(false);
     const handleCloseExperiencias = () => setShowExperiencias(false);
     const handleShowExperiencias = () => setShowExperiencias(true);
 
+    // Referencia
     const [showReferencias, setShowReferencias] = useState(false);
     const handleCloseReferencias = () => setShowReferencias(false);
     const handleShowReferencias = () => setShowReferencias(true);
 
+    // Ciudades y Tecnología
     const [ciudades, setCiudades] = useState([]);
     const [tecnologias, setTecnologias] = useState([]);
-    const [showTecnologias, setShowTecnologias] = useState(false);
-
-    const [accessToken, setAccessToken] = useState("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0QHJvc2hrYS5jb20iLCJpYXQiOjE3MTIwNzQyNDUsImV4cCI6MTcxMjE2MDY0NX0.rzLxtul0QnoX0-OhyDpA_Zz-uMxIlZ8bkTgA3ZexnC4"); 
 
     useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/ciudades' , {
-
-        headers: {
-            'Authorization': `Bearer ${accessToken}` 
-        }
-    })
-    
+        axios.get(`${import.meta.env.VITE_API_URL}/v1/ciudades`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(response => {
                 setCiudades(response.data);
             })
             .catch(error => {
                 console.error('Error fetching ciudades:', error);
-            }, [accessToken])
+            }, [token])
 
 
-
-
-        axios.get('http://localhost:8080/thbackend/v1/tecnologia' , {
+        axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
             headers: {
-                'Authorization': `Bearer ${accessToken}` 
+                'Authorization': `Bearer ${token}`
             }
         })
-        
             .then(response => {
                 setTecnologias(response.data);
             })
             .catch(error => {
                 console.error('Error fetching tecnologias:', error);
             });
-        }, [accessToken])
+    }, [token])
 
+    const [showTecnologias, setShowTecnologias] = useState(false);
     const handleCloseTecnologias = () => setShowTecnologias(false);
     const handleShowTecnologias = () => setShowTecnologias(true);
+
+
+    // Validación de campos requeridos
+    const [errors, setErrors] = useState({});
+
+    const [formData, setFormData] = useState({
+        nombre: '',
+        apellido: '',
+        email: '',
+        nacionalidad: 'py',
+        tipo_documento: 'ci',
+        nro_documento: '',
+        direccion: '',
+        ciudad: '',
+        fecha_nacimiento: '',
+        telefono: '',
+        nivel_ingles: 'basico',
+        estado_civil: 'soltero',
+        cargar_cv: ''
+    });
+
+    const validateForm = () => {
+        const requiredFields = ['nombre', 'apellido', 'email', 'nro_documento', 'direccion', 'fecha_nacimiento', 'telefono', 'cargar_cv'];
+        const newErrors = {};
+    
+        requiredFields.forEach(field => {
+            if (!formData[field]) {
+                newErrors[field] = 'Este campo es requerido';
+            }
+        });
+    
+        setErrors(newErrors);
+    
+        return Object.keys(newErrors).length === 0;
+    }
+
+    // Post
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            // Aquí puedes enviar el formulario
+            console.log('Formulario válido, enviando...');
+        } else {
+            console.log('Formulario inválido, por favor completa los campos requeridos');
+        }
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
+    }
 
 
     return (
@@ -73,33 +126,46 @@ const PostulanteForm = () => {
                 <img src={imagen} alt="Vacante" className="img-fluid" />
             </div>
 
-
-
             <h4>Datos Personales</h4>
             <h6>Todos los campos con (*) deben estar rellenados</h6>
 
-            <form className="row g-3">
+            <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">
                     <label htmlFor="nombre" className="form-label">Nombre *</label>
                     <input type="text" className="form-control" id="nombre" name="nombre"
-                        placeholder="Ingrese su nombre" />
+                        placeholder="Ingrese su nombre" 
+                        value={formData.nombre}
+                        onChange={handleChange}   
+                    />
+                    {errors.nombre && <div className="text-danger">{errors.nombre}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="apellido" className="form-label">Apellido *</label>
                     <input type="text" className="form-control" id="apellido" name="apellido"
-                        placeholder="Ingrese su apellido" />
+                        placeholder="Ingrese su apellido"
+                        value={formData.apellido}
+                        onChange={handleChange} 
+                    />
+                    {errors.apellido && <div className="text-danger">{errors.apellido}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="email" className="form-label">Email *</label>
                     <input type="email" className="form-control" id="email" name="email"
-                        placeholder="Ingrese su email" />
+                        placeholder="Ingrese su email"
+                        value={formData.email}
+                        onChange={handleChange} 
+                    />
+                    {errors.email && <div className="text-danger">{errors.email}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="nacionalidad" className="form-label">Nacionalidad</label>
-                    <select id="nacionalidad" className="form-select" name="nacionalidad">
+                    <select id="nacionalidad" className="form-select" name="nacionalidad"
+                        value={formData.nacionalidad}
+                        onChange={handleChange}
+                    >
                         <option value="py">Paraguay</option>
                         <option value="ar">Argentina</option>
                         <option value="br">Brasil</option>
@@ -109,7 +175,10 @@ const PostulanteForm = () => {
 
                 <div className="col-md-6">
                     <label htmlFor="tipo_documento" className="form-label">Tipo de documento</label>
-                    <select id="tipo_documento" className="form-select" name="tipo_documento">
+                    <select id="tipo_documento" className="form-select" name="tipo_documento"
+                        value={formData.tipo_documento}
+                        onChange={handleChange}
+                    >
                         <option value="ci">Cédula de Identidad</option>
                         <option value="pass">Pasaporte</option>
                         {/* Agrega más opciones según sea necesario */}
@@ -119,18 +188,29 @@ const PostulanteForm = () => {
                 <div className="col-md-6">
                     <label htmlFor="nro_documento" className="form-label">Número de documento *</label>
                     <input type="text" className="form-control" id="nro_documento" name="nro_documento"
-                        placeholder="Ingrese su número de documento" />
+                        placeholder="Ingrese su número de documento"
+                        value={formData.nro_documento}
+                        onChange={handleChange}
+                    />
+                    {errors.nro_documento && <div className="text-danger">{errors.nro_documento}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="direccion" className="form-label">Dirección *</label>
                     <input type="text" className="form-control" id="direccion" name="direccion"
-                        placeholder="Ingrese su dirección" />
+                        placeholder="Ingrese su dirección"
+                        value={formData.direccion}
+                        onChange={handleChange}
+                    />
+                    {errors.direccion && <div className="text-danger">{errors.direccion}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="ciudad" className="form-label">Ciudad</label>
-                    <select id="ciudad" className="form-select" name="ciudad">
+                    <select className="form-select" id="ciudad" name="ciudad"
+                        value={formData.ciudad}
+                        onChange={handleChange}
+                    >
                         {ciudades.map(ciudad => (
                             <option key={ciudad.id} value={ciudad.id}>{ciudad.nombre}</option>
                         ))}
@@ -139,18 +219,29 @@ const PostulanteForm = () => {
 
                 <div className="col-md-6">
                     <label htmlFor="fecha_nacimiento" className="form-label">Fecha de nacimiento *</label>
-                    <input type="date" className="form-control" id="fecha_nacimiento" name="fecha_nacimiento" />
+                    <input type="date" className="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
+                        value={formData.fecha_nacimiento}
+                        onChange={handleChange}
+                    />
+                    {errors.fecha_nacimiento && <div className="text-danger">{errors.fecha_nacimiento}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="telefono" className="form-label">Teléfono *</label>
                     <input type="text" className="form-control" id="telefono" name="telefono"
-                        placeholder="Ingrese su número de teléfono" />
+                        placeholder="Ingrese su número de teléfono"
+                        value={formData.telefono}
+                        onChange={handleChange}
+                    />
+                    {errors.telefono && <div className="text-danger">{errors.telefono}</div>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="nivel_ingles" className="form-label">Nivel de inglés</label>
-                    <select id="nivel_ingles" className="form-select" name="nivel_ingles">
+                    <select id="nivel_ingles" className="form-select" name="nivel_ingles"
+                        value={formData.nivel_ingles}
+                        onChange={handleChange}
+                    >
                         <option value="basico">Básico</option>
                         <option value="intermedio">Intermedio</option>
                         <option value="avanzado">Avanzado</option>
@@ -160,7 +251,10 @@ const PostulanteForm = () => {
 
                 <div className="col-md-6">
                     <label htmlFor="estado_civil" className="form-label">Estado civil</label>
-                    <select id="estado_civil" className="form-select" name="estado_civil">
+                    <select id="estado_civil" className="form-select" name="estado_civil"
+                        value={formData.estado_civil}
+                        onChange={handleChange}
+                    >
                         <option value="soltero">Soltero/a</option>
                         <option value="casado">Casado/a</option>
                         <option value="divorciado">Divorciado/a</option>
@@ -169,12 +263,16 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-12">
-                    <label htmlFor="cargar_cv" className="form-label">Cargar CV</label>
-                    <input type="file" className="form-control" id="cargar_cv" name="cargar_cv" />
+                    <label htmlFor="cargar_cv" className="form-label">Cargar CV *</label>
+                    <input type="file" className="form-control" id="cargar_cv" name="cargar_cv"
+                        value={formData.cargar_cv}
+                        onChange={handleChange}
+                    />
+                    {errors.cargar_cv && <div className="text-danger">{errors.cargar_cv}</div>}
                 </div>
 
 
-
+                {/* Modal Estudios */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faGraduationCap} /> Estudios</h4>
                     <Button variant="light" size="sm" onClick={handleShowEstudios}>
@@ -233,19 +331,19 @@ const PostulanteForm = () => {
                                         type="date"
                                     />
                                 </Form.Group>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                    Cerrar
+                                </Button>
+                                <Button className="col-md-3" variant="primary" type="submit">
+                                    Agregar
+                                </Button>
                             </Form>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleCloseEstudios}>
-                                Cerrar
-                            </Button>
-                            <Button variant="primary" onClick={handleCloseEstudios}>
-                                Agregar
-                            </Button>
-                        </Modal.Footer>
                     </Modal>
                 </>
 
+
+                {/* Modal Tecnologías */} 
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faCode} /> Tecnologías *</h4>
                     <Button variant="light" size="sm" onClick={handleShowTecnologias}>
@@ -276,16 +374,14 @@ const PostulanteForm = () => {
                                         <option>Avanzado</option>
                                     </Form.Select>
                                 </Form.Group>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                    Cerrar
+                                </Button>
+                                <Button className="col-md-3" variant="primary" type="submit">
+                                    Agregar
+                                </Button>
                             </Form>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleCloseTecnologias}>
-                                Cerrar
-                            </Button>
-                            <Button variant="primary" onClick={handleCloseTecnologias}>
-                                Agregar
-                            </Button>
-                        </Modal.Footer>
                     </Modal>
                 </>
 
@@ -295,6 +391,8 @@ const PostulanteForm = () => {
                         placeholder="Si tienes alguna tecnología que no figura en la sección anterior. Escríbelo aquí." rows="3"></textarea>
                 </div>
 
+
+                {/* Modal Experiencias */} 
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faStar} /> Experiencias</h4>
                     <Button variant="light" size="sm" onClick={handleShowExperiencias}>
@@ -371,20 +469,19 @@ const PostulanteForm = () => {
                                         <option>Pasantia</option>
                                     </Form.Select>
                                 </Form.Group>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                    Cerrar
+                                </Button>
+                                <Button className="col-md-3" variant="primary" type="submit">
+                                    Agregar
+                                </Button>
                             </Form>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleCloseExperiencias}>
-                                Cerrar
-                            </Button>
-                            <Button variant="primary" onClick={handleCloseExperiencias}>
-                                Agregar
-                            </Button>
-                        </Modal.Footer>
                     </Modal>
                 </>
 
 
+                {/* Modal Referencia Personal */} 
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faUser} /> Referencia Personal</h4>
                     <Button variant="light" size="sm" onClick={handleShowReferencias}>
@@ -420,16 +517,14 @@ const PostulanteForm = () => {
                                         placeholder="Ingrese el número de teléfono de su relación"
                                     />
                                 </Form.Group>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                    Cerrar
+                                </Button>
+                                <Button className="col-md-3" variant="primary" type="submit">
+                                    Agregar
+                                </Button>
                             </Form>
                         </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleCloseReferencias}>
-                                Cerrar
-                            </Button>
-                            <Button variant="primary" onClick={handleCloseReferencias}>
-                                Agregar
-                            </Button>
-                        </Modal.Footer>
                     </Modal>
                 </>
 
@@ -438,6 +533,7 @@ const PostulanteForm = () => {
                     <button type="button" className="btn btn-danger me-2">Cancelar</button>
                     <button type="submit" className="btn btn-success">Guardar</button>
                 </div>
+
             </form>
         </div>
     );
