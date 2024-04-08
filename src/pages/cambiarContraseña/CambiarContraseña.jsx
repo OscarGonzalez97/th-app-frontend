@@ -25,7 +25,6 @@ const CambiarContraseña = () => {
       setErrorContraseña("Las contraseñas no coinciden");
       setNuevaContraseña("");
       setConfirmarContraseña("");
-      setContraseñaActual("");
       return;
     } else {
       setErrorContraseña(""); // Limpiar el error si las contraseñas coinciden
@@ -47,6 +46,10 @@ const CambiarContraseña = () => {
       if (response.status === 200) {
         setEnvioExitoso(true); // Indicar que el envío fue exitoso
         setErrorContraseña("");
+        setRegistroError("");
+        setNuevaContraseña("");
+        setConfirmarContraseña("");
+        setContraseñaActual("");
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
