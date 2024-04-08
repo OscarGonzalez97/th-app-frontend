@@ -12,7 +12,6 @@ const NavBar = () => {
 
   const removeToken = () => {
     localStorage.removeItem('token');
-   
   }
 
   return (
@@ -79,7 +78,9 @@ const NavBar = () => {
                 <NavDropdown.Item as={Link} to="/usuario">Usuarios permitidos</NavDropdown.Item>
               </NavDropdown>
 
-              <Nav.Link className='d-lg-none d-lg-block align-items-center' as={Link} to="/login">
+              <Nav.Link className='d-lg-none d-lg-block align-items-center' as={Link}
+                  onClick={removeToken}
+               to="/login">
                 <div className='d-flex gap-1 h6  align-items-center'>
                   <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
                   <h6 className="m-0">Salir</h6>

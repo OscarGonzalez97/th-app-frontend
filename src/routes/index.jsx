@@ -14,7 +14,6 @@ import Beneficios from '../pages/beneficios/Beneficios';
 import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
 import PaginaNoEncontrada from '../pages/pagNoEncontrada/PaginaNoEncontrada';
-import ListarPostulante from '../pages/postulante/ListarPostulante';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
 
 

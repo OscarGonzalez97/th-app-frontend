@@ -41,6 +41,7 @@ const Usuario = () => {
       console.error('Error al enviar el pedido POST:', error);
     }
   };
+};
 
   const fetchData = async () => {
     if (token) {
@@ -123,6 +124,7 @@ const Usuario = () => {
       </div>
     </Layout>
   );
+
 };
 
 export default Usuario
