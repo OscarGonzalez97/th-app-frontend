@@ -4,7 +4,7 @@ import Login from "../pages/login/Login"
 import Convocatoria from '../pages/convocatoria/Convocatoria'
 import Tecnologia from '../pages/tecnologia/Tecnologia'
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
-import PostulanteForm from '../pages/Postulante/PostulanteForm';
+import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
 import RecuperarContrasenha from '../pages/login/RecuperarContrasenha';
@@ -12,7 +12,7 @@ import Usuario from '../pages/usuario/Usuario';
 import Beneficios from '../pages/beneficios/Beneficios';
 import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
-import ListarPostulante from '../pages/Postulante/ListarPostulante';
+import ListarPostulante from '../pages/postulante/ListarPostulante';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
 
 

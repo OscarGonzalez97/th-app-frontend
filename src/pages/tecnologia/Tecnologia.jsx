@@ -26,7 +26,6 @@ const Tecnologia = () => {
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/tecnologia/agregar`, {
         nombre: nombre 
-        nombre: nombre 
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
