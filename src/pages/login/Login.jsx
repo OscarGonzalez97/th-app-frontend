@@ -19,9 +19,7 @@ export default function Login() {
   const [apellido, setApellido] = useState("");
   const [correoElectronico, setCorreoElectronico] = useState("");
   const [contrasenha, setContrasenha] = useState("");
-  const [confirmarContrasenha, setConfirmarContrasenha] = useState("");
   const [registroError, setRegistroError] = useState(null);
-  const [errorContrasenha, setErrorContrasenha] = useState("");
 
   //Estado para validar si el registro fue exitoso
   const[registroExitoso, setRegistroExitoso] = useState (false);
@@ -46,6 +44,7 @@ export default function Login() {
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     try {
+      localStorage.removeItem('token');
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signin`, {
         email,
         password
@@ -55,9 +54,10 @@ export default function Login() {
         }
       });
       
-      if (response.status === 200) { //si la respuesta es exitosa (cód de estado 200)
-        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });//guardamos el token en Redux        
-        navigate('/'); //se va a la pag de inicio 
+      if (response.status === 200) {
+        dispatch({ type: 'SET_TOKEN', payload: response.data.accessToken });
+        localStorage.setItem('token', response.data.accessToken); // Store token in localStorage
+        navigate('/');
       } else {
         setError(response.data.message || "Error al iniciar sesión. Por favor, inténtalo de nuevo.");
       }
@@ -70,15 +70,7 @@ export default function Login() {
 
   const handleRegistroSubmit = async (e) => {
     e.preventDefault();
-  
-    // Validar que las contraseñas coincidan
-    if (contrasenha !== confirmarContrasenha) {
-      setErrorContrasenha("Las contraseñas no coinciden. Inténtalo de nuevo");
-      return;
-    } else {
-      setErrorContrasenha(""); // Limpiar el error si las contraseñas coinciden
-    }
-  
+
     // Validar dominio de correo electrónico
     if (!/^[\w-\.]+@roshka\.com$/.test(correoElectronico.trim())) {
       setRegistroError("Correo electrónico debe ser de dominio @roshka.com");
@@ -147,19 +139,14 @@ export default function Login() {
               onChange={(e) => setCorreoElectronico(e.target.value)} />
             {registroError && <div className="error"
               style={{ color: 'red' }}>{registroError}</div>}
+              
             <input type="password"
               id="password_r"
               className="input-field"
               placeholder="Contraseña"
               value={contrasenha}
               onChange={(e) => setContrasenha(e.target.value)} />
-            <input type="password"
-              className="input-field"
-              placeholder="Confirmar Contraseña"
-              value={confirmarContrasenha}
-              onChange={(e) => setConfirmarContrasenha(e.target.value)} />
-            {errorContrasenha && <div className="error"
-              style={{ color: 'red' }}>{errorContrasenha}</div>}
+           
 
             <button type="submit"
               className="button registrar-button ">Registrarse</button>

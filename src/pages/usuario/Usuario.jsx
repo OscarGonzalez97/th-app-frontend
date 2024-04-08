@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 
 const Usuario = () => {
-
+  const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const token = useSelector(state => state.token);
@@ -15,6 +15,8 @@ const Usuario = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (validateForm()) {
+
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/allowedUsers`, {
@@ -34,6 +36,9 @@ email: email
     } catch (error) {
       console.error('Error al enviar el pedido POST:', error);
     }
+  } else {
+    console.log('Formulario inválido, por favor completa los campos requeridos');
+  }
   };
 
 
@@ -42,6 +47,14 @@ email: email
     setShowAlert(false);
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    if (!email) {
+      newErrors['email'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
 
   return (
@@ -58,6 +71,7 @@ email: email
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                       />
+                       {errors['email'] && <span className="error-message" style={{ color: 'red' }}>{errors['email']}</span>}
                 </div>
 
                 <div className="col-12 d-flex justify-content-end">

@@ -4,8 +4,8 @@
     top: -320px; /* Ajusta el valor según sea necesario para mover el alerta hacia arriba */
   }  
 
-  .alert-heading-custom {
-    font-size: 15px;
+  .alert-heading-custom{
+    font-size: 15px !important;
   }
 
   .login-custom-alert-container .custom-alert {
