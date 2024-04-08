@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-
 import { Layout } from "../../components/layouts/Layout"
 import './Tecnologia.css';
 import axios from "axios";
-import Alert from 'react-bootstrap/Alert';
 import { useSelector } from "react-redux";
 
 
@@ -37,6 +35,13 @@ nombre: nombre
   };
 
 
+
+  const handleClose = () => {
+    setShowAlert(false);
+  };
+
+
+
   return (
 
     <Layout>
@@ -62,9 +67,10 @@ nombre: nombre
 
 
             {showAlert && (
-          <Alert variant="success" >
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
             Se ha guardado correctamente.
-          </Alert>
+            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+          </div>
         )}
 
 
