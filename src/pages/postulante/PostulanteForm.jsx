@@ -12,26 +12,24 @@ const PostulanteForm = () => {
     const token = useSelector(state => state.token);
 
     // Datos del Postulante
-    const [nombre, setNombre] = useState([]);
-    const [apellido, setApellido] = useState([]);
-    const [correo, setCorreo] = useState([]);
-    const [nacionalidad, setNacionalidad] = useState([]);
-    const [tipo_documento, setTipoDocumento] = useState([]);
-    const [nro_documento, setNroDocumento] = useState([]);
-    const [direccion, setDireccion] = useState([]);
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [correo, setCorreo] = useState('');
+    const [tipo_documento, setTipoDocumento] = useState("");
+    const [nro_documento, setNroDocumento] = useState('');
+    const [direccion, setDireccion] = useState('');
     const [ciudad, setCiudad] = useState([]);
-    const [fecha_nacimiento, setFechaNacimiento] = useState([]);
-    const [nro_telefono, setNroTelefono] = useState([]);
-    const [nivel_ingles, setNivelIngles] = useState([]);
-    const [estado_civil, setEstadoCivil] = useState([]);
-    const [estado, setEstado] = useState([]);
+    const [fecha_nacimiento, setFechaNacimiento] = useState('');
+    const [nro_telefono, setNroTelefono] = useState('');
+    const [nivel_ingles, setNivelIngles] = useState("");
+    const [estado, setEstado] = useState('');
 
-    const [files, setFiles] = useState([]);
+    const [files, setFiles] = useState(null);
 
-    const [comentario_rrhh, setComentarioRRHH] = useState([]);
-    const [fecha_actualizacion, setFechaActualizacion] = useState([]);
-    const [fecha_creacion, setFechaCreacion] = useState([]);
-    const [fecha_contratado, setFechaContratado] = useState([]);
+    const [comentario_rrhh, setComentarioRRHH] = useState('');
+    const [fecha_actualizacion, setFechaActualizacion] = useState('');
+    const [fecha_creacion, setFechaCreacion] = useState('');
+    const [fecha_contratado, setFechaContratado] = useState('');
 
 
     // Estudios
@@ -40,11 +38,12 @@ const PostulanteForm = () => {
     const handleCloseEstudios = () => setShowEstudios(false);
     const handleShowEstudios = () => setShowEstudios(true);
     const [estado_estudios, setEstadoEstudios] = useState([]);
-    const [fecha_inicio, setFechaInicio] = useState([]);
-    const [fecha_fin, setFechaFin] = useState([]);
-    const [descripcion_estudios, setDescripcionEstudios] = useState([]);
+    const [fecha_inicio, setFechaInicio] = useState('');
+    const [fecha_fin, setFechaFin] = useState('');
+    const [descripcion_estudios, setDescripcionEstudios] = useState('');
     const [tipo_estudio, setTipoEstudio] = useState([]);
-    const [institucion, setInstitucion] = useState([]);
+    const [institucion, setInstitucion] = useState('');
+    const [ciudadSeleccionada, setCiudadSeleccionada] = useState('');
 
 
     // Tecnologías
@@ -59,13 +58,13 @@ const PostulanteForm = () => {
     const [showExperiencias, setShowExperiencias] = useState(false);
     const handleCloseExperiencias = () => setShowExperiencias(false);
     const handleShowExperiencias = () => setShowExperiencias(true);
-    const [cargo, setCargo] = useState([]);
-    const [descripcion, setDescripcion] = useState([]);
-    const [fecha_desde, setFechaDesde] = useState([]);
-    const [fecha_hasta, setFechaHasta] = useState([]);
-    const [empresa, setEmpresa] = useState([]);
-    const [nombre_referencia, setNombreReferencia] = useState([]);
-    const [telefono_referencia, setTelefonoReferencia] = useState([]);
+    const [cargo, setCargo] = useState('');
+    const [descripcion, setDescripcion] = useState('');
+    const [fecha_desde, setFechaDesde] = useState('');
+    const [fecha_hasta, setFechaHasta] = useState('');
+    const [empresa, setEmpresa] = useState('');
+    const [nombre_referencia, setNombreReferencia] = useState('');
+    const [telefono_referencia, setTelefonoReferencia] = useState('');
     const [tipo_experiencia, setTipoExperiencia] = useState([]);
 
 
@@ -74,15 +73,16 @@ const PostulanteForm = () => {
     const [showReferencias, setShowReferencias] = useState(false);
     const handleCloseReferencias = () => setShowReferencias(false);
     const handleShowReferencias = () => setShowReferencias(true);
-    const [nombre_ref, setNombreRef] = useState([]);
-    const [relacion, setRelacion] = useState([]);
-    const [telefono, setTelefono] = useState([]);
+    const [nombre_ref, setNombreRef] = useState('');
+    const [relacion, setRelacion] = useState('');
+    const [telefono, setTelefono] = useState('');
 
 
     // Convocatorias
     const [convocatorias, setConvocatorias] = useState(null);
 
     const [showAlert, setShowAlert] = useState(false);
+    const [errors, setErrors] = useState({});
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/v1/ciudades`, {
@@ -122,7 +122,7 @@ const PostulanteForm = () => {
                 console.error('Error fetching convocatorias:', error);
             });
 
-    }, [token])
+    }, [])
 
     const handleTecnologiaChange = (e) => {
         const inputsArray = Array.from(e.target.selectedOptions);
@@ -130,49 +130,14 @@ const PostulanteForm = () => {
         setTecnologiasAsignadas(valoresArray);
     };
 
-    // Validación de campos requeridos
-    const [errors, setErrors] = useState({});
-
-    const [formData, setFormData] = useState({
-        nombre: '',
-        apellido: '',
-        email: '',
-        nacionalidad: 'py',
-        tipo_documento: 'ci',
-        nro_documento: '',
-        direccion: '',
-        ciudad: '',
-        fecha_nacimiento: '',
-        telefono: '',
-        nivel_ingles: 'basico',
-        estado_civil: 'soltero',
-        cargar_cv: ''
-    });
-
-    const validateForm = () => {
-        const requiredFields = ['nombre', 'apellido', 'correo', 'nro_documento', 'direccion', 'fecha_nacimiento', 'nro_telefono', 'files'];
-        const newErrors = {};
-
-        requiredFields.forEach(field => {
-            if (!formData[field]) {
-                newErrors[field] = 'Este campo es requerido';
-            }
-        });
-
-        setErrors(newErrors);
-
-        return Object.keys(newErrors).length === 0;
-    }
-
-    // Post
     const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (validateForm()) {
 
             try {
-                const formDatos = new FormData();
-                formDatos.append('postulante_info', JSON.stringify({
+                const formData = new FormData();
+                formData.append('postulante_info', JSON.stringify({
                     nombre: nombre,
                     apellido: apellido,
                     nro_documento: nro_documento,
@@ -180,42 +145,20 @@ const PostulanteForm = () => {
                     correo: correo,
                     direccion: direccion,
                     nro_telefono: nro_telefono,
-                    nacionalidad: nacionalidad,
-                    estado_civil: estado_civil,
                     fecha_nacimiento: fecha_nacimiento,
                     nivel_ingles: nivel_ingles,
-                    ciudad: ciudad,
-                    estado: estado,
+                    id_ciudad: ciudadSeleccionada,
+                    id_estado: "1",
                 }));
-                formDatos.append('files', files);
-                formDatos.append('experiencias', JSON.stringify({
-                    cargo: cargo,
-                    descripcion: descripcion,
-                    fecha_desde: fecha_desde,
-                    fecha_hasta: fecha_hasta,
-                    empresa: empresa,
-                    nombre_referencia: nombre_referencia,
-                    telefono_referencia: telefono_referencia,
-                    tipo_experiencia: tipo_experiencia,
-                }));
-                formDatos.append('estudios', JSON.stringify({
-                    estado_estudios: estado_estudios,
-                    fecha_inicio: fecha_inicio,
-                    fecha_fin: fecha_fin,
-                    descripcion_estudios: descripcion_estudios,
-                    tipo_estudio: tipo_estudio,
-                    institucion: institucion,
-                }));
-                formDatos.append('tecnologias_id', JSON.stringify(tecnologiasasignadas));
-                formDatos.append('referencias_personales', JSON.stringify({
-                    nombre_ref: nombre_ref,
-                    relacion: relacion,
-                    telefono: telefono,
-                }));
+                formData.append('files', files);
+                formData.append('convocatoria_id', "2");
+                formData.append('experiencias', "");
+                formData.append('estudios', "");
+                formData.append('tecnologias_id', "[]");
+                formData.append('referencias_personales', "");
 
-                const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante`, formDatos, {
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante`, formData, {
                     headers: {
-                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
                     }
                 });
@@ -226,16 +169,14 @@ const PostulanteForm = () => {
                 setNombre('');
                 setApellido('');
                 setNroDocumento('');
-                setTipoDocumento('');
+                setTipoDocumento("");
                 setNroDocumento('');
                 setCorreo('');
                 setDireccion('');
                 setNroTelefono('');
-                setNacionalidad('');
-                setEstadoCivil('');
                 setFechaNacimiento('');
-                setNivelIngles('');
-                setCiudad('');
+                setNivelIngles([]);
+                setCiudad([]);
                 setEstado('');
 
                 setFiles(null);
@@ -272,17 +213,37 @@ const PostulanteForm = () => {
         }
     }
 
+
     const handleClose = () => {
         setShowAlert(false);
     };
 
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData({
-            ...formData,
-            [name]: value
-        });
-    }
+    const validateForm = () => {
+        const newErrors = {};
+        if (!nombre) {
+            newErrors['nombre'] = 'Este campo es requerido';
+        }
+        if (!apellido) {
+            newErrors['apellido'] = 'Este campo es requerido';
+        }
+        if (!correo) {
+            newErrors['correo'] = 'Este campo es requerido';
+        }
+        if (!nro_documento) {
+            newErrors['nro_documento'] = 'Este campo es requerido';
+        }
+        if (!direccion) {
+            newErrors['direccion'] = 'Este campo es requerido';
+        }
+        if (!fecha_nacimiento) {
+            newErrors['fecha_nacimiento'] = 'Este campo es requerido';
+        }
+        if (!nro_telefono) {
+            newErrors['nro_telefono'] = 'Este campo es requerido';
+        }
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
 
 
     return (
@@ -309,53 +270,42 @@ const PostulanteForm = () => {
                     <label htmlFor="nombre" className="form-label">Nombre *</label>
                     <input type="text" className="form-control" id="nombre" name="nombre"
                         placeholder="Ingrese su nombre"
-                        value={formData.nombre}
-                        onChange={handleChange}
+                        value={nombre}
+                        onChange={(e) => setNombre(e.target.value)}
                     />
-                    {errors.nombre && <div className="text-danger">{errors.nombre}</div>}
+                    {errors['nombre'] && <span className="error-message" style={{ color: 'red' }}>{errors['nombre']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="apellido" className="form-label">Apellido *</label>
                     <input type="text" className="form-control" id="apellido" name="apellido"
                         placeholder="Ingrese su apellido"
-                        value={formData.apellido}
-                        onChange={handleChange}
+                        value={apellido}
+                        onChange={(e) => setApellido(e.target.value)}
                     />
-                    {errors.apellido && <div className="text-danger">{errors.apellido}</div>}
+                    {errors['apellido'] && <span className="error-message" style={{ color: 'red' }}>{errors['apellido']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="correo" className="form-label">Correo *</label>
                     <input type="correo" className="form-control" id="correo" name="correo"
                         placeholder="Ingrese su correo"
-                        value={formData.correo}
-                        onChange={handleChange}
+                        value={correo}
+                        onChange={(e) => setCorreo(e.target.value)}
                     />
-                    {errors.correo && <div className="text-danger">{errors.correo}</div>}
-                </div>
-
-                <div className="col-md-6">
-                    <label htmlFor="nacionalidad" className="form-label">Nacionalidad</label>
-                    <select id="nacionalidad" className="form-select" name="nacionalidad"
-                        value={formData.nacionalidad}
-                        onChange={handleChange}
-                    >
-                        <option value="py">Paraguay</option>
-                        <option value="ar">Argentina</option>
-                        <option value="br">Brasil</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                    {errors['correo'] && <span className="error-message" style={{ color: 'red' }}>{errors['correo']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="tipo_documento" className="form-label">Tipo de documento</label>
                     <select id="tipo_documento" className="form-select" name="tipo_documento"
-                        value={formData.tipo_documento}
-                        onChange={handleChange}
+                        value={tipo_documento}
+                        onChange={(e) => {
+                            setTipoDocumento(e.target.value)
+                        }}
                     >
                         <option value="ci">Cédula de Identidad</option>
-                        <option value="pass">Pasaporte</option>
+                        <option value="pass ">Pasaporte</option>
                         {/* Agrega más opciones según sea necesario */}
                     </select>
                 </div>
@@ -364,27 +314,27 @@ const PostulanteForm = () => {
                     <label htmlFor="nro_documento" className="form-label">Número de documento *</label>
                     <input type="text" className="form-control" id="nro_documento" name="nro_documento"
                         placeholder="Ingrese su número de documento"
-                        value={formData.nro_documento}
-                        onChange={handleChange}
+                        value={nro_documento}
+                        onChange={(e) => setNroDocumento(e.target.value)}
                     />
-                    {errors.nro_documento && <div className="text-danger">{errors.nro_documento}</div>}
+                    {errors['nro_documento'] && <span className="error-message" style={{ color: 'red' }}>{errors['nro_documento']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="direccion" className="form-label">Dirección *</label>
                     <input type="text" className="form-control" id="direccion" name="direccion"
                         placeholder="Ingrese su dirección"
-                        value={formData.direccion}
-                        onChange={handleChange}
+                        value={direccion}
+                        onChange={(e) => setDireccion(e.target.value)}
                     />
-                    {errors.direccion && <div className="text-danger">{errors.direccion}</div>}
+                    {errors['direccion'] && <span className="error-message" style={{ color: 'red' }}>{errors['direccion']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="ciudad" className="form-label">Ciudad</label>
                     <select className="form-select" id="ciudad" name="ciudad"
-                        value={formData.ciudad}
-                        onChange={handleChange}
+                        value={ciudadSeleccionada}
+                        onChange={(e) => setCiudadSeleccionada(e.target.value)}
                     >
                         {ciudad.map(ciudad => (
                             <option key={ciudad.id_ciudad} value={ciudad.id_ciudad}>{ciudad.nombre}</option>
@@ -395,44 +345,31 @@ const PostulanteForm = () => {
                 <div className="col-md-6">
                     <label htmlFor="fecha_nacimiento" className="form-label">Fecha de nacimiento *</label>
                     <input type="date" className="form-control" id="fecha_nacimiento" name="fecha_nacimiento"
-                        value={formData.fecha_nacimiento}
-                        onChange={handleChange}
+                        value={fecha_nacimiento}
+                        onChange={(e) => setFechaNacimiento(e.target.value)}
                     />
-                    {errors.fecha_nacimiento && <div className="text-danger">{errors.fecha_nacimiento}</div>}
+                    {errors['fecha_nacimiento'] && <span className="error-message" style={{ color: 'red' }}>{errors['fecha_nacimiento']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="nro_telefono" className="form-label">Teléfono *</label>
                     <input type="text" className="form-control" id="nro_telefono" name="nro_telefono"
                         placeholder="Ingrese su número de teléfono"
-                        value={formData.nro_telefono}
-                        onChange={handleChange}
+                        value={nro_telefono}
+                        onChange={(e) => setNroTelefono(e.target.value)}
                     />
-                    {errors.nro_telefono && <div className="text-danger">{errors.nro_telefono}</div>}
+                    {errors['nro_telefono'] && <span className="error-message" style={{ color: 'red' }}>{errors['nro_telefono']}</span>}
                 </div>
 
                 <div className="col-md-6">
                     <label htmlFor="nivel_ingles" className="form-label">Nivel de inglés</label>
                     <select id="nivel_ingles" className="form-select" name="nivel_ingles"
-                        value={formData.nivel_ingles}
-                        onChange={handleChange}
+                        value={nivel_ingles}
+                        onChange={(e) => setNivelIngles(e.target.value)}
                     >
-                        <option value="basico">Básico</option>
-                        <option value="intermedio">Intermedio</option>
-                        <option value="avanzado">Avanzado</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
-                </div>
-
-                <div className="col-md-6">
-                    <label htmlFor="estado_civil" className="form-label">Estado civil</label>
-                    <select id="estado_civil" className="form-select" name="estado_civil"
-                        value={formData.estado_civil}
-                        onChange={handleChange}
-                    >
-                        <option value="soltero">Soltero/a</option>
-                        <option value="casado">Casado/a</option>
-                        <option value="divorciado">Divorciado/a</option>
+                        <option value="Básico">Básico</option>
+                        <option value="Intermedio">Intermedio</option>
+                        <option value="Avanzado">Avanzado</option>
                         {/* Agrega más opciones según sea necesario */}
                     </select>
                 </div>
@@ -440,10 +377,10 @@ const PostulanteForm = () => {
                 <div className="col-md-12">
                     <label htmlFor="files" className="form-label">Cargar CV *</label>
                     <input type="file" className="form-control" id="files" name="files"
-                        value={formData.files}
-                        onChange={handleChange}
+                        value={files}
+                        onChange={(e) => setFiles(e.target.value)}
                     />
-                    {errors.files && <div className="text-danger">{errors.files}</div>}
+                    {errors['files'] && <span className="error-message" style={{ color: 'red' }}>{errors['files']}</span>}
                 </div>
 
 
