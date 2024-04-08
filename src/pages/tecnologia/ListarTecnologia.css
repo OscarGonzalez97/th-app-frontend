@@ -1,29 +1,34 @@
-.datatable2{
-    background-color: black;
-    color: 'blue';
-    font-Size: '16px';
-}
-
-.datatable-espaciado{
-    padding-top:20px;
-    margin-top: 20px;
-}
+@import 'primereact/resources/themes/saga-blue/theme.css';
+@import 'primereact/resources/primereact.min.css';
+@import 'primeicons/primeicons.css';
 
 h1{
     margin-bottom: 20px;
 }
 
-.random{
-    margin-top: 20px;
+.listartecnologia{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    margin-top: 2%;
 }
 
-/* Estilos para la tabla */
-.datatable4 .p-datatable-thead > tr > th {
-    background-color: #f2f2f2; /* Color de fondo del encabezado (blanco ligeramente más oscuro) */
-    color: #000; /* Color del texto en el encabezado (negro) */
+
+
+.p-datatable-tbody > tr {
+    border-bottom: 1px solid black; /* Agrega una línea negra entre las filas */
 }
 
-.datatable4 .p-datatable-tbody > tr > td {
-    background-color: white; /* Color de fondo del cuerpo de la tabla (blanco) */
-    color: #000; /* Color del texto en el cuerpo de la tabla (negro) */
+/* Estilos para el DataTable*/
+.p-datatable {
+    font-family: Arial, sans-serif; /* Cambia el tipo de letra */
+    font-size: 16px; /* Cambia el tamaño de letra */
 }
+  
+  /* Estilos para las filas de encabezado (headers) */
+  .p-datatable-thead th {
+    background-color: #007bff; /* Cambia el color de fondo del header */
+    color: #ffffff; /* Cambia el color del texto del header */
+    font-size: 20px !important;
+  }
+

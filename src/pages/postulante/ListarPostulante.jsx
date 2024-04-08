@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
 import { Layout } from "../../components/layouts/Layout"
-
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './ListarPostulante.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Form, Row, Col, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import axios from 'axios';
 
 
@@ -35,12 +33,6 @@ const ListarPostulante = () => {
       });
     }, [accessToken]);
  
-
-
-
-
-
-
   return (
     <Layout>
       <div className="listarPostulantes container">
