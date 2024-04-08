@@ -138,7 +138,9 @@ fetchTecnologias();
                             {tecnologias.map((tecnologia, index) => {
                                 return  <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                             })}
+                            
                         </select>
+                        <span style={{ fontSize: '0.8em', fontStyle: 'italic' }}>Ctrl + click para seleccionar</span>
                     </div>
 
 
