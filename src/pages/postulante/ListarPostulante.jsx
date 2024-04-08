@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-
+import { useState, useEffect } from 'react';
 import { Layout } from "../../components/layouts/Layout"
-
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import './ListarPostulante.css';

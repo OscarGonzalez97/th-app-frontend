@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 import NavBar from "../Navbar";
 
 export const Layout = ({ children }) => {
@@ -16,12 +17,14 @@ export const Layout = ({ children }) => {
     }
   }, [dispatch, navigate]);
 
-  return (
-
-  <div className="base">
-  <NavBar/>
-  {children}
+  return <div className="base">
+    <style>{`
+        .p-column-title{
+            font-size:20px;
+        }
+    `}</style>
+    <NavBar/>
+    {children}
   </div>
-  )
 };
 

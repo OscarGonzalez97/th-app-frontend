@@ -24,7 +24,11 @@ function Tablero() {
                     'Authorization': `Bearer ${token}`
                 }
             })
-                .then(response => setPostulantes(response.data))
+                .then(response => {
+                    if(response.data != "No hay postulantes disponibles en este momento."){
+                        setPostulantes(response.data)
+                    }
+                })
                 .catch(error => console.error(error));
         }
     }, [token]);
@@ -34,7 +38,7 @@ function Tablero() {
             {estados.map(estado => (
                 <div key={estado.id_estado} className="columna">
                     <h2>{estado.estado}</h2>
-                    {postulantes
+                    {postulantes.length !== 0 && postulantes
                         .filter(postulante => postulante.estado.id_estado === estado.id_estado)
                         .map(postulante => (
                             <div key={postulante.id_postulante} className="postulante">
