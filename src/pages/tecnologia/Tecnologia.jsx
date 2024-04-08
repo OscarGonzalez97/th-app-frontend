@@ -12,6 +12,7 @@ import { faArrowRight, faBook, faBookAtlas, faBookBookmark, faBookDead, faBookOp
 const Tecnologia = () => {
   const [nombre, setNombre] = useState('');
   const [showAlert, setShowAlert] = useState(false);
+  const [errors, setErrors] = useState({});
   const token = useSelector(state => state.token);
   const [selectedState, setSelectedState] = useState("");
 
@@ -22,6 +23,7 @@ const Tecnologia = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (validateForm()) {
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/tecnologia/agregar`, {
@@ -39,6 +41,9 @@ const Tecnologia = () => {
     } catch (error) {
       console.error('Error al enviar el pedido POST:', error);
     }
+  } else {
+    console.log('Formulario inválido, por favor completa los campos requeridos');
+  }
   };
 
 
@@ -47,7 +52,14 @@ const Tecnologia = () => {
     setShowAlert(false);
   };
 
-
+  const validateForm = () => {
+    const newErrors = {};
+    if (!nombre) {
+      newErrors['nombre'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   return (
 
@@ -64,6 +76,7 @@ const Tecnologia = () => {
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
                       />
+                       {errors['nombre'] && <span className="error-message" style={{ color: 'red' }}>{errors['nombre']}</span>}
                 </div>
 
                 <div className="col-12 d-flex justify-content-end">
