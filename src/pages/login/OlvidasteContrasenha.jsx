@@ -79,7 +79,7 @@ function OlvidasteContrasenha() {
                           colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
                           />}
       </div>
-      {envioExitoso && <CustomAlert message="Se ha enviado el link de recuperación a su correo electrónico. Si no lo recibió, intente nuevamente." />}
+      {envioExitoso && <CustomAlert message="Se ha enviado el link de recuperación a su correo electrónico. Si no lo recibió, intente nuevamente."/>}
     </div>
   );
 }
