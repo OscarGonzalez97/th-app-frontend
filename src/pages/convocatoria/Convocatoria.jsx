@@ -122,7 +122,7 @@ const Convocatoria = () => {
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <div className="col-md-12">
                         <label htmlFor="title" className="form-label">Título *</label>
-                        <input type="title" className="form-control" id="title" name="title"
+                        <input type="text" className="form-control" id="title" name="title"
                             placeholder="Ingrese el titulo" value={title} onChange={(e) => setTitle(e.target.value)} />
                       {errors['title'] && <span className="error-message"style={{color: 'red'}}>{errors['title']}</span>}
                     </div>
