@@ -72,8 +72,9 @@ const NavBar = () => {
                 id="beneficios-dropdown">
 
                 <NavDropdown.Item as={Link} to="/tecnologia">Tecnologias</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseñas</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseña</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/usuario">Usuarios permitidos</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/estados">Estados</NavDropdown.Item>
               </NavDropdown>
 
               <Nav.Link className='d-lg-none d-lg-block align-items-center' as={Link} to="/login">
@@ -90,8 +91,9 @@ const NavBar = () => {
           <Nav className='d-none d-lg-flex' >
             <NavDropdown className="d-flex flex-row" align={{ lg: 'end' }} title={<FontAwesomeIcon icon={faGear} style={{ fontSize: '24px', marginRight: '5px' }} />} id="beneficios-dropdown">
               <NavDropdown.Item as={Link} to="/tecnologia">Tecnologias</NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseñas</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/cambiarcontraseña">Restablecer Contraseña</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/usuario">Usuarios permitidos</NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/estados">Estados</NavDropdown.Item>
             </NavDropdown>
 
             <Nav.Link className='d-none d-sm-block' as={Link}

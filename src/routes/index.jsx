@@ -3,6 +3,7 @@ import Home from '../pages/home/Home'
 import Login from "../pages/login/Login"
 import Convocatoria from '../pages/convocatoria/Convocatoria'
 import Tecnologia from '../pages/tecnologia/Tecnologia'
+import Estados from '../pages/estados/Estados'
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
@@ -34,7 +35,9 @@ export function Routing() {
         <Route path="/tecnologia"
           element={<Tecnologia/>}>
         </Route>
-
+        <Route path="/estados"
+          element={<Estados/>}>
+        </Route>
         <Route path="/cambiarcontraseña"
           element={<CambiarContraseña/>}>
         </Route>
