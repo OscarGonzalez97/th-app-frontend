@@ -12,6 +12,7 @@ import Beneficios from '../pages/beneficios/Beneficios';
 import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
 import ListarPostulante from '../pages/Postulante/ListarPostulante';
+import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
 
 
 
@@ -56,6 +57,10 @@ export function Routing() {
 
         <Route path="/beneficios/listar"
           element={<ListarBeneficios />}>
+        </Route>
+
+        <Route path="/postulante/:id"
+          element={<PostulanteInfo />}>
         </Route>
 
         {/* rutas que usan Layout */}

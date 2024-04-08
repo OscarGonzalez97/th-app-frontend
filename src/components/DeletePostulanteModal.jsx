@@ -41,7 +41,7 @@ function DeletePostulanteModal({ postulante }) {
           <p className='h6'>Deseas elminar a <span className='h6 fw-bold'>{postulante.nombre} {postulante.apellido}</span>?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleClose}>
             Cancelar
           </Button>
           <Button variant="danger" onClick={handleDelete}>

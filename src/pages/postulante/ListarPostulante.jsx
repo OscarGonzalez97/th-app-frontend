@@ -22,7 +22,7 @@ const ListarPostulante = () => {
 
   const [selectedState, setSelectedState] = useState("");
   const [estados, setEstados] = useState([]);
-  const [postulantes, setPostulantes] = useState([]);
+  const [postulantes, setPostulantes] = useState(null);
   const token = useSelector(state => state.token);
   const navigate = useNavigate();
 
@@ -160,16 +160,11 @@ const ListarPostulante = () => {
 
           <div className="container mt-5">
             <div className='row'>
-
-              {/* <div className="col-4">POSTULANTE</div>
-            <div className="col-3">EMAIL</div>
-            <div className="col">ESTADO</div>
-            <div className="col"></div> */}
             </div>
-            {postulantes && postulantes.map(postulante => (
+            {postulantes ? (
+              postulantes.map(postulante => (
               <div className="row mt-3 border-bottom pb-2 fs" key={postulante.id_postulante}>
-                <div className="col-4 d-flex align-items-center">{postulante.apellido}, {postulante.nombre}</div>
-                <div className="col-4 d-flex align-items-center">{postulante.correo} </div>
+                <div className="col-8 d-flex align-items-center">{postulante.apellido.toUpperCase()}, {postulante.nombre.toUpperCase()}</div>
                 <div className="col d-flex align-items-center">{postulante.estado.estado} </div>
                 <div className='col-1 d-flex justify-content-end gap-3'>
                   <span role='button' onClick={() => navigate(`/postulante/${postulante.id_postulante}`)}>
@@ -181,7 +176,11 @@ const ListarPostulante = () => {
                   <DeletePostulanteModal postulante={postulante} />
                 </div>
               </div>
-            ))}
+            ))
+            )
+            : (
+              <p>Loading ...</p>
+            )}
           </div>
 
 
