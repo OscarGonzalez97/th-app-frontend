@@ -31,7 +31,7 @@ const ListarTecnologia = () => {
             <div className="listartecnologia container">
                 <div className="container-fluid">
                     <h1>Listar tecnologia</h1>
-                    <DataTable value={tecnologias} stripedRows>
+                    <DataTable paginator rows={20} value={tecnologias} stripedRows>
                         <Column field="id_tecnologia" header="#" />
                         <Column field="nombre" header="Tecnologia" />
                     </DataTable>
