@@ -15,6 +15,7 @@ const Convocatoria = () => {
     const [tecnologias, setTecnologias] = useState([]);
     const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [errors, setErrors] = useState({});
     const token = useSelector(state => state.token);
 
 
@@ -48,6 +49,7 @@ fetchTecnologias();
   
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (validateForm()) {
     
         try {
             const formData = new FormData();
@@ -82,15 +84,37 @@ fetchTecnologias();
             setShowAlert(true);
     
         } catch (error) {
-            console.log("aquiasdasd")
+           
             console.error('Error al enviar el pedido POST:', error);
         }
-    };
+    } else {
+        console.log('Formulario inválido, por favor completa los campos requeridos');
+    }
+
+        };
 
   const handleClose = () => {
     setShowAlert(false);
   };
     
+  const validateForm = () => {
+    const newErrors = {};
+    if (!title) {
+        newErrors['title'] = 'Este campo es requerido';
+    }
+    if (!description) {
+        newErrors['description'] = 'Este campo es requerido';
+    }
+    if (!fechaInicio) {
+        newErrors['fechaInicio'] = 'Este campo es requerido';
+    }
+    if (!fechaFin) {
+        newErrors['fechaFin'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+};
+
 
     return (
         <Layout>
@@ -101,6 +125,7 @@ fetchTecnologias();
                         <label htmlFor="title" className="form-label">Título *</label>
                         <input type="title" className="form-control" id="title" name="title"
                             placeholder="Ingrese el titulo" value={title} onChange={(e) => setTitle(e.target.value)} />
+                      {errors['title'] && <span className="error-message"style={{color: 'red'}}>{errors['title']}</span>}
                     </div>
 
                     <div className="col-md-12">
@@ -111,18 +136,21 @@ fetchTecnologias();
                             name="description"
                             rows="4"
                             placeholder="Ingrese la descripción" value={description} onChange={(e) => setDescription(e.target.value)}  ></textarea>
+                            {errors['description'] && <span className="error-message"style={{color: 'red'}}>{errors['description']}</span>}
                     </div>
 
                     <div className="col-md-6">
                         <label htmlFor="fecha_inicio" className="form-label">Fecha de inicio *</label>
                         <input type="date" className="form-control" id="fecha_inicio" name="fecha_inicio"
                             placeholder="Ingrese la fecha" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
+                            {errors['fechaInicio'] && <span className="error-message"style={{color: 'red'}}>{errors['fechaInicio']}</span>}
                     </div>
 
                     <div className="col-md-6">
                         <label htmlFor="fecha_fin" className="form-label">Fecha finalizada*</label>
                         <input type="date" className="form-control" id="fecha_fin" name="fecha_fin"
                             placeholder="Ingrese la fecha" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
+                        {errors['fechaFin'] && <span className="error-message"style={{color: 'red'}}>{errors['fechaFin']}</span>}
                     </div>
 
                    
