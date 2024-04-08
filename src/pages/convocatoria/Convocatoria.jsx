@@ -3,18 +3,14 @@ import { Layout } from "../../components/layouts/Layout"
 import './Convocatoria.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
-import Alert from 'react-bootstrap/Alert';
-
 
 
 const Convocatoria = () => {
    
-
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFin, setFechaFin] = useState('');
-    
     const [file, setFile] = useState(null);
     const [tecnologias, setTecnologias] = useState([]);
     const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
@@ -31,7 +27,7 @@ const Convocatoria = () => {
 const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
                 
             
-setTecnologias(response.data); // Asignas las tecnologías recibidas del backend al estado
+setTecnologias(response.data); 
             } 
    
 catch (error) {
@@ -91,6 +87,9 @@ fetchTecnologias();
         }
     };
 
+  const handleClose = () => {
+    setShowAlert(false);
+  };
     
 
     return (
@@ -134,7 +133,7 @@ fetchTecnologias();
                     </div>
 
                     <div className="col-md-6">
-                        <label className="form-label">Tecnologías</label>
+                        <label className="form-label">Tecnologías*</label>
                         <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
                             {tecnologias.map((tecnologia, index) => {
                                 return  <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
@@ -148,13 +147,14 @@ fetchTecnologias();
                     </div>
                 </form>
 
-
-
+           
                 {showAlert && (
-          <Alert variant="success" >
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
             Se ha guardado correctamente.
-          </Alert>
+            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+          </div>
         )}
+
             </div>
 
         </Layout>

@@ -1,7 +1,6 @@
 import { Layout } from "../../components/layouts/Layout"
 import React, { useEffect ,useState } from 'react';
 import axios from "axios";
-import Alert from 'react-bootstrap/Alert';
 import { useSelector } from "react-redux";
 
 const Beneficios = () => {
@@ -11,10 +10,6 @@ const Beneficios = () => {
   const [descripcion, setDescripcion] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const token = useSelector(state => state.token);
-
-
-
-
 
 
    useEffect(() => {
@@ -47,6 +42,13 @@ descripcion: descripcion
   };
 
 
+  const handleClose = () => {
+    setShowAlert(false);
+  };
+
+
+
+
   return (
     <Layout>
     
@@ -63,7 +65,6 @@ descripcion: descripcion
                       />
                 </div>
 
-                
                 <div className="col-md-12">
                     <label htmlFor="descripcion" className="form-label">Descripción *</label>
                     <textarea 
@@ -83,11 +84,14 @@ descripcion: descripcion
                 </div>
 
             </form>
-       {showAlert && (
-          <Alert variant="success">
+     
+            {showAlert && (
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
             Se ha guardado correctamente.
-          </Alert>
-            )}
+            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+          </div>
+        )}
+
     </div>
    </Layout> 
   );
