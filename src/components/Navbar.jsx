@@ -10,7 +10,10 @@ const NavBar = () => {
 
   const [show, setShow] = useState(false);
 
-
+  const removeToken = () => {
+    localStorage.removeItem('token');
+   
+  }
 
   return (
     <>
@@ -95,6 +98,7 @@ const NavBar = () => {
             </NavDropdown>
 
             <Nav.Link className='d-none d-sm-block' as={Link}
+              onClick={removeToken}
               to="/login">
           <div className='d-flex gap-2 h6  align-items-center'>
                   <FontAwesomeIcon icon={faRightFromBracket} style={{ fontSize: '24px' }} />
