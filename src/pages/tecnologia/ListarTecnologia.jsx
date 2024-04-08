@@ -5,14 +5,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './ListarTecnologia.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import "primereact/resources/themes/lara-light-cyan/theme.css";
+import { useSelector } from "react-redux";
 
 
 const ListarTecnologia = () => {
+    const token = useSelector(state => state.token);
     const [tecnologias, setTecnologias] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/thbackend/v1/tecnologia')
+        axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
             .then(response => {
                 setTecnologias(response.data);
             })
