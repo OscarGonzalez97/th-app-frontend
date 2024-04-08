@@ -19,11 +19,13 @@ const Tecnologia = () => {
   const [estados, setEstados] = useState([]);
   const [postulantes, setPostulantes] = useState(null);
 
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/tecnologia/agregar`, {
+        nombre: nombre 
         nombre: nombre 
       }, {
         headers: {

@@ -1,5 +1,5 @@
 /* Importar fuente */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppin347bc822s:ital,wght@1,300&display=swap");
 
 * {
     box-sizing: border-box;
@@ -14,7 +14,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-      
+    width: 500px; /* Tamaño específico */
+    margin: 0 auto; /* Centrar horizontalmente */
 }
 
 .recuperar-container h4{
@@ -121,6 +122,9 @@ a {
 
 .form-container-login.sign-up-container-login h1 {
     color: rgba(6, 52, 125, 0.95);
+    margin-top: -10px; /* Ajusta según sea necesario */
+    margin-bottom: 10px; 
+
 }
 
 .form-container-login input {
