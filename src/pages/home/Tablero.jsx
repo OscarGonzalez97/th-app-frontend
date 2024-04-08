@@ -9,6 +9,7 @@ function Tablero() {
     const [postulantes, setPostulantes] = useState([]);
 
     useEffect(() => {
+        console.log("token", token);
         if (token) {
             axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
                 headers: {
@@ -26,7 +27,7 @@ function Tablero() {
                 .then(response => setPostulantes(response.data))
                 .catch(error => console.error(error));
         }
-    }, []);
+    }, [token]);
 
     return (
         <div className="tablero">

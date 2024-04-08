@@ -33,22 +33,22 @@ setTecnologias(response.data);
 catch (error) {
                 console.error('Error al obtener las tecnologías:', error);
             }
-        
-        
-            }
-        
-fetchTecnologias();
+
+
+        }
+
+        fetchTecnologias();
     }, []);
-    
+
     const handleTecnologiaChange = (e) => {
         const inputsArray = Array.from(e.target.selectedOptions);
         const valoresArray = inputsArray.map(input => input.value);
         setTecnologiaSeleccionada(valoresArray);
     };
-  
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-    
+
         try {
             const formData = new FormData();
             formData.append('convocatoria_info', JSON.stringify({
@@ -56,23 +56,23 @@ fetchTecnologias();
                 description: description,
                 fecha_inicio: fechaInicio,
                 fecha_fin: fechaFin,
-            
-                
+
+
             }));
             formData.append('file', file);
-            formData.append('convocatorias_tecnologias_ids', JSON.stringify(tecnologiaSeleccionada)); 
-    
+            formData.append('convocatorias_tecnologias_ids', JSON.stringify(tecnologiaSeleccionada));
+
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, formData, {
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data'
                 }
             });
-    
+
             console.log('Respuesta del servidor:', response.data);
             console.log(formData);
-    
-            
+
+
             setTitle('');
             setDescription('');
             setFechaInicio('');
@@ -80,7 +80,7 @@ fetchTecnologias();
             setFile(null);
             setTecnologias([]);
             setShowAlert(true);
-    
+
         } catch (error) {
             console.log("aquiasdasd")
             console.error('Error al enviar el pedido POST:', error);
@@ -125,7 +125,7 @@ fetchTecnologias();
                             placeholder="Ingrese la fecha" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
                     </div>
 
-                   
+
 
                     <div className="col-md-6">
                         <label htmlFor="file" className="form-label">Cargar imagen*</label>
@@ -136,7 +136,7 @@ fetchTecnologias();
                         <label className="form-label">Tecnologías*</label>
                         <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
                             {tecnologias.map((tecnologia, index) => {
-                                return  <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
+                                return <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                             })}
                         </select>
                     </div>
