@@ -63,6 +63,11 @@ export function Routing() {
         <Route path="/beneficios/listar"
           element={<ListarBeneficios />}>
         </Route>
+
+        <Route path="/postulante/:id"
+          element={<PostulanteInfo />}>
+        </Route>
+
         {/* Rutas que usan Layout */}
         <Route path="/" element={<Home />} />
         <Route path="/postulante/listar" element={<ListarPostulante />} />
