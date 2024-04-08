@@ -37,6 +37,7 @@ function OlvidasteContrasenha() {
       setLoading(false); // Establece el estado de carga a false después de recibir la respuesta
       if (response.status === 200) {
         setEnvioExitoso(true);
+        setCorreoElectronico("");
         navigate('/login');
       }
     } catch (error) {
