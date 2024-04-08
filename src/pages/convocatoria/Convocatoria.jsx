@@ -4,22 +4,20 @@ import './Convocatoria.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
 
+
 const Convocatoria = () => {
    
-
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
     const [fechaFin, setFechaFin] = useState('');
-    const [link, setLink] = useState('');
     const [file, setFile] = useState(null);
     const [tecnologias, setTecnologias] = useState([]);
     const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
     const token = useSelector(state => state.token);
 
 
- 
-    
 
     useEffect(() => {
         const fetchTecnologias = async () => {
@@ -29,7 +27,7 @@ const Convocatoria = () => {
 const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
                 
             
-setTecnologias(response.data); // Asignas las tecnologías recibidas del backend al estado
+setTecnologias(response.data); 
             } 
    
 catch (error) {
@@ -58,12 +56,11 @@ fetchTecnologias();
                 description: description,
                 fecha_inicio: fechaInicio,
                 fecha_fin: fechaFin,
-                link: link,
-                convocatorias_tecnologias_ids: tecnologiaSeleccionada
             
-                // Asegúrate de incluir otros campos necesarios aquí
+                
             }));
             formData.append('file', file);
+            formData.append('convocatorias_tecnologias_ids', JSON.stringify(tecnologiaSeleccionada)); 
     
             const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, formData, {
                 headers: {
@@ -75,14 +72,14 @@ fetchTecnologias();
             console.log('Respuesta del servidor:', response.data);
             console.log(formData);
     
-            // Restablecer los campos del formulario después de enviar la solicitud
+            
             setTitle('');
             setDescription('');
             setFechaInicio('');
             setFechaFin('');
-            setLink('');
             setFile(null);
             setTecnologias([]);
+            setShowAlert(true);
     
         } catch (error) {
             console.log("aquiasdasd")
@@ -90,6 +87,9 @@ fetchTecnologias();
         }
     };
 
+  const handleClose = () => {
+    setShowAlert(false);
+  };
     
 
     return (
@@ -125,10 +125,7 @@ fetchTecnologias();
                             placeholder="Ingrese la fecha" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
                     </div>
 
-                    <div className="col-md-6">
-                        <label htmlFor="link" className="form-label">Cargar link*</label>
-                        <input href="link" className="form-control" id="link" name="link" placeholder="Ingrese la url" value={link} onChange={(e) => setLink(e.target.value)} />
-                    </div>
+                   
 
                     <div className="col-md-6">
                         <label htmlFor="file" className="form-label">Cargar imagen*</label>
@@ -136,12 +133,14 @@ fetchTecnologias();
                     </div>
 
                     <div className="col-md-6">
-                        <label className="form-label">Tecnologías</label>
+                        <label className="form-label">Tecnologías*</label>
                         <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
                             {tecnologias.map((tecnologia, index) => {
                                 return  <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                             })}
+                            
                         </select>
+                        <span style={{ fontSize: '0.8em', fontStyle: 'italic' }}>Ctrl + click para seleccionar</span>
                     </div>
 
 
@@ -149,6 +148,15 @@ fetchTecnologias();
                         <button type="submit" className="btn btn-success">Guardar</button>
                     </div>
                 </form>
+
+           
+                {showAlert && (
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+            Se ha guardado correctamente.
+            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+          </div>
+        )}
+
             </div>
 
         </Layout>

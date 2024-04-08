@@ -1,9 +1,7 @@
-import React, { useEffect ,useState } from 'react';
-
+import React, { useState } from 'react';
 import { Layout } from "../../components/layouts/Layout"
 import './Tecnologia.css';
 import axios from "axios";
-import Alert from 'react-bootstrap/Alert';
 import { useSelector } from "react-redux";
 
 
@@ -12,14 +10,6 @@ const Tecnologia = () => {
   const [showAlert, setShowAlert] = useState(false);
   const token = useSelector(state => state.token);
 
-
-
-
-
-
-   useEffect(() => {
-    
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -44,6 +34,11 @@ nombre: nombre
     }
   };
 
+
+
+  const handleClose = () => {
+    setShowAlert(false);
+  };
 
 
 
@@ -72,9 +67,10 @@ nombre: nombre
 
 
             {showAlert && (
-          <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
             Se ha guardado correctamente.
-          </Alert>
+            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+          </div>
         )}
 
 

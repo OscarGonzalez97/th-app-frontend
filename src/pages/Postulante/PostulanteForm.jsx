@@ -30,6 +30,10 @@ const PostulanteForm = () => {
     const [ciudades, setCiudades] = useState([]);
     const [tecnologias, setTecnologias] = useState([]);
 
+    // Convocatorias
+    const [convocatorias, setConvocatorias] = useState(null);
+
+
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/v1/ciudades`, {
             headers: {
@@ -41,7 +45,7 @@ const PostulanteForm = () => {
             })
             .catch(error => {
                 console.error('Error fetching ciudades:', error);
-            }, [token])
+            });
 
 
         axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
@@ -55,6 +59,20 @@ const PostulanteForm = () => {
             .catch(error => {
                 console.error('Error fetching tecnologias:', error);
             });
+
+
+        axios.get(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(response => {
+                setConvocatorias(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching convocatorias:', error);
+            });
+
     }, [token])
 
     const [showTecnologias, setShowTecnologias] = useState(false);
@@ -84,15 +102,15 @@ const PostulanteForm = () => {
     const validateForm = () => {
         const requiredFields = ['nombre', 'apellido', 'email', 'nro_documento', 'direccion', 'fecha_nacimiento', 'telefono', 'cargar_cv'];
         const newErrors = {};
-    
+
         requiredFields.forEach(field => {
             if (!formData[field]) {
                 newErrors[field] = 'Este campo es requerido';
             }
         });
-    
+
         setErrors(newErrors);
-    
+
         return Object.keys(newErrors).length === 0;
     }
 
@@ -119,23 +137,30 @@ const PostulanteForm = () => {
 
     return (
         <div className="postulante-container">
-            <h1>Título</h1>
-            <h2>Descripción</h2>
+            {convocatorias && convocatorias.map(convocatoria => (
+                <div key={convocatoria.id_convocatoria}>
+                    {convocatoria.id_convocatoria === 2 && (
+                        <>
+                            <h1>{convocatoria.title}</h1>
+                            <h2>{convocatoria.description}</h2>
 
-            <div className="d-flex justify-content-center">
-                <img src={imagen} alt="Vacante" className="img-fluid" />
-            </div>
+                            <div className="d-flex justify-content-center">
+                                <img src={convocatoria.file_path} alt="Vacante" className="img-fluid" />
+                            </div>
 
-            <h4>Datos Personales</h4>
-            <h6>Todos los campos con (*) deben estar rellenados</h6>
-
+                            <h4>Datos Personales</h4>
+                            <h6>Todos los campos con (*) deben estar rellenados</h6>
+                        </>
+                    )}
+                </div>
+            ))}
             <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">
                     <label htmlFor="nombre" className="form-label">Nombre *</label>
                     <input type="text" className="form-control" id="nombre" name="nombre"
-                        placeholder="Ingrese su nombre" 
+                        placeholder="Ingrese su nombre"
                         value={formData.nombre}
-                        onChange={handleChange}   
+                        onChange={handleChange}
                     />
                     {errors.nombre && <div className="text-danger">{errors.nombre}</div>}
                 </div>
@@ -145,7 +170,7 @@ const PostulanteForm = () => {
                     <input type="text" className="form-control" id="apellido" name="apellido"
                         placeholder="Ingrese su apellido"
                         value={formData.apellido}
-                        onChange={handleChange} 
+                        onChange={handleChange}
                     />
                     {errors.apellido && <div className="text-danger">{errors.apellido}</div>}
                 </div>
@@ -155,7 +180,7 @@ const PostulanteForm = () => {
                     <input type="email" className="form-control" id="email" name="email"
                         placeholder="Ingrese su email"
                         value={formData.email}
-                        onChange={handleChange} 
+                        onChange={handleChange}
                     />
                     {errors.email && <div className="text-danger">{errors.email}</div>}
                 </div>
@@ -212,7 +237,7 @@ const PostulanteForm = () => {
                         onChange={handleChange}
                     >
                         {ciudades.map(ciudad => (
-                            <option key={ciudad.id} value={ciudad.id}>{ciudad.nombre}</option>
+                            <option key={ciudad.id_ciudad} value={ciudad.id_ciudad}>{ciudad.nombre}</option>
                         ))}
                     </select>
                 </div>
@@ -343,7 +368,7 @@ const PostulanteForm = () => {
                 </>
 
 
-                {/* Modal Tecnologías */} 
+                {/* Modal Tecnologías */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faCode} /> Tecnologías *</h4>
                     <Button variant="light" size="sm" onClick={handleShowTecnologias}>
@@ -362,7 +387,7 @@ const PostulanteForm = () => {
                                     <Form.Label>Tecnología</Form.Label>
                                     <Form.Select>
                                         {tecnologias.map(tecnologia => (
-                                            <option key={tecnologia.id} value={tecnologia.id}>{tecnologia.nombre}</option>
+                                            <option key={tecnologia.id_tecnologia} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                                         ))}
                                     </Form.Select>
                                 </Form.Group>
@@ -374,7 +399,7 @@ const PostulanteForm = () => {
                                         <option>Avanzado</option>
                                     </Form.Select>
                                 </Form.Group>
-                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseTecnologias}>
                                     Cerrar
                                 </Button>
                                 <Button className="col-md-3" variant="primary" type="submit">
@@ -392,7 +417,7 @@ const PostulanteForm = () => {
                 </div>
 
 
-                {/* Modal Experiencias */} 
+                {/* Modal Experiencias */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faStar} /> Experiencias</h4>
                     <Button variant="light" size="sm" onClick={handleShowExperiencias}>
@@ -469,7 +494,7 @@ const PostulanteForm = () => {
                                         <option>Pasantia</option>
                                     </Form.Select>
                                 </Form.Group>
-                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseExperiencias}>
                                     Cerrar
                                 </Button>
                                 <Button className="col-md-3" variant="primary" type="submit">
@@ -481,7 +506,7 @@ const PostulanteForm = () => {
                 </>
 
 
-                {/* Modal Referencia Personal */} 
+                {/* Modal Referencia Personal */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faUser} /> Referencia Personal</h4>
                     <Button variant="light" size="sm" onClick={handleShowReferencias}>
@@ -517,7 +542,7 @@ const PostulanteForm = () => {
                                         placeholder="Ingrese el número de teléfono de su relación"
                                     />
                                 </Form.Group>
-                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
+                                <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseReferencias}>
                                     Cerrar
                                 </Button>
                                 <Button className="col-md-3" variant="primary" type="submit">
