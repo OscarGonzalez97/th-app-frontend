@@ -73,14 +73,22 @@ const Usuario = () => {
     const regex = /^[^\s@]+@roshka\.com$/i;
     return regex.test(email);
   };
-
+   
+  const validateForm = () => {
+    const newErrors = {};
+    if (!email.trim()) {
+      newErrors['email'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0 && isValidEmail;
+  };
 
 
   return (
     <Layout>
       <div className='container'>
         <div className='row'>
-          <div className='col-sm-4 p-5'>
+          <div className='col-sm-5 p-5'>
 
             <div className="tecnologia-container p-5">
               <h2>Correo</h2>
@@ -89,10 +97,11 @@ const Usuario = () => {
                 <div className="col-md-12">
 
                   <input type="text" className="form-control" id="email" name="email"
-                    placeholder="Ingresa el correo"
+                    placeholder="usuario@roshka.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  {errors['email'] && <span className="error-message" style={{ color: 'red' }}>{errors['email']}</span>}
                 </div>
 
                 <div className="col-12 d-flex justify-content-end">
@@ -109,17 +118,19 @@ const Usuario = () => {
             
             ))}
             </div>
+            
+        {showAlert && (
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+          Se ha guardado correctamente.
+            <button type="button" className="btn-close position-absolute top-6  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
           </div>
+        )}
+          </div>
+          
         </div>
 
 
 
-        {showAlert && (
-          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
-            Se ha guardado correctamente.
-            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
-          </div>
-        )}
 
       </div>
     </Layout>
