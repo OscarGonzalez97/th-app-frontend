@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 export const Layout = ({ children }) => {
   const token = useSelector(state => state.token);
