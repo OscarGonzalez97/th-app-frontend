@@ -11,28 +11,78 @@ import { useSelector } from "react-redux";
 const PostulanteForm = () => {
     const token = useSelector(state => state.token);
 
+    // Datos del Postulante
+    const [nombre, setNombre] = useState([]);
+    const [apellido, setApellido] = useState([]);
+    const [correo, setCorreo] = useState([]);
+    const [nacionalidad, setNacionalidad] = useState([]);
+    const [tipo_documento, setTipoDocumento] = useState([]);
+    const [nro_documento, setNroDocumento] = useState([]);
+    const [direccion, setDireccion] = useState([]);
+    const [ciudad, setCiudad] = useState([]);
+    const [fecha_nacimiento, setFechaNacimiento] = useState([]);
+    const [nro_telefono, setNroTelefono] = useState([]);
+    const [nivel_ingles, setNivelIngles] = useState([]);
+    const [estado_civil, setEstadoCivil] = useState([]);
+    const [estado, setEstado] = useState([]);
+
+    const [files, setFiles] = useState([]);
+
+    const [comentario_rrhh, setComentarioRRHH] = useState([]);
+    const [fecha_actualizacion, setFechaActualizacion] = useState([]);
+    const [fecha_creacion, setFechaCreacion] = useState([]);
+    const [fecha_contratado, setFechaContratado] = useState([]);
+
+
     // Estudios
+    const [estudios, setEstudios] = useState([]);
     const [showEstudios, setShowEstudios] = useState(false);
     const handleCloseEstudios = () => setShowEstudios(false);
     const handleShowEstudios = () => setShowEstudios(true);
+    const [estado_estudios, setEstadoEstudios] = useState([]);
+    const [fecha_inicio, setFechaInicio] = useState([]);
+    const [fecha_fin, setFechaFin] = useState([]);
+    const [descripcion_estudios, setDescripcionEstudios] = useState([]);
+    const [tipo_estudio, setTipoEstudio] = useState([]);
+    const [institucion, setInstitucion] = useState([]);
 
-    //Experiencias
+
+    // Tecnologías
+    const [tecnologias, setTecnologias] = useState([]);
+    const [tecnologiasasignadas, setTecnologiasAsignadas] = useState([]);
+    const [showTecnologias, setShowTecnologias] = useState(false);
+    const handleCloseTecnologias = () => setShowTecnologias(false);
+    const handleShowTecnologias = () => setShowTecnologias(true);
+
+    // Experiencias
+    const [experiencias, setExperiencias] = useState([]);
     const [showExperiencias, setShowExperiencias] = useState(false);
     const handleCloseExperiencias = () => setShowExperiencias(false);
     const handleShowExperiencias = () => setShowExperiencias(true);
+    const [cargo, setCargo] = useState([]);
+    const [descripcion, setDescripcion] = useState([]);
+    const [fecha_desde, setFechaDesde] = useState([]);
+    const [fecha_hasta, setFechaHasta] = useState([]);
+    const [empresa, setEmpresa] = useState([]);
+    const [nombre_referencia, setNombreReferencia] = useState([]);
+    const [telefono_referencia, setTelefonoReferencia] = useState([]);
+    const [tipo_experiencia, setTipoExperiencia] = useState([]);
 
-    // Referencia
+
+    // Referencias
+    const [referencia_personal, setReferenciaPersonal] = useState([]);
     const [showReferencias, setShowReferencias] = useState(false);
     const handleCloseReferencias = () => setShowReferencias(false);
     const handleShowReferencias = () => setShowReferencias(true);
+    const [nombre_ref, setNombreRef] = useState([]);
+    const [relacion, setRelacion] = useState([]);
+    const [telefono, setTelefono] = useState([]);
 
-    // Ciudades y Tecnología
-    const [ciudades, setCiudades] = useState([]);
-    const [tecnologias, setTecnologias] = useState([]);
 
     // Convocatorias
     const [convocatorias, setConvocatorias] = useState(null);
 
+    const [showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/v1/ciudades`, {
@@ -41,24 +91,23 @@ const PostulanteForm = () => {
             }
         })
             .then(response => {
-                setCiudades(response.data);
+                setCiudad(response.data);
             })
             .catch(error => {
                 console.error('Error fetching ciudades:', error);
             });
 
 
-        axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
-        })
-            .then(response => {
+        const fetchTecnologias = async () => {
+            try {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
                 setTecnologias(response.data);
-            })
-            .catch(error => {
-                console.error('Error fetching tecnologias:', error);
-            });
+            }
+            catch (error) {
+                console.error('Error al obtener las tecnologías:', error);
+            }
+        }
+        fetchTecnologias();
 
 
         axios.get(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, {
@@ -75,10 +124,11 @@ const PostulanteForm = () => {
 
     }, [token])
 
-    const [showTecnologias, setShowTecnologias] = useState(false);
-    const handleCloseTecnologias = () => setShowTecnologias(false);
-    const handleShowTecnologias = () => setShowTecnologias(true);
-
+    const handleTecnologiaChange = (e) => {
+        const inputsArray = Array.from(e.target.selectedOptions);
+        const valoresArray = inputsArray.map(input => input.value);
+        setTecnologiasAsignadas(valoresArray);
+    };
 
     // Validación de campos requeridos
     const [errors, setErrors] = useState({});
@@ -100,7 +150,7 @@ const PostulanteForm = () => {
     });
 
     const validateForm = () => {
-        const requiredFields = ['nombre', 'apellido', 'email', 'nro_documento', 'direccion', 'fecha_nacimiento', 'telefono', 'cargar_cv'];
+        const requiredFields = ['nombre', 'apellido', 'correo', 'nro_documento', 'direccion', 'fecha_nacimiento', 'nro_telefono', 'files'];
         const newErrors = {};
 
         requiredFields.forEach(field => {
@@ -115,16 +165,116 @@ const PostulanteForm = () => {
     }
 
     // Post
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
         if (validateForm()) {
-            // Aquí puedes enviar el formulario
+
+            try {
+                const formDatos = new FormData();
+                formDatos.append('postulante_info', JSON.stringify({
+                    nombre: nombre,
+                    apellido: apellido,
+                    nro_documento: nro_documento,
+                    tipo_documento: tipo_documento,
+                    correo: correo,
+                    direccion: direccion,
+                    nro_telefono: nro_telefono,
+                    nacionalidad: nacionalidad,
+                    estado_civil: estado_civil,
+                    fecha_nacimiento: fecha_nacimiento,
+                    nivel_ingles: nivel_ingles,
+                    ciudad: ciudad,
+                    estado: estado,
+                }));
+                formDatos.append('files', files);
+                formDatos.append('experiencias', JSON.stringify({
+                    cargo: cargo,
+                    descripcion: descripcion,
+                    fecha_desde: fecha_desde,
+                    fecha_hasta: fecha_hasta,
+                    empresa: empresa,
+                    nombre_referencia: nombre_referencia,
+                    telefono_referencia: telefono_referencia,
+                    tipo_experiencia: tipo_experiencia,
+                }));
+                formDatos.append('estudios', JSON.stringify({
+                    estado_estudios: estado_estudios,
+                    fecha_inicio: fecha_inicio,
+                    fecha_fin: fecha_fin,
+                    descripcion_estudios: descripcion_estudios,
+                    tipo_estudio: tipo_estudio,
+                    institucion: institucion,
+                }));
+                formDatos.append('tecnologias_id', JSON.stringify(tecnologiasasignadas));
+                formDatos.append('referencias_personales', JSON.stringify({
+                    nombre_ref: nombre_ref,
+                    relacion: relacion,
+                    telefono: telefono,
+                }));
+
+                const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante`, formDatos, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log('Respuesta del servidor:', response.data);
+                console.log(formData);
+
+
+                setNombre('');
+                setApellido('');
+                setNroDocumento('');
+                setTipoDocumento('');
+                setNroDocumento('');
+                setCorreo('');
+                setDireccion('');
+                setNroTelefono('');
+                setNacionalidad('');
+                setEstadoCivil('');
+                setFechaNacimiento('');
+                setNivelIngles('');
+                setCiudad('');
+                setEstado('');
+
+                setFiles(null);
+
+                setCargo('');
+                setDescripcion('');
+                setFechaDesde('');
+                setFechaHasta('');
+                setEmpresa('');
+                setNombreReferencia('');
+                setTelefonoReferencia('');
+                setTipoExperiencia('');
+
+                setEstadoEstudios('');
+                setFechaInicio('');
+                setFechaFin('');
+                setDescripcionEstudios('');
+                setTipoEstudio('');
+                setInstitucion('');
+
+                setNombreRef('');
+                setRelacion('');
+                setTelefono('');
+
+                setShowAlert(true);
+            } catch (error) {
+                console.log("aquiasdasd")
+                console.error('Error al enviar el pedido POST:', error);
+            }
+
             console.log('Formulario válido, enviando...');
         } else {
             console.log('Formulario inválido, por favor completa los campos requeridos');
         }
     }
+
+    const handleClose = () => {
+        setShowAlert(false);
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -176,13 +326,13 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-6">
-                    <label htmlFor="email" className="form-label">Email *</label>
-                    <input type="email" className="form-control" id="email" name="email"
-                        placeholder="Ingrese su email"
-                        value={formData.email}
+                    <label htmlFor="correo" className="form-label">Correo *</label>
+                    <input type="correo" className="form-control" id="correo" name="correo"
+                        placeholder="Ingrese su correo"
+                        value={formData.correo}
                         onChange={handleChange}
                     />
-                    {errors.email && <div className="text-danger">{errors.email}</div>}
+                    {errors.correo && <div className="text-danger">{errors.correo}</div>}
                 </div>
 
                 <div className="col-md-6">
@@ -236,7 +386,7 @@ const PostulanteForm = () => {
                         value={formData.ciudad}
                         onChange={handleChange}
                     >
-                        {ciudades.map(ciudad => (
+                        {ciudad.map(ciudad => (
                             <option key={ciudad.id_ciudad} value={ciudad.id_ciudad}>{ciudad.nombre}</option>
                         ))}
                     </select>
@@ -252,13 +402,13 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-6">
-                    <label htmlFor="telefono" className="form-label">Teléfono *</label>
-                    <input type="text" className="form-control" id="telefono" name="telefono"
+                    <label htmlFor="nro_telefono" className="form-label">Teléfono *</label>
+                    <input type="text" className="form-control" id="nro_telefono" name="nro_telefono"
                         placeholder="Ingrese su número de teléfono"
-                        value={formData.telefono}
+                        value={formData.nro_telefono}
                         onChange={handleChange}
                     />
-                    {errors.telefono && <div className="text-danger">{errors.telefono}</div>}
+                    {errors.nro_telefono && <div className="text-danger">{errors.nro_telefono}</div>}
                 </div>
 
                 <div className="col-md-6">
@@ -288,12 +438,12 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-12">
-                    <label htmlFor="cargar_cv" className="form-label">Cargar CV *</label>
-                    <input type="file" className="form-control" id="cargar_cv" name="cargar_cv"
-                        value={formData.cargar_cv}
+                    <label htmlFor="files" className="form-label">Cargar CV *</label>
+                    <input type="file" className="form-control" id="files" name="files"
+                        value={formData.files}
                         onChange={handleChange}
                     />
-                    {errors.cargar_cv && <div className="text-danger">{errors.cargar_cv}</div>}
+                    {errors.files && <div className="text-danger">{errors.files}</div>}
                 </div>
 
 
@@ -314,7 +464,7 @@ const PostulanteForm = () => {
                             <Form className='row g-3'>
                                 <Form.Group className="col-md-12" controlId="tipo_estudio">
                                     <Form.Label>Tipo de estudio</Form.Label>
-                                    <Form.Select>
+                                    <Form.Select value={tipo_estudio} onChange={(e) => setTipoEstudio(e.target.value)}>
                                         <option>Terciario</option>
                                         <option>Secundario</option>
                                         <option>Curso</option>
@@ -327,6 +477,7 @@ const PostulanteForm = () => {
                                     <Form.Control
                                         type="text"
                                         placeholder="Nombre de la institución"
+                                        value={institucion} onChange={(e) => setInstitucion(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="descripcion_estudio">
@@ -334,11 +485,12 @@ const PostulanteForm = () => {
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese su carrera/bachiller/tema de curso "
+                                        value={descripcion_estudios} onChange={(e) => setDescripcionEstudios(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="estado_estudio">
                                     <Form.Label>Estado</Form.Label>
-                                    <Form.Select>
+                                    <Form.Select id="estado" value={estado_estudios} onChange={(e) => setEstadoEstudios(e.target.value)}>
                                         <option>En curso</option>
                                         <option>Finalizado</option>
                                         <option>Suspendido</option>
@@ -348,12 +500,14 @@ const PostulanteForm = () => {
                                     <Form.Label>Fecha de inicio *</Form.Label>
                                     <Form.Control
                                         type="date"
+                                        value={fecha_inicio} onChange={(e) => setFechaInicio(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-6" controlId="fecha_fin">
                                     <Form.Label>Fecha de fin</Form.Label>
                                     <Form.Control
                                         type="date"
+                                        value={fecha_fin} onChange={(e) => setFechaFin(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseEstudios}>
@@ -385,18 +539,10 @@ const PostulanteForm = () => {
                             <Form className='row g-3'>
                                 <Form.Group className="col-md-12" controlId="tecnologia">
                                     <Form.Label>Tecnología</Form.Label>
-                                    <Form.Select>
+                                    <Form.Select onChange={(e) => handleTecnologiaChange(e)}>
                                         {tecnologias.map(tecnologia => (
                                             <option key={tecnologia.id_tecnologia} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                                         ))}
-                                    </Form.Select>
-                                </Form.Group>
-                                <Form.Group className="col-md-12" controlId="nivel">
-                                    <Form.Label>Nivel</Form.Label>
-                                    <Form.Select>
-                                        <option>Básico</option>
-                                        <option>Intermedio</option>
-                                        <option>Avanzado</option>
                                     </Form.Select>
                                 </Form.Group>
                                 <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseTecnologias}>
@@ -437,6 +583,7 @@ const PostulanteForm = () => {
                                     <Form.Control
                                         type="text"
                                         placeholder="Nombre de la empresa"
+                                        value={empresa} onChange={(e) => setEmpresa(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="cargo">
@@ -444,32 +591,37 @@ const PostulanteForm = () => {
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese su cargo"
+                                        value={cargo} onChange={(e) => setCargo(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-6" controlId="fecha_desde">
                                     <Form.Label>Fecha de desde *</Form.Label>
                                     <Form.Control
                                         type="date"
+                                        value={fecha_desde} onChange={(e) => setFechaDesde(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-6" controlId="fecha_hasta">
                                     <Form.Label>Fecha hasta</Form.Label>
                                     <Form.Control
                                         type="date"
+                                        value={fecha_hasta} onChange={(e) => setFechaHasta(e.target.value)}
                                     />
                                 </Form.Group>
-                                <Form.Group className="col-md-12" controlId="descripcion_experiencia">
+                                <Form.Group className="col-md-12" controlId="descripcion">
                                     <Form.Label>Descripción *</Form.Label>
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese una descripción"
+                                        value={descripcion} onChange={(e) => setDescripcion(e.target.value)}
                                     />
                                 </Form.Group>
-                                <Form.Group className="col-md-12" controlId="referencia">
+                                <Form.Group className="col-md-12" controlId="nombre_referencia">
                                     <Form.Label>Nombre de la referencia</Form.Label>
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese el nombre de su referencia"
+                                        value={nombre_referencia} onChange={(e) => setNombreReferencia(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="telefono_referencia">
@@ -477,19 +629,12 @@ const PostulanteForm = () => {
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese el teléfono de su refencia"
-                                    />
-                                </Form.Group>
-                                <Form.Group className="col-md-12" controlId="motivo_salida">
-                                    <Form.Label>Motivo de salida</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        placeholder="Ingrese el motivo de su salida"
-                                        style={{ height: '75px' }}
+                                        value={telefono_referencia} onChange={(e) => setTelefonoReferencia(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="tipo_experiencia">
                                     <Form.Label>Tipo de experiencia</Form.Label>
-                                    <Form.Select>
+                                    <Form.Select value={tipo_experiencia} onChange={(e) => setTipoExperiencia(e.target.value)}>
                                         <option>Trabajo normal</option>
                                         <option>Pasantia</option>
                                     </Form.Select>
@@ -521,11 +666,12 @@ const PostulanteForm = () => {
                         </Modal.Header>
                         <Modal.Body>
                             <Form className='row g-3'>
-                                <Form.Group className="col-md-12" controlId="nombre_relacion">
+                                <Form.Group className="col-md-12" controlId="nombre">
                                     <Form.Label>Nombre *</Form.Label>
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese el nombre de su referencia"
+                                        value={nombre_ref} onChange={(e) => setNombreRef(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Form.Group className="col-md-12" controlId="relacion">
@@ -533,13 +679,15 @@ const PostulanteForm = () => {
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese la relación con su referencia"
+                                        value={relacion} onChange={(e) => setRelacion(e.target.value)}
                                     />
                                 </Form.Group>
-                                <Form.Group className="col-md-12" controlId="telefono_relacion">
+                                <Form.Group className="col-md-12" controlId="telefono">
                                     <Form.Label>Teléfono *</Form.Label>
                                     <Form.Control
                                         type="text"
                                         placeholder="Ingrese el número de teléfono de su relación"
+                                        value={telefono} onChange={(e) => setTelefono(e.target.value)}
                                     />
                                 </Form.Group>
                                 <Button className="col-md-3 me-2 ms-auto" variant="secondary" onClick={handleCloseReferencias}>
@@ -558,6 +706,13 @@ const PostulanteForm = () => {
                     <button type="button" className="btn btn-danger me-2">Cancelar</button>
                     <button type="submit" className="btn btn-success">Guardar</button>
                 </div>
+
+                {showAlert && (
+                    <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+                        Se ha guardado correctamente.
+                        <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+                    </div>
+                )}
 
             </form>
         </div>
