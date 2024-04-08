@@ -2,13 +2,12 @@
 import React, { useState } from 'react';
 import { Layout } from "../../components/layouts/Layout"
 import axios from 'axios';
-const [errors, setErrors] = useState({});
 import { useSelector } from "react-redux";
 
 
 
 const Usuario = () => {
-
+  const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const token = useSelector(state => state.token);
