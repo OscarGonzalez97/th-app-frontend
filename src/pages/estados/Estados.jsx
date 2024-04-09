@@ -97,7 +97,7 @@ const Estados = () => {
           <div className='col pt-sm-5'>
             <div className=''> 
              {estados && estados.map(estado => (
-               <span key={estado.id_estado} className='badge bg-secondary me-1 mt-1'>{estado.estado}</span>
+               <span key={estado.id_estado} className='badge bg-secondary me-1 mt-1 fs-6'>{estado.estado}</span>
             ))}
             </div>
             {showAlert && (

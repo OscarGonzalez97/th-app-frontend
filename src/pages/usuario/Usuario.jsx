@@ -179,7 +179,7 @@ const Usuario = () => {
             <div className=''>
               {usuarios && usuarios.object.map(usuario => (
                 <div key={usuario.id_user} className='badge bg-secondary me-1 mt-1' onMouseEnter={() => setHoveredUserId(usuario.id_user)} onMouseLeave={() => setHoveredUserId(null)}>
-                  <div className="badge bg-secondary me-1 mt-1">{usuario.email}</div>
+                  <div className="badge bg-secondary me-1 mt-1 fs-6">{usuario.email}</div>
                   {hoveredUserId === usuario.id_user && (
                     <FontAwesomeIcon
                       icon={faTimesCircle}

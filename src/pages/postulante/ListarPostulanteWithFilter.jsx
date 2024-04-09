@@ -174,7 +174,7 @@ const ListarPostulante = () => {
                 <div className="col d-flex align-items-center">{postulante.apellido.toUpperCase()}</div>
                 <div className="col d-flex align-items-center">{postulante.nro_documento}</div>
                 <div className="col d-flex align-items-center">{postulante.estado.estado}</div>
-                <div className="col d-flex align-items-center">
+                <div className="col d-flex align-items-center h5">
                     {postulante.tecnologiasasignadas.length > 0 && (
                         <span key={postulante.tecnologiasasignadas[0].id_tecnologia} className='badge bg-secondary me-1 mt-1'>
                             {postulante.tecnologiasasignadas[0].nombre}
