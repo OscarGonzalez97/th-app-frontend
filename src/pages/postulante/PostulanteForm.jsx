@@ -5,6 +5,7 @@ import imagen from '../../imagenes/prog_backend.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 
@@ -262,20 +263,16 @@ const PostulanteForm = () => {
                 setTelefono('');
 
                 setShowAlert(true);
+                setTimeout(() => setShowAlert(false), 5000);
             } catch (error) {
-                console.log("aquiasdasd")
                 console.error('Error al enviar el pedido POST:', error);
             }
-
             console.log('Formulario válido, enviando...');
         } else {
             console.log('Formulario inválido, por favor completa los campos requeridos');
         }
     }
 
-    const handleClose = () => {
-        setShowAlert(false);
-    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -330,23 +327,20 @@ const PostulanteForm = () => {
                     <label htmlFor="correo" className="form-label">Correo *</label>
                     <input type="correo" className="form-control" id="correo" name="correo"
                         placeholder="Ingrese su correo"
-                        value={formData.correo}
-                        onChange={handleChange}
+                        value={correo}
+                        onChange={(e) => setCorreo(e.target.value)}
                     />
-                    {errors.correo && <div className="text-danger">{errors.correo}</div>}
+                    {errors['correo'] && <span className="error-message" style={{ color: 'red' }}>{errors['correo']}</span>}
                 </div>
 
                 <div className="col-md-6">
-                    <label htmlFor="nacionalidad" className="form-label">Nacionalidad</label>
-                    <select id="nacionalidad" className="form-select" name="nacionalidad"
-                        value={formData.nacionalidad}
-                        onChange={handleChange}
-                    >
-                        <option value="py">Paraguay</option>
-                        <option value="ar">Argentina</option>
-                        <option value="br">Brasil</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
+                    <label htmlFor="nro_telefono" className="form-label">Teléfono *</label>
+                    <input type="text" className="form-control" id="nro_telefono" name="nro_telefono"
+                        placeholder="Ingrese su número de teléfono"
+                        value={nro_telefono}
+                        onChange={(e) => setNroTelefono(e.target.value)}
+                    />
+                    {errors['nro_telefono'] && <span className="error-message" style={{ color: 'red' }}>{errors['nro_telefono']}</span>}
                 </div>
 
                 <div className="col-md-6">
@@ -403,16 +397,6 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-6">
-                    <label htmlFor="nro_telefono" className="form-label">Teléfono *</label>
-                    <input type="text" className="form-control" id="nro_telefono" name="nro_telefono"
-                        placeholder="Ingrese su número de teléfono"
-                        value={formData.nro_telefono}
-                        onChange={handleChange}
-                    />
-                    {errors.nro_telefono && <div className="text-danger">{errors.nro_telefono}</div>}
-                </div>
-
-                <div className="col-md-6">
                     <label htmlFor="nivel_ingles" className="form-label">Nivel de inglés</label>
                     <select id="nivel_ingles" className="form-select" name="nivel_ingles"
                         value={formData.nivel_ingles}
@@ -425,24 +409,10 @@ const PostulanteForm = () => {
                     </select>
                 </div>
 
-                <div className="col-md-6">
-                    <label htmlFor="estado_civil" className="form-label">Estado civil</label>
-                    <select id="estado_civil" className="form-select" name="estado_civil"
-                        value={formData.estado_civil}
-                        onChange={handleChange}
-                    >
-                        <option value="soltero">Soltero/a</option>
-                        <option value="casado">Casado/a</option>
-                        <option value="divorciado">Divorciado/a</option>
-                        {/* Agrega más opciones según sea necesario */}
-                    </select>
-                </div>
-
                 <div className="col-md-12">
                     <label htmlFor="files" className="form-label">Cargar CV *</label>
                     <input type="file" className="form-control" id="files" name="files"
-                        value={formData.files}
-                        onChange={handleChange}
+                        onChange={(e) => setFiles(e.target.files[0])}
                     />
                     {errors.files && <div className="text-danger">{errors.files}</div>}
                 </div>
@@ -708,12 +678,14 @@ const PostulanteForm = () => {
                     <button type="submit" className="btn btn-success">Guardar</button>
                 </div>
 
-                {showAlert && (
-                    <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
-                        Se ha guardado correctamente.
-                        <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
-                    </div>
-                )}
+            </form>
+
+            {showAlert && (
+                <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+                    <FontAwesomeIcon icon={faCheckCircle} className="me-2" />
+                    Se ha guardado correctamente.
+                </div>
+            )}
 
             </form>
         </div>
