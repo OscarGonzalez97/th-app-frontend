@@ -8,6 +8,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
+import { ColorRing } from 'react-loader-spinner'
 
 const PostulanteForm = () => {
     const token = useSelector(state => state.token);
@@ -83,6 +84,8 @@ const PostulanteForm = () => {
     const [convocatoriaActual, setConvocatoriaActual] = useState(null);
     const { id } = useParams();
 
+
+    const [loading, setLoading] = useState(false); // Estado para controlar si se está cargando o no
     const [showAlert, setShowAlert] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -164,11 +167,14 @@ const PostulanteForm = () => {
                 formData.append('tecnologias_id', "[]");
                 formData.append('referencias_personales', "");
 
+                setLoading(true); // Establece el estado de carga a true al iniciar la solicitud
                 const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
+                setLoading(false); // Establece el estado de carga a false después de recibir la respuesta
+
                 console.log('Respuesta del servidor:', response.data);
                 console.log(formData);
 
@@ -211,6 +217,7 @@ const PostulanteForm = () => {
                 setShowAlert(true);
                 setTimeout(() => setShowAlert(false), 5000);
             } catch (error) {
+                setLoading(false);
                 console.error('Error al enviar el pedido POST:', error);
             }
             console.log('Formulario válido, enviando...');
@@ -641,6 +648,20 @@ const PostulanteForm = () => {
                 <div className="col-12 d-flex justify-content-end">
                     <button type="button" className="btn btn-danger me-2">Cancelar</button>
                     <button type="submit" className="btn btn-success">Guardar</button>
+
+                    {/* Mostrar el componente de carga si loading es true */}
+                    <div className="loader-container">
+                        {loading && <ColorRing
+                            visible={true}
+                            height="80"
+                            width="80"
+                            ariaLabel="color-ring-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="color-ring-wrapper"
+                            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                        />}
+                    </div>
+
                 </div>
 
             </form>
