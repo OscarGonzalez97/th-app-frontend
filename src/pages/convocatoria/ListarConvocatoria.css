@@ -5,3 +5,10 @@
     margin-top: 2%;
 }
 
+.columna-ajuste {
+    max-width: 200px;
+    text-align: justify;
+    white-space: normal;
+    word-wrap: break-word;
+  }
+
