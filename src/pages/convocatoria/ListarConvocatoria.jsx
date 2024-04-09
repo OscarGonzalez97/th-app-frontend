@@ -1,10 +1,14 @@
 import { Layout } from "../../components/layouts/Layout";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import { Button } from 'primereact/button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLink } from '@fortawesome/free-solid-svg-icons';
 import "./ListarConvocatoria.css";
 
 const ListarConvocatoria = () => {
@@ -31,18 +35,24 @@ const ListarConvocatoria = () => {
         return new Date(dateString).toLocaleDateString('es-ES', options);
     };
 
+
     return (
         <Layout>
             <div className="listarconvocatoria container">
                 <div className="container-fluid">
                     <h1>Listar convocatorias</h1>
-                    <br/>
-                    <DataTable paginator rows={20} value={convocatorias} stripedRows tableStyle={{ maxWidth: '100px' }}>
-                        <Column field="id_convocatoria" header="#" className="columna-ajuste"/>
-                        <Column field="title" header="Titulo" className="columna-ajuste"></Column>
-                        <Column field="description" header="Descripcion" className="columna-ajuste"/>
-                        <Column field="fecha_inicio" header="Fecha Inicio" body={(rowData) => formatDate(rowData.fecha_inicio)} className="columna-ajuste"/>
-                        <Column field="fecha_fin" header="Fecha Fin" body={(rowData) => formatDate(rowData.fecha_fin)} className="columna-ajuste"/>
+                    <br />
+                    <DataTable paginator rows={20} value={convocatorias} stripedRows>
+                        <Column field="id_convocatoria" header="#" />
+                        <Column field="title" header="Titulo"></Column>
+                        <Column field="description" header="Descripcion" />
+                        <Column field="fecha_inicio" header="Fecha Inicio" body={(rowData) => formatDate(rowData.fecha_inicio)} />
+                        <Column field="fecha_fin" header="Fecha Fin" body={(rowData) => formatDate(rowData.fecha_fin)} />
+                        <Column header="Enlace" body={(rowData) => (
+                            <Link to={`/convocatoria/${rowData.id_convocatoria}`} target="_blank" rel="noopener noreferrer">
+                                <Button icon={<FontAwesomeIcon icon={faLink} />} className="p-button-outlined" />
+                            </Link>
+                        )} />
                     </DataTable>
                 </div>
             </div>

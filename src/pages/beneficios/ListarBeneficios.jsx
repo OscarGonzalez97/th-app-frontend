@@ -82,7 +82,7 @@ const ListarBeneficios = () => {
       <>
         <Modal show={showEliminar} onHide={handleCloseEliminar} className='modal-'>
           <Modal.Header closeButton>
-            <Modal.Title className='modal-title'>¿Estás seguro de eliminar?</Modal.Title>
+            <Modal.Title className='modal-title text-black'>¿Estás seguro de eliminar?</Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button variant="secondary" onClick={confirmarEliminar} className='btn btn-danger'>
