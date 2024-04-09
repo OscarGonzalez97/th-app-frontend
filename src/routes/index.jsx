@@ -16,7 +16,7 @@ import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
 import PaginaNoEncontrada from '../pages/pagNoEncontrada/PaginaNoEncontrada';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
-
+import EditarPostulante from '../pages/postulante/EditarPostulante';
 
 export function Routing() {
   return (
@@ -36,13 +36,13 @@ export function Routing() {
         <Route path="/beneficios/listar" element={<ListarBeneficios />} />
         <Route path="/estados" element={<Estados />} />
         <Route path="/postulante/:id" element={<PostulanteInfo />} />
+        <Route path="/editarPostulante/:id" element={<EditarPostulante />} />
 
         {/* Rutas desprotegidas */}
         <Route path="/login" element={<Login />} />
         <Route path="/recuperar" element={<OlvidasteContrasenha />} />
         <Route path="/confirm-reset" element={<RecuperarContrasenha />} />
         <Route path="/convocatoria/:id" element={<PostulanteForm />} />
-
         {/* Ruta para página no encontrada */}
         <Route path="*" element={<PaginaNoEncontrada />} />
         
