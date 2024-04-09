@@ -1,0 +1,15 @@
+.linkToFile {
+    color:rgb(195, 219, 240);
+}
+
+.linkToFile:hover {
+    color:#2873ea;; /* Color del enlace al pasar el cursor sobre él */
+}
+
+.form-container {
+    padding: 20px; /* Ajusta el valor del padding según tus preferencias */
+}
+
+.postulante-container {
+    margin-top: 50px;
+}
