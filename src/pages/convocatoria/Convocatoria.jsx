@@ -81,7 +81,6 @@ const Convocatoria = () => {
             setFechaInicio('');
             setFechaFin('');
             setFile(null);
-            setTecnologias([]);
             setShowAlert(true);
             setTimeout(() => setShowAlert(false), 3000);
 
