@@ -21,9 +21,15 @@ const ListarConvocatoria = () => {
                 setConvocatorias(response.data);
             })
             .catch(error => {
-                console.error('Error fetching tecnologias:', error);
+                console.error('Error fetching convocatorias:', error);
             });
     }, []);
+
+    // Función para formatear la fecha en formato "dd/mm/yyyy"
+    const formatDate = (dateString) => {
+        const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+        return new Date(dateString).toLocaleDateString('es-ES', options);
+    };
 
     return (
         <Layout>
@@ -31,12 +37,12 @@ const ListarConvocatoria = () => {
                 <div className="container-fluid">
                     <h1>Listar convocatorias</h1>
                     <br/>
-                    <DataTable paginator rows={20} value={convocatorias} stripedRows>
-                        <Column field="id_convocatoria" header="#" />
-                        <Column field="title" header="Titulo"></Column>
-                        <Column field="description" header="Descripcion" />
-                        <Column field="fecha_inicio" header="Fecha Inicio" />
-                        <Column field="fecha_fin" header="Fecha Fin" />
+                    <DataTable paginator rows={20} value={convocatorias} stripedRows tableStyle={{ maxWidth: '100px' }}>
+                        <Column field="id_convocatoria" header="#" className="columna-ajuste"/>
+                        <Column field="title" header="Titulo" className="columna-ajuste"></Column>
+                        <Column field="description" header="Descripcion" className="columna-ajuste"/>
+                        <Column field="fecha_inicio" header="Fecha Inicio" body={(rowData) => formatDate(rowData.fecha_inicio)} className="columna-ajuste"/>
+                        <Column field="fecha_fin" header="Fecha Fin" body={(rowData) => formatDate(rowData.fecha_fin)} className="columna-ajuste"/>
                     </DataTable>
                 </div>
             </div>
