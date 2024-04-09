@@ -53,6 +53,7 @@
 }
 
 .postulante-container .img-fluid {
-    max-width: 100%; /* La imagen no se hará más grande que su contenedor */
-    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+    margin-top: 20px;
+    max-width: 100%;
+    height: auto;
 }

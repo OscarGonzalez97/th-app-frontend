@@ -18,55 +18,10 @@ import PaginaNoEncontrada from '../pages/pagNoEncontrada/PaginaNoEncontrada';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
 
 
-
 export function Routing() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* rutas que usan Layout */}
-        <Route path="/"
-          element={<Home />}>
-        </Route>
-        <Route path="/postulante/listar"
-          element={<ListarPostulante/>}>
-        </Route>
-        <Route path="/convocatoria"
-          element={<Convocatoria/>}>
-        </Route>
-        <Route path="/tecnologia"
-          element={<Tecnologia/>}>
-        </Route>
-        <Route path="/estados"
-          element={<Estados/>}>
-        </Route>
-        <Route path="/cambiarcontraseña"
-          element={<CambiarContraseña/>}>
-        </Route>
-
-        <Route path="/tecnologia/listar"
-          element={<ListarTecnologia/>}>
-        </Route>
-
-        
-        <Route path="/usuario"
-          element={<Usuario/>}>
-        </Route>
-
-        <Route path="/usuario/listar"
-          element={<ListarUsuarios/>}>
-        </Route>
-
-        <Route path="/beneficios"
-          element={<Beneficios/>}>
-        </Route>
-
-        <Route path="/beneficios/listar"
-          element={<ListarBeneficios />}>
-        </Route>
-
-        <Route path="/postulante/:id"
-          element={<PostulanteInfo />}>
-        </Route>
 
         {/* Rutas que usan Layout */}
         <Route path="/" element={<Home />} />
@@ -79,15 +34,18 @@ export function Routing() {
         <Route path="/usuario/listar" element={<ListarUsuarios />} />
         <Route path="/beneficios" element={<Beneficios />} />
         <Route path="/beneficios/listar" element={<ListarBeneficios />} />
+        <Route path="/estados" element={<Estados />} />
+        <Route path="/postulante/:id" element={<PostulanteInfo />} />
 
         {/* Rutas desprotegidas */}
         <Route path="/login" element={<Login />} />
         <Route path="/recuperar" element={<OlvidasteContrasenha />} />
         <Route path="/confirm-reset" element={<RecuperarContrasenha />} />
-        <Route path="/postulante" element={<PostulanteForm />} />
+        <Route path="/convocatoria/:id" element={<PostulanteForm />} />
 
         {/* Ruta para página no encontrada */}
         <Route path="*" element={<PaginaNoEncontrada />} />
+        
       </Routes>
     </BrowserRouter>
   );

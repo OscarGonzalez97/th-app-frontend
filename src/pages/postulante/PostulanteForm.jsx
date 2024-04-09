@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './PostulanteForm.css';
-import imagen from '../../imagenes/prog_backend.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
 
 const PostulanteForm = () => {
     const token = useSelector(state => state.token);
@@ -15,13 +15,14 @@ const PostulanteForm = () => {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [correo, setCorreo] = useState('');
-    const [tipo_documento, setTipoDocumento] = useState("");
+    const [tipo_documento, setTipoDocumento] = useState('ci');
     const [nro_documento, setNroDocumento] = useState('');
     const [direccion, setDireccion] = useState('');
     const [ciudad, setCiudad] = useState([]);
+    const [ciudadSeleccionada, setCiudadSeleccionada] = useState('1');
     const [fecha_nacimiento, setFechaNacimiento] = useState('');
     const [nro_telefono, setNroTelefono] = useState('');
-    const [nivel_ingles, setNivelIngles] = useState("");
+    const [nivel_ingles, setNivelIngles] = useState('basico');
     const [estado, setEstado] = useState('');
 
     const [files, setFiles] = useState(null);
@@ -43,8 +44,6 @@ const PostulanteForm = () => {
     const [descripcion_estudios, setDescripcionEstudios] = useState('');
     const [tipo_estudio, setTipoEstudio] = useState([]);
     const [institucion, setInstitucion] = useState('');
-    const [ciudadSeleccionada, setCiudadSeleccionada] = useState('');
-
 
     // Tecnologías
     const [tecnologias, setTecnologias] = useState([]);
@@ -79,7 +78,9 @@ const PostulanteForm = () => {
 
 
     // Convocatorias
-    const [convocatorias, setConvocatorias] = useState(null);
+    const [convocatorias, setConvocatorias] = useState([]);
+    const [convocatoriaActual, setConvocatoriaActual] = useState(null);
+    const { id } = useParams();
 
     const [showAlert, setShowAlert] = useState(false);
     const [errors, setErrors] = useState({});
@@ -122,7 +123,12 @@ const PostulanteForm = () => {
                 console.error('Error fetching convocatorias:', error);
             });
 
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        const convocatoria = convocatorias.find(convocatoria => convocatoria.id_convocatoria === parseInt(id));
+        setConvocatoriaActual(convocatoria);
+    }, [convocatorias, id]);
 
     const handleTecnologiaChange = (e) => {
         const inputsArray = Array.from(e.target.selectedOptions);
@@ -148,10 +154,10 @@ const PostulanteForm = () => {
                     fecha_nacimiento: fecha_nacimiento,
                     nivel_ingles: nivel_ingles,
                     id_ciudad: ciudadSeleccionada,
-                    id_estado: "1",
+                    id_estado: "2",
                 }));
                 formData.append('files', files);
-                formData.append('convocatoria_id', "2");
+                formData.append('convocatoria_id', convocatoriaActual.id_convocatoria);
                 formData.append('experiencias', "");
                 formData.append('estudios', "");
                 formData.append('tecnologias_id', "[]");
@@ -241,6 +247,9 @@ const PostulanteForm = () => {
         if (!nro_telefono) {
             newErrors['nro_telefono'] = 'Este campo es requerido';
         }
+        if (!files) {
+            newErrors['files'] = 'Este campo es requerido';
+        }
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -248,23 +257,19 @@ const PostulanteForm = () => {
 
     return (
         <div className="postulante-container">
-            {convocatorias && convocatorias.map(convocatoria => (
-                <div key={convocatoria.id_convocatoria}>
-                    {convocatoria.id_convocatoria === 2 && (
-                        <>
-                            <h1>{convocatoria.title}</h1>
-                            <h2>{convocatoria.description}</h2>
 
-                            <div className="d-flex justify-content-center">
-                                <img src={convocatoria.file_path} alt="Vacante" className="img-fluid" />
-                            </div>
+            {convocatoriaActual && (
+                <>
+                    <h1>{convocatoriaActual.title}</h1>
+                    <h2>{convocatoriaActual.description}</h2>
+                    <div className="d-flex justify-content-center">
+                        <img src={convocatoriaActual.file_path} alt="Vacante" className="img-fluid" />
+                    </div>
+                    <h4>Datos Personales</h4>
+                    <h6>Todos los campos con (*) deben estar rellenados</h6>
+                </>
+            )}
 
-                            <h4>Datos Personales</h4>
-                            <h6>Todos los campos con (*) deben estar rellenados</h6>
-                        </>
-                    )}
-                </div>
-            ))}
             <form className="row g-3" onSubmit={handleSubmit}>
                 <div className="col-md-6">
                     <label htmlFor="nombre" className="form-label">Nombre *</label>
@@ -288,7 +293,7 @@ const PostulanteForm = () => {
 
                 <div className="col-md-6">
                     <label htmlFor="correo" className="form-label">Correo *</label>
-                    <input type="correo" className="form-control" id="correo" name="correo"
+                    <input type="email" className="form-control" id="correo" name="correo"
                         placeholder="Ingrese su correo"
                         value={correo}
                         onChange={(e) => setCorreo(e.target.value)}
@@ -377,14 +382,14 @@ const PostulanteForm = () => {
                 <div className="col-md-12">
                     <label htmlFor="files" className="form-label">Cargar CV *</label>
                     <input type="file" className="form-control" id="files" name="files"
-                        value={files}
                         onChange={(e) => setFiles(e.target.value)}
                     />
                     {errors['files'] && <span className="error-message" style={{ color: 'red' }}>{errors['files']}</span>}
                 </div>
 
 
-                {/* Modal Estudios */}
+                {/*
+
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faGraduationCap} /> Estudios</h4>
                     <Button variant="light" size="sm" onClick={handleShowEstudios}>
@@ -459,7 +464,6 @@ const PostulanteForm = () => {
                 </>
 
 
-                {/* Modal Tecnologías */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faCode} /> Tecnologías *</h4>
                     <Button variant="light" size="sm" onClick={handleShowTecnologias}>
@@ -500,7 +504,6 @@ const PostulanteForm = () => {
                 </div>
 
 
-                {/* Modal Experiencias */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faStar} /> Experiencias</h4>
                     <Button variant="light" size="sm" onClick={handleShowExperiencias}>
@@ -588,7 +591,6 @@ const PostulanteForm = () => {
                 </>
 
 
-                {/* Modal Referencia Personal */}
                 <div className="col-12 d-flex align-items-center">
                     <h4 className="m-10 me-2"><FontAwesomeIcon icon={faUser} /> Referencia Personal</h4>
                     <Button variant="light" size="sm" onClick={handleShowReferencias}>
@@ -638,20 +640,22 @@ const PostulanteForm = () => {
                     </Modal>
                 </>
 
+            */}
 
                 <div className="col-12 d-flex justify-content-end">
                     <button type="button" className="btn btn-danger me-2">Cancelar</button>
                     <button type="submit" className="btn btn-success">Guardar</button>
                 </div>
 
-                {showAlert && (
-                    <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
-                        Se ha guardado correctamente.
-                        <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
-                    </div>
-                )}
-
             </form>
+
+            {showAlert && (
+                <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+                    Se ha guardado correctamente.
+                    <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+                </div>
+            )}
+
         </div>
     );
 }
