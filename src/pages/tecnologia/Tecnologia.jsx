@@ -3,6 +3,8 @@ import { Layout } from "../../components/layouts/Layout"
 import './Tecnologia.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 const Tecnologia = () => {
   const [nombre, setNombre] = useState('');
@@ -32,6 +34,7 @@ const Tecnologia = () => {
 
       setNombre('');
       setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
       fetchData();
     } catch (error) {
       console.error('Error al enviar el pedido POST:', error);
@@ -114,8 +117,8 @@ const Tecnologia = () => {
 
             {showAlert && (
           <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+              <FontAwesomeIcon icon={faCheckCircle} className="me-2" />
             Se ha guardado correctamente.
-            <button type="button" className="btn-close position-absolute top-6 end-0 me-2" aria-label="Close" onClick={handleClose}></button>
           </div>
         )} 
           </div>

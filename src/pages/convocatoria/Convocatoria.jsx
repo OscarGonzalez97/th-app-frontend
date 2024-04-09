@@ -3,6 +3,8 @@ import { Layout } from "../../components/layouts/Layout"
 import './Convocatoria.css';
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 const Convocatoria = () => {
@@ -81,6 +83,7 @@ catch (error) {
             setFile(null);
             setTecnologias([]);
             setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 3000);
 
         } catch (error) {
            
@@ -179,8 +182,8 @@ catch (error) {
            
                 {showAlert && (
           <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+             <FontAwesomeIcon icon={faCheckCircle} className="me-2" />
             Se ha guardado correctamente.
-            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
           </div>
         )}
 
