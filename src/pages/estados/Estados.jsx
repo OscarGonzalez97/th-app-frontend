@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Layout } from "../../components/layouts/Layout"
 import './Estados.css';
 import axios from "axios";
-
 import { useSelector } from "react-redux";
 import { Form } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { faArrowRight, faBook, faBookAtlas, faBookBookmark, faBookDead, faBookOpen, faDeleteLeft, faPeopleArrows, faPeopleGroup, faPerson, faTrashCan, faUser } from '@fortawesome/free-solid-svg-icons'; // Import the right arrow icon
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
 
 
 const Estados = () => {
@@ -35,6 +35,7 @@ const Estados = () => {
 
       setNombre(''); 
       setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
       fetchData();
     } catch (error) {
       console.error('Error al enviar el pedido POST:', error);
@@ -99,16 +100,15 @@ const Estados = () => {
                <span key={estado.id_estado} className='badge bg-secondary me-1 mt-1'>{estado.estado}</span>
             ))}
             </div>
+            {showAlert && (
+          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+              <FontAwesomeIcon icon={faCheckCircle} className="me-2" />
+            Se ha guardado correctamente.
+          </div>
+        )} 
           </div>
 
         </div>
-
-       {showAlert && (
-          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
-            Se ha guardado correctamente.
-            <button type="button" className="btn-close position-absolute top-0 end-0 me-2" aria-label="Close" onClick={handleClose}></button>
-          </div>
-        )} 
 
       </div>
     </Layout>

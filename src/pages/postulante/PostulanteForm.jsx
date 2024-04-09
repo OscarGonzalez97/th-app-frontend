@@ -4,9 +4,11 @@ import './PostulanteForm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGraduationCap, faCode, faStar, faUser, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { useSelector } from "react-redux";
 import { useParams } from 'react-router-dom';
+import { ColorRing } from 'react-loader-spinner'
 
 const PostulanteForm = () => {
     const token = useSelector(state => state.token);
@@ -82,6 +84,8 @@ const PostulanteForm = () => {
     const [convocatoriaActual, setConvocatoriaActual] = useState(null);
     const { id } = useParams();
 
+
+    const [loading, setLoading] = useState(false); // Estado para controlar si se está cargando o no
     const [showAlert, setShowAlert] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -163,11 +167,14 @@ const PostulanteForm = () => {
                 formData.append('tecnologias_id', "[]");
                 formData.append('referencias_personales', "");
 
+                setLoading(true); // Establece el estado de carga a true al iniciar la solicitud
                 const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }
                 });
+                setLoading(false); // Establece el estado de carga a false después de recibir la respuesta
+
                 console.log('Respuesta del servidor:', response.data);
                 console.log(formData);
 
@@ -208,21 +215,17 @@ const PostulanteForm = () => {
                 setTelefono('');
 
                 setShowAlert(true);
+                setTimeout(() => setShowAlert(false), 5000);
             } catch (error) {
-                console.log("aquiasdasd")
+                setLoading(false);
                 console.error('Error al enviar el pedido POST:', error);
             }
-
             console.log('Formulario válido, enviando...');
         } else {
             console.log('Formulario inválido, por favor completa los campos requeridos');
         }
     }
 
-
-    const handleClose = () => {
-        setShowAlert(false);
-    };
 
     const validateForm = () => {
         const newErrors = {};
@@ -302,6 +305,16 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-6">
+                    <label htmlFor="nro_telefono" className="form-label">Teléfono *</label>
+                    <input type="text" className="form-control" id="nro_telefono" name="nro_telefono"
+                        placeholder="Ingrese su número de teléfono"
+                        value={nro_telefono}
+                        onChange={(e) => setNroTelefono(e.target.value)}
+                    />
+                    {errors['nro_telefono'] && <span className="error-message" style={{ color: 'red' }}>{errors['nro_telefono']}</span>}
+                </div>
+
+                <div className="col-md-6">
                     <label htmlFor="tipo_documento" className="form-label">Tipo de documento</label>
                     <select id="tipo_documento" className="form-select" name="tipo_documento"
                         value={tipo_documento}
@@ -357,24 +370,14 @@ const PostulanteForm = () => {
                 </div>
 
                 <div className="col-md-6">
-                    <label htmlFor="nro_telefono" className="form-label">Teléfono *</label>
-                    <input type="text" className="form-control" id="nro_telefono" name="nro_telefono"
-                        placeholder="Ingrese su número de teléfono"
-                        value={nro_telefono}
-                        onChange={(e) => setNroTelefono(e.target.value)}
-                    />
-                    {errors['nro_telefono'] && <span className="error-message" style={{ color: 'red' }}>{errors['nro_telefono']}</span>}
-                </div>
-
-                <div className="col-md-6">
                     <label htmlFor="nivel_ingles" className="form-label">Nivel de inglés</label>
                     <select id="nivel_ingles" className="form-select" name="nivel_ingles"
                         value={nivel_ingles}
                         onChange={(e) => setNivelIngles(e.target.value)}
                     >
-                        <option value="Básico">Básico</option>
-                        <option value="Intermedio">Intermedio</option>
-                        <option value="Avanzado">Avanzado</option>
+                        <option value="basico">Básico</option>
+                        <option value="intermedio">Intermedio</option>
+                        <option value="avanzado">Avanzado</option>
                         {/* Agrega más opciones según sea necesario */}
                     </select>
                 </div>
@@ -382,7 +385,7 @@ const PostulanteForm = () => {
                 <div className="col-md-12">
                     <label htmlFor="files" className="form-label">Cargar CV *</label>
                     <input type="file" className="form-control" id="files" name="files"
-                        onChange={(e) => setFiles(e.target.value)}
+                        onChange={(e) => setFiles(e.target.files[0])}
                     />
                     {errors['files'] && <span className="error-message" style={{ color: 'red' }}>{errors['files']}</span>}
                 </div>
@@ -645,14 +648,28 @@ const PostulanteForm = () => {
                 <div className="col-12 d-flex justify-content-end">
                     <button type="button" className="btn btn-danger me-2">Cancelar</button>
                     <button type="submit" className="btn btn-success">Guardar</button>
+
+                    {/* Mostrar el componente de carga si loading es true */}
+                    <div className="loader-container">
+                        {loading && <ColorRing
+                            visible={true}
+                            height="80"
+                            width="80"
+                            ariaLabel="color-ring-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="color-ring-wrapper"
+                            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                        />}
+                    </div>
+
                 </div>
 
             </form>
 
             {showAlert && (
                 <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+                    <FontAwesomeIcon icon={faCheckCircle} className="me-2" />
                     Se ha guardado correctamente.
-                    <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
                 </div>
             )}
 

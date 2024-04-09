@@ -62,6 +62,9 @@ const ListarPostulante = () => {
           });
           console.log("the response2", postulantesResponse.data);
           setPostulantes(postulantesResponse.data);
+
+       
+       
         } catch (error) {
           console.error('Error al obtener los estados o postulantes:', error);
         }

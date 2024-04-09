@@ -52,10 +52,10 @@ const PostulanteInfo = () => {
                         </div>
                         <div className='d-flex flex-column align-items-start'>
                             <p className='fw-bold '>Datos Personales</p>
-                            <div className='container'>
+                            <div className='container ms-0'>
                                 <div className='row'>
                                     <div className='col ps-1'>
-                                        <p className='fw-bold subtitle'>{postulante.tipo_documento}</p>
+                                        <p className='fw-bold subtitle'>{postulante.tipo_documento ? postulante.tipo_documento : 'Cedula de Identidad'}</p>
                                         <p className='information-item'>{postulante.nro_documento}</p>
                                         <p className='information-item'>{postulante.nacionalidad}</p>
                                     </div>
@@ -71,7 +71,7 @@ const PostulanteInfo = () => {
                                     </div>
                                     <div className='col ps-1'>
                                         <p className='fw-bold subtitle'>Nivel de Ingles</p>
-                                        <p className='information-item'>{postulante.nivel_ingles}</p>
+                                        <p className='information-item'>{postulante.nivel_ingles.length>0 ? postulante.nivel_ingles : "No definido"}</p>
 
                                     </div>
                                     <div className='col ps-1'>
@@ -83,15 +83,18 @@ const PostulanteInfo = () => {
                             </div>
                         </div>
 
+                        {postulante.tecnologiasasignadas.length > 0 && (
                         <div className='d-flex flex-column align-items-start'>
                             <p className='fw-bold'>Tecnologias</p>
                             <p className='h5'>{postulante.tecnologiasasignadas.map(tecnologia => (
                                 <span key={tecnologia.id_tecnologia} className='badge bg-secondary me-1 mt-1'>{tecnologia.nombre}</span>
                             ))}</p>
                         </div>
+                        )
+                        }
 
                         {/* EXPERIENCIAS */}
-
+                        {postulante.experiencias.length > 0 && (
                         <div className='d-flex flex-column align-items-start'>
                             <p className='fw-bold'>Experiencias</p>
 
@@ -112,11 +115,12 @@ const PostulanteInfo = () => {
                                 ))}
                             </div>
                         </div>
+                        )}
 
 
                         {/* Educacion */}
 
-
+                        {postulante.estudios.length > 0 && (
                         <div className='d-flex flex-column align-items-start'>
                             <p className='fw-bold'>Educación</p>
 
@@ -137,6 +141,9 @@ const PostulanteInfo = () => {
                                 ))}
                             </div>
                         </div>
+                        )}
+
+                        {postulante.referencia_personal.length > 0 && (
 
                         <div className='d-flex flex-column align-items-start'>
                             <p className='fw-bold'>Referencias Personales</p>
@@ -156,6 +163,7 @@ const PostulanteInfo = () => {
                                 ))}
                             </div>
                         </div>
+                        )}
 
                        {postulante.files.length != 0 &&
                             <div className='d-flex flex-column align-items-start'>
