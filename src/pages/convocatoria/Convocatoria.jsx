@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 
 const Convocatoria = () => {
-   
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
@@ -15,6 +15,7 @@ const Convocatoria = () => {
     const [tecnologias, setTecnologias] = useState([]);
     const [tecnologiaSeleccionada, setTecnologiaSeleccionada] = useState([]);
     const [showAlert, setShowAlert] = useState(false);
+    const [errors, setErrors] = useState({});
     const token = useSelector(state => state.token);
 
 
@@ -22,15 +23,15 @@ const Convocatoria = () => {
     useEffect(() => {
         const fetchTecnologias = async () => {
             try {
-                
-           
-const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
-                
-            
-setTecnologias(response.data); 
-            } 
-   
-catch (error) {
+
+
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
+
+
+                setTecnologias(response.data);
+            }
+
+            catch (error) {
                 console.error('Error al obtener las tecnologías:', error);
             }
 
@@ -48,9 +49,9 @@ catch (error) {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        try {
-            const formData = new FormData();
+        if (validateForm()) {
+            try {
+                const formData = new FormData();
             formData.append('convocatoria_info', JSON.stringify({
                 title: title,
                 description: description,
@@ -82,15 +83,37 @@ catch (error) {
             setShowAlert(true);
 
         } catch (error) {
-            console.log("aquiasdasd")
+           
             console.error('Error al enviar el pedido POST:', error);
         }
-    };
+    } else {
+        console.log('Formulario inválido, por favor completa los campos requeridos');
+    }
+
+        };
 
   const handleClose = () => {
     setShowAlert(false);
   };
     
+  const validateForm = () => {
+    const newErrors = {};
+    if (!title) {
+        newErrors['title'] = 'Este campo es requerido';
+    }
+    if (!description) {
+        newErrors['description'] = 'Este campo es requerido';
+    }
+    if (!fechaInicio) {
+        newErrors['fechaInicio'] = 'Este campo es requerido';
+    }
+    if (!fechaFin) {
+        newErrors['fechaFin'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+};
+
 
     return (
         <Layout>
@@ -99,8 +122,9 @@ catch (error) {
                 <form className="row g-3" onSubmit={handleSubmit}>
                     <div className="col-md-12">
                         <label htmlFor="title" className="form-label">Título *</label>
-                        <input type="title" className="form-control" id="title" name="title"
+                        <input type="text" className="form-control" id="title" name="title"
                             placeholder="Ingrese el titulo" value={title} onChange={(e) => setTitle(e.target.value)} />
+                      {errors['title'] && <span className="error-message"style={{color: 'red'}}>{errors['title']}</span>}
                     </div>
 
                     <div className="col-md-12">
@@ -111,18 +135,21 @@ catch (error) {
                             name="description"
                             rows="4"
                             placeholder="Ingrese la descripción" value={description} onChange={(e) => setDescription(e.target.value)}  ></textarea>
+                            {errors['description'] && <span className="error-message"style={{color: 'red'}}>{errors['description']}</span>}
                     </div>
 
                     <div className="col-md-6">
                         <label htmlFor="fecha_inicio" className="form-label">Fecha de inicio *</label>
                         <input type="date" className="form-control" id="fecha_inicio" name="fecha_inicio"
                             placeholder="Ingrese la fecha" value={fechaInicio} onChange={(e) => setFechaInicio(e.target.value)} />
+                            {errors['fechaInicio'] && <span className="error-message"style={{color: 'red'}}>{errors['fechaInicio']}</span>}
                     </div>
 
                     <div className="col-md-6">
                         <label htmlFor="fecha_fin" className="form-label">Fecha finalizada*</label>
                         <input type="date" className="form-control" id="fecha_fin" name="fecha_fin"
                             placeholder="Ingrese la fecha" value={fechaFin} onChange={(e) => setFechaFin(e.target.value)} />
+                        {errors['fechaFin'] && <span className="error-message"style={{color: 'red'}}>{errors['fechaFin']}</span>}
                     </div>
 
 
@@ -134,11 +161,11 @@ catch (error) {
 
                     <div className="col-md-6">
                         <label className="form-label">Tecnologías*</label>
-                        <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
+                        <select className="form-select" id="tecnologia" onChange={(e) => handleTecnologiaChange(e)} multiple>
                             {tecnologias.map((tecnologia, index) => {
                                 return <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                             })}
-                            
+
                         </select>
                         <span style={{ fontSize: '0.8em', fontStyle: 'italic' }}>Ctrl + click para seleccionar</span>
                     </div>
@@ -149,13 +176,13 @@ catch (error) {
                     </div>
                 </form>
 
-           
+
                 {showAlert && (
-          <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
-            Se ha guardado correctamente.
-            <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
-          </div>
-        )}
+                    <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
+                        Se ha guardado correctamente.
+                        <button type="button" className="btn-close position-absolute top-0  end-0 me-2" aria-label="Close" onClick={handleClose}></button>
+                    </div>
+                )}
 
             </div>
 

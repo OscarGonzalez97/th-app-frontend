@@ -6,18 +6,16 @@ import { useSelector } from "react-redux";
 const Beneficios = () => {
 
   const [titulo, setTitulo] = useState('');
- 
   const [descripcion, setDescripcion] = useState('');
   const [showAlert, setShowAlert] = useState(false);
+  const [errors, setErrors] = useState({});
   const token = useSelector(state => state.token);
 
 
-   useEffect(() => {
-    
-  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (validateForm()) {
 
     try {
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/beneficio`, {
@@ -39,11 +37,27 @@ descripcion: descripcion
     } catch (error) {
       console.error('Error al enviar el pedido POST:', error);
     }
+  } else {
+    console.log('Formulario inválido, por favor completa los campos requeridos');
+  }
+
   };
 
 
   const handleClose = () => {
     setShowAlert(false);
+  };
+
+const validateForm = () => {
+    const newErrors = {};
+    if (!titulo) {
+      newErrors['titulo'] = 'Este campo es requerido';
+    }
+    if (!descripcion) {
+      newErrors['descripcion'] = 'Este campo es requerido';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
 
@@ -63,6 +77,7 @@ descripcion: descripcion
                         value={titulo}
               onChange={(e) => setTitulo(e.target.value)}
                       />
+                      {errors['titulo'] && <span className="error-message" style={{ color: 'red' }}>{errors['titulo']}</span>}
                 </div>
 
                 <div className="col-md-12">
@@ -76,6 +91,9 @@ descripcion: descripcion
                     value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
                      ></textarea>
+              {errors['descripcion'] && <span className="error-message" style={{ color: 'red' }}>{errors['descripcion']}</span>}
+                
+
                 </div>
 
                 <div className="col-12 d-flex justify-content-end">

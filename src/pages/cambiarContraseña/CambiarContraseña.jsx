@@ -62,13 +62,14 @@ const CambiarContraseña = () => {
 
   return (
     <Layout>
+    
       <div className="cambContraseña-container">
         <h2>Restablecer Contraseña</h2>
         
         <form className="row g-3" onSubmit={handleSubmit}>
           <div className="col-md-11">
             <label htmlFor="correoElectronico" className="form-label">Correo Electronico*</label>
-            <input type="text" className="form-control" id="correoElectronico" name="correoElectronico"  placeholder="Ingrese la contraseña actual"
+            <input type="text" className="form-control" id="correoElectronico" name="correoElectronico"  placeholder="Ingrese su correo"
               value={correoElectronico} onChange={(e) => setCorreoElectronico(e.target.value)} />
 
             <label htmlFor="contraseñaActual" className="form-label">Contraseña Actual*</label>

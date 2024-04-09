@@ -168,9 +168,6 @@ const ListarPostulante = () => {
                   <span role='button' onClick={() => navigate(`/postulante/${postulante.id_postulante}`)}>
                     <FontAwesomeIcon icon={faBook} style={{ fontSize: '20px', color: "white" }} />
                   </span>
-                  {/* <span role='button' onClick={() => handleDelete(postulante.id_postulante)}>
-                    <FontAwesomeIcon icon={faTrashCan} style={{ fontSize: '20px', color: "white" }} />
-                  </span> */}
                   <DeletePostulanteModal postulante={postulante} />
                 </div>
               </div>

@@ -138,7 +138,44 @@ const PostulanteInfo = () => {
                             </div>
                         </div>
 
+                        <div className='d-flex flex-column align-items-start'>
+                            <p className='fw-bold'>Referencias Personales</p>
+
+                            <div className='d-flex gap-2 flex-wrap'>
+                                {postulante.referencia_personal.map(referencia => (
+                                    <>
+                                        <div className="card" style={{ maxWidth: '12rem' }} key={referencia.id}>
+                                            <div className="card-body">
+                                                <p className="card-text fw-bold subtitle">{referencia.nombre}</p>
+                                                <h5 className="fw-bold experiencia_fecha ">{referencia.relacion} </h5>
+                                                <p className="card-text information-item">{referencia.telefono}</p>
+
+                                            </div>
+                                        </div>
+                                    </>
+                                ))}
+                            </div>
+                        </div>
+
+                       {postulante.files.length != 0 &&
+                            <div className='d-flex flex-column align-items-start'>
+                                <p className='fw-bold'>CV</p>
+                                <div className='d-flex gap-2 flex-wrap'>
+                                    {postulante.files.map(file => (
+                                        <>
+                                            <div className="card" style={{ maxWidth: '12rem' }} key={file.id_files}>
+                                                <div className="card-body">
+                                                    <a href={file.linkToFile}>Mirar CV</a>
+                                                </div>
+                                            </div>
+                                        </>
+                                    ))}
+                                </div>
+                            </div>
+                       }
+                        
                     </div>
+
                 ) : (
                     <p>Loading...</p>
 
