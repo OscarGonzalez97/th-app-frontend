@@ -5,7 +5,7 @@ import Convocatoria from '../pages/convocatoria/Convocatoria'
 import Tecnologia from '../pages/tecnologia/Tecnologia'
 import Estados from '../pages/estados/Estados'
 import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
-import ListarPostulante from '../pages/postulante/ListarPostulante';
+import ListarPostulante from '../pages/postulante/ListarPostulanteWithFilter';
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';

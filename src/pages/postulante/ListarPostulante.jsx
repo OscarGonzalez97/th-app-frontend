@@ -21,6 +21,8 @@ const ListarPostulante = () => {
   const [selectedState, setSelectedState] = useState("");
   const [estados, setEstados] = useState([]);
   const [postulantes, setPostulantes] = useState(null);
+  const [convocatorias, setConvocatoria] = useState([]);
+  const [tecnologias, setTecnologia] = useState([]);
   const token = useSelector(state => state.token);
   const navigate = useNavigate();
 
@@ -37,6 +39,22 @@ const ListarPostulante = () => {
           console.log("the response", estadosResponse.data);
           setEstados(estadosResponse.data);
 
+          const convocatoriaResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/convocatoria`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            }
+          });
+
+          const tecnologiaResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            }
+          });
+
+          console.log("the response", convocatoriaResponse.data);
+          setConvocatoria(convocatoriaResponse.data);
+          console.log(convocatorias)
+
           const postulantesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/v1/postulante`, {
             headers: {
               'Authorization': `Bearer ${token}`
@@ -51,7 +69,6 @@ const ListarPostulante = () => {
     };
 
     fetchData();
-
   }, [token]);
 
 
@@ -73,6 +90,12 @@ const ListarPostulante = () => {
                 <div className="row justify-content-start gy-2">
                   <div className="col-auto">
                     <input type="text" className="form-control form-control-sm" placeholder="Nombre"></input>
+                  </div>
+                  <div className="col-auto">
+                    <input type="text" className="form-control form-control-sm" placeholder="Apellido"></input>
+                  </div>
+                  <div className="col-auto">
+                    <input type="text" className="form-control form-control-sm" placeholder="Nro Documento"></input>
                   </div>
                   <div className="col-auto">
                     <button type="button" className="btn btn-primary">Buscar</button>
@@ -98,9 +121,9 @@ const ListarPostulante = () => {
 
 
                   <div className="col-md-2">
-                    <label className="form-label h6 text-start">Años de experiencia</label>
+                    <label className="form-label h6 text-start">Convocatoria</label>
                   </div>
-                  <div className="col-md-2">
+                  {/* <div className="col-md-2">
                     <select className="form-select form-select-sm">
                       <option>Todas</option>
                       <option value="1">Menor a 6 meses</option>
@@ -108,6 +131,14 @@ const ListarPostulante = () => {
                       <option value="3">Menor a 3 años</option>
                       <option value="4">Menor a 5 año</option>
                       <option value="5">Mayor a 5 años</option>
+                    </select>
+                  </div> */}
+                  <div className="col-md-2">
+                    <select className="form-select form-select-sm" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+                      <option value="">Todas</option>
+                      {convocatorias.map((convocatoria) => (
+                        <option key={convocatoria.id_convocatoria} value={convocatoria.title}>{convocatoria.title}</option>
+                      ))}
                     </select>
                   </div>
 
