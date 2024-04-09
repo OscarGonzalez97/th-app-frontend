@@ -8,7 +8,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 
 const Convocatoria = () => {
-   
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [fechaInicio, setFechaInicio] = useState('');
@@ -25,15 +25,15 @@ const Convocatoria = () => {
     useEffect(() => {
         const fetchTecnologias = async () => {
             try {
-                
-           
-const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
-                
-            
-setTecnologias(response.data); 
-            } 
-   
-catch (error) {
+
+
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/tecnologia`);
+
+
+                setTecnologias(response.data);
+            }
+
+            catch (error) {
                 console.error('Error al obtener las tecnologías:', error);
             }
 
@@ -164,11 +164,11 @@ catch (error) {
 
                     <div className="col-md-6">
                         <label className="form-label">Tecnologías*</label>
-                        <select className="form-select" id="tecnologia"onChange={(e) => handleTecnologiaChange(e)}multiple>
+                        <select className="form-select" id="tecnologia" onChange={(e) => handleTecnologiaChange(e)} multiple>
                             {tecnologias.map((tecnologia, index) => {
                                 return <option key={index} value={tecnologia.id_tecnologia}>{tecnologia.nombre}</option>
                             })}
-                            
+
                         </select>
                         <span style={{ fontSize: '0.8em', fontStyle: 'italic' }}>Ctrl + click para seleccionar</span>
                     </div>
@@ -179,7 +179,7 @@ catch (error) {
                     </div>
                 </form>
 
-           
+
                 {showAlert && (
           <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px' }}>
              <FontAwesomeIcon icon={faCheckCircle} className="me-2" />

@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Home from '../pages/home/Home';
+import Home from '../pages/home/Home'
+import Login from "../pages/login/Login"
+import Convocatoria from '../pages/convocatoria/Convocatoria'
+import Tecnologia from '../pages/tecnologia/Tecnologia'
+import Estados from '../pages/estados/Estados'
+import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha"
 import ListarPostulante from '../pages/postulante/ListarPostulante';
-import Login from "../pages/login/Login";
-import Convocatoria from '../pages/convocatoria/Convocatoria';
-import Tecnologia from '../pages/tecnologia/Tecnologia';
-import OlvidasteContrasenha from "../pages/login/OlvidasteContrasenha";
 import PostulanteForm from '../pages/postulante/PostulanteForm';
 import CambiarContraseña from '../pages/cambiarContraseña/CambiarContraseña';
 import ListarTecnologia from '../pages/tecnologia/ListarTecnologia';
@@ -17,11 +18,11 @@ import PaginaNoEncontrada from '../pages/pagNoEncontrada/PaginaNoEncontrada';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
 
 
-
 export function Routing() {
   return (
     <BrowserRouter>
       <Routes>
+
         {/* Rutas que usan Layout */}
         <Route path="/" element={<Home />} />
         <Route path="/postulante/listar" element={<ListarPostulante />} />
@@ -33,15 +34,18 @@ export function Routing() {
         <Route path="/usuario/listar" element={<ListarUsuarios />} />
         <Route path="/beneficios" element={<Beneficios />} />
         <Route path="/beneficios/listar" element={<ListarBeneficios />} />
+        <Route path="/estados" element={<Estados />} />
+        <Route path="/postulante/:id" element={<PostulanteInfo />} />
 
         {/* Rutas desprotegidas */}
         <Route path="/login" element={<Login />} />
         <Route path="/recuperar" element={<OlvidasteContrasenha />} />
         <Route path="/confirm-reset" element={<RecuperarContrasenha />} />
-        <Route path="/postulante" element={<PostulanteForm />} />
+        <Route path="/convocatoria/:id" element={<PostulanteForm />} />
 
         {/* Ruta para página no encontrada */}
         <Route path="*" element={<PaginaNoEncontrada />} />
+        
       </Routes>
     </BrowserRouter>
   );
