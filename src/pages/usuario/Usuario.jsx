@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { Modal, Button } from 'react-bootstrap';
 const Usuario = () => {
   const [errors, setErrors] = useState({});
   const [email, setEmail] = useState('');
@@ -12,6 +13,12 @@ const Usuario = () => {
   const [usuarios, setUsuarios] = useState(null);
   const [isValidEmail, setIsValidEmail] = useState(true); // State to track email validity
   const [hoveredUserId, setHoveredUserId] = useState(null);
+  const [showEliminar, setEliminar] = useState(false);
+
+  const [usuarioSeleccionado, setUsuarioSeleccionado] = useState(null);
+  const handleCloseEliminar = () => setEliminar(false);
+  const handleShowEliminar = () => setEliminar(true);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (validateForm()) {
@@ -34,6 +41,10 @@ const Usuario = () => {
       }
     };
   };
+
+
+
+
   const fetchData = async () => {
     if (token) {
       try {
@@ -48,13 +59,14 @@ const Usuario = () => {
       }
     }
   };
+
+
+
   useEffect(() => {
     setIsValidEmail(validateEmail(email));
     fetchData();
   }, [token, email]);
-  const handleClose = () => {
-    setShowAlert(false);
-  };
+
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@roshka\.com$/i;
     return regex.test(email);
@@ -67,20 +79,80 @@ const Usuario = () => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0 && isValidEmail;
   };
-  const handleDelete = async (idToDelete) => {
-    try {
-      await axios.delete(`${import.meta.env.VITE_API_URL}/v1/allowedUsers/${idToDelete}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
+
+
+
+
+  const handleEliminarUsuario = (id) => {
+    // Setea el id del beneficio seleccionado para eliminar
+    setUsuarioSeleccionado(id);
+    // Abre el modal de confirmación
+    setEliminar(true);
+
+  }
+
+
+
+  // const handleDelete = async () => {
+  //   try {
+  //     await axios.delete(`${import.meta.env.VITE_API_URL}/v1/allowedUsers/${idToDelete}`, {
+  //       headers: {
+  //         'Authorization': `Bearer ${token}`
+  //       }
+  //     })
+  //     .then(response => {
+  //       setUsuarios(usuarios.filter(usuario => usuario.id_user !== idToDelete));
+  //       setEliminar(false);
+  //       setBeneficioSeleccionado(null);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error al eliminar el beneficio:', error);
+  //       setEliminar(false);
+  //       setBeneficioSeleccionado(null);
+  //     });
+
+
+  //     console.log('Usuario eliminado con ID:', idToDelete);
+  //     // Actualizar la lista de usuarios eliminando el usuario eliminado
+  //     fetchData();
+  //     setUsuarios(usuarios.filter(usuario => usuario.id_user !== idToDelete));
+  //   } catch (error) {
+  //     console.error('Error al eliminar el usuario:', error);
+  //   }
+  // };
+
+
+  const confirmarEliminar = () => {
+    axios.delete(`${import.meta.env.VITE_API_URL}/v1/allowedUsers/${usuarioSeleccionado}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(response => {
+        fetchData();
+        setUsuarios(usuarios.filter(usuario => usuario.id_user !== usuarioSeleccionado));
+        // Cierra el modal de confirmación
+        setEliminar(false);
+        setUsuarioSeleccionado(null);
+       
+      })
+      .catch(error => {
+        console.error('Error al eliminar el usuario:', error);
+        setEliminar(false);
+        setUsuarioSeleccionado(null);
       });
-      console.log('Usuario eliminado con ID:', idToDelete);
-      // Actualizar la lista de usuarios eliminando el usuario eliminado
-      setUsuarios(usuarios.filter(usuario => usuario.id_user !== idToDelete));
-    } catch (error) {
-      console.error('Error al eliminar el usuario:', error);
-    }
-  };
+  }
+
+
+
+ 
+  const cancelarEliminar = () => {
+    // Cierra el modal de confirmación
+    setEliminar(false);
+    setUsuarioSeleccionado(null);
+  }
+
+
   return (
     <Layout>
       <div className='container'>
@@ -112,7 +184,7 @@ const Usuario = () => {
                     <FontAwesomeIcon
                       icon={faTimesCircle}
                       className='delete-icon'
-                      onClick={() => handleDelete(usuario.id_user)}
+                      onClick={() => handleEliminarUsuario(usuario.id_user)}
                     />
                   )}
                 </div>
@@ -127,6 +199,22 @@ const Usuario = () => {
           </div>
         </div>
       </div>
+
+      <>
+        <Modal show={showEliminar} onHide={handleCloseEliminar} className=''>
+          <Modal.Header closeButton>
+            <Modal.Title className='modal-title text-black'>¿Estás seguro de eliminar?</Modal.Title>
+          </Modal.Header>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={confirmarEliminar} className='btn btn-danger'>
+              Eliminar
+            </Button>
+            <Button variant="secondary" onClick={cancelarEliminar}>
+              Cancelar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </>
     </Layout>
   );
 };
