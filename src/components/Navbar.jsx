@@ -44,7 +44,7 @@ const NavBar = () => {
 
               <HoverNavDropdown title="Convocatorias" id="convo-dropdown">
                 <NavDropdown.Item as={Link} to="/convocatoria">Agregar</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/cargos/listarco">Listar</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/convocatoria/listar">Listar</NavDropdown.Item>
               </HoverNavDropdown>
               {/* 
               <HoverNavDropdown title="Postulante" id="post-dropdown">
