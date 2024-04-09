@@ -646,8 +646,10 @@ const PostulanteForm = () => {
             */}
 
                 <div className="col-12 d-flex justify-content-end">
-                    <button type="button" className="btn btn-danger me-2">Cancelar</button>
-                    <button type="submit" className="btn btn-success">Guardar</button>
+                    <div className='flex'>
+                        <button type="button" className="btn btn-danger me-2">Cancelar</button>
+                        <button type="submit" className="btn btn-success">Guardar</button>
+                    </div>
 
                     {/* Mostrar el componente de carga si loading es true */}
                     <div className="loader-container">
