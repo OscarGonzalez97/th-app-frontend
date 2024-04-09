@@ -14,6 +14,7 @@ import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
 import ListarPostulante from '../pages/postulante/ListarPostulante';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
+import ListarConvocatoria from '../pages/convocatoria/ListarConvocatoria';
 
 
 
@@ -31,6 +32,11 @@ export function Routing() {
         <Route path="/convocatoria"
           element={<Convocatoria/>}>
         </Route>
+
+        <Route path="/convocatoria/listar"
+          element={<ListarConvocatoria/>}>
+        </Route>
+
         <Route path="/tecnologia"
           element={<Tecnologia/>}>
         </Route>
