@@ -16,7 +16,8 @@ import ListarBeneficios from '../pages/beneficios/ListarBeneficios';
 import ListarUsuarios from '../pages/usuario/ListarUsuarios';
 import PaginaNoEncontrada from '../pages/pagNoEncontrada/PaginaNoEncontrada';
 import PostulanteInfo from '../pages/postulanteInfo/PostulanteInfo';
-import EditarPostulante from '../pages/postulante/EditarPostulante';
+import EditarPostulante from '../pages/postulante/EditarPostulante';import ListarConvocatoria from '../pages/convocatoria/ListarConvocatoria';
+
 
 export function Routing() {
   return (
@@ -25,6 +26,7 @@ export function Routing() {
 
         {/* Rutas que usan Layout */}
         <Route path="/" element={<Home />} />
+        <Route path="/convocatoria/listar" element={<ListarConvocatoria/>}> </Route>
         <Route path="/postulante/listar" element={<ListarPostulante />} />
         <Route path="/convocatoria" element={<Convocatoria />} />
         <Route path="/tecnologia" element={<Tecnologia />} />
