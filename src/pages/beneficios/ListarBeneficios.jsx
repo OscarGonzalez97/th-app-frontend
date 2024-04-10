@@ -6,7 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './ListarBeneficios.css';
 import axios from 'axios';
 import { useSelector } from "react-redux";
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'primereact/button';
 
 const ListarBeneficios = () => {
   const token = useSelector(state => state.token);
@@ -70,12 +73,12 @@ const ListarBeneficios = () => {
           <h1>Listar Beneficios</h1>
           <br />
           <DataTable paginator rows={20} value={beneficios} stripedRows>
-            <Column field="id" header="#" />
-            <Column field="titulo" header="Beneficio" />
-            <Column field="descripcion" header="Descripcion" />
+            <Column field="id" header="#" className='columna-ajuste'/>
+            <Column field="titulo" header="Beneficio" className='columna-ajuste'/>
+            <Column field="descripcion" header="Descripcion" className='columna-ajuste'/>
             <Column header="Acciones" body={(rowData) => (
-              <button className="btn btn-danger" onClick={() => handleEliminarBeneficio(rowData.id)}>Eliminar</button>
-            )} />
+              <Button className="btn btn-danger" icon={<FontAwesomeIcon icon={faTrashCan} />} onClick={() => handleEliminarBeneficio(rowData.id)}></Button>
+            )} className='columna-ajuste'/>
           </DataTable>
         </div>
       </div>
@@ -88,7 +91,7 @@ const ListarBeneficios = () => {
             <Button variant="secondary" onClick={confirmarEliminar} className='btn btn-danger'>
               Eliminar
             </Button>
-            <Button variant="secondary" onClick={cancelarEliminar}>
+            <Button variant="secondary" onClick={cancelarEliminar} className='btn btn-secondary'>
               Cancelar
             </Button>
           </Modal.Footer>
