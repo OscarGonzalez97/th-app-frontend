@@ -8,7 +8,7 @@ import axios from 'axios'; // Importa Axios
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink } from '@fortawesome/free-solid-svg-icons';
+import { faLink, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import "./ListarConvocatoria.css";
 import {Modal} from 'react-bootstrap';
 
@@ -89,10 +89,8 @@ const ListarConvocatoria = () => {
                         <Column field="fecha_fin" header="Fecha Fin" body={(rowData) => formatDate(rowData.fecha_fin)} className='columna-ajuste'/>
                         <Column header="Acciones" body={(rowData) => (
                             <div >
-                                <Link to={`/convocatoria/${rowData.id_convocatoria}`} target="_blank" rel="noopener noreferrer">
-                                    <Button className="boton-enlace" icon={<FontAwesomeIcon icon={faLink} />} className="p-button-outlined" />
-                                </Link>
-                                <Button label="Eliminar" className="btn btn-danger boton-eliminar" onClick={() => handleEliminarConvocatoria(rowData.id_convocatoria)} />
+                                <Button icon={<FontAwesomeIcon icon={faLink} />} className="btn btn-primary" />
+                                <Button icon={<FontAwesomeIcon icon={faTrashCan} />} className="btn btn-danger" onClick={() => handleEliminarConvocatoria(rowData.id_convocatoria)} />
                             </div>
                         )} className='columna-ajuste'/>
                     </DataTable>
@@ -104,10 +102,10 @@ const ListarConvocatoria = () => {
                         <Modal.Title className='modal-title text-black'>¿Estás seguro de eliminar?</Modal.Title>
                     </Modal.Header>
                     <Modal.Footer>
-                        <Button className="boton-eliminar" variant="secondary" onClick={confirmarEliminarConvocatoria} className='btn btn-danger'>
+                        <Button className="btn btn-danger" variant="secondary" onClick={confirmarEliminarConvocatoria}>
                             Eliminar
                         </Button>
-                        <Button className="boton-cancelar" variant="secondary" onClick={cancelarEliminarConvocatoria}>
+                        <Button className="btn btn-secondary" variant="secondary" onClick={cancelarEliminarConvocatoria}>
                             Cancelar
                         </Button>
                     </Modal.Footer>
