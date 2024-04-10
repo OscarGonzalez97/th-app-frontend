@@ -109,11 +109,13 @@ const ListarPostulante = () => {
     <Layout>
       <div className="listarPostulantes container">
 
-
         {/* Muestra la tabla de postulantes */}
         <div className="container mt-5">
+
           <div className="row">
-            <div className='col'>
+            <div className='col d-flex gap-2'>
+            <FontAwesomeIcon icon={faUser} style={{ fontSize: '15px', color: "white" }} />
+
               <h1 className='h6 fw-bold'>Listado de postulantes</h1>
             </div>
           </div>
@@ -174,7 +176,7 @@ const ListarPostulante = () => {
                 <div className="col d-flex align-items-center">{postulante.apellido.toUpperCase()}</div>
                 <div className="col d-flex align-items-center">{postulante.nro_documento}</div>
                 <div className="col d-flex align-items-center">{postulante.estado.estado}</div>
-                <div className="col d-flex align-items-center h5">
+                <div className="col d-flex align-items-center ">
                     {postulante.tecnologiasasignadas.length > 0 && (
                         <span key={postulante.tecnologiasasignadas[0].id_tecnologia} className='badge bg-secondary me-1 mt-1'>
                             {postulante.tecnologiasasignadas[0].nombre}

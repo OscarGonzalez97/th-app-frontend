@@ -8,7 +8,8 @@ import axios from 'axios'; // Importa Axios
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLink, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faLink, faTrashCan, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
 import "./ListarConvocatoria.css";
 import {Modal} from 'react-bootstrap';
 
@@ -16,6 +17,7 @@ const ListarConvocatoria = () => {
     const token = useSelector(state => state.token);
     const [convocatorias, setConvocatorias] = useState([]);
     const [showEliminar, setEliminar] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [convocatoriaSeleccionada, setConvocatoriaSeleccionada] = useState(null); // Agrega un estado para almacenar la convocatoria seleccionada
     const handleCloseEliminar = () => setEliminar(false);
     const handleShowEliminar = () => setEliminar(true);
@@ -68,6 +70,13 @@ const ListarConvocatoria = () => {
         setEliminar(false);
         setConvocatoriaSeleccionada(null);
     }
+    const copyText = (link) => {
+        navigator.clipboard.writeText(`${import.meta.env.VITE_FRONT_URL}${link}`).then(function() {
+            setShowAlert(true);
+            setTimeout(() => setShowAlert(false), 3000);
+        });
+    }
+    
 
     // Función para formatear la fecha en formato "dd/mm/yyyy"
     const formatDate = (dateString) => {
@@ -89,13 +98,22 @@ const ListarConvocatoria = () => {
                         <Column field="fecha_fin" header="Fecha Fin" body={(rowData) => formatDate(rowData.fecha_fin)} className='columna-ajuste'/>
                         <Column header="Acciones" body={(rowData) => (
                             <div >
-                                <Button icon={<FontAwesomeIcon icon={faLink} />} className="btn btn-primary" />
+                                <Button icon={<FontAwesomeIcon icon={faLink} />} className="btn btn-primary" onClick={() => copyText(rowData.link)}/>
                                 <Button icon={<FontAwesomeIcon icon={faTrashCan} />} className="btn btn-danger" onClick={() => handleEliminarConvocatoria(rowData.id_convocatoria)} />
                             </div>
                         )} className='columna-ajuste'/>
                     </DataTable>
                 </div>
+                {showAlert && (
+                <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px'}}>
+                    <FontAwesomeIcon icon={faCheckCircle} className="me-5" />
+                    Link copiado al portapapeles
+                </div>
+                )}
             </div>
+
+         
+
             <>
                 <Modal show={showEliminar} onHide={handleCloseEliminar} className='modal-'>
                     <Modal.Header closeButton>
