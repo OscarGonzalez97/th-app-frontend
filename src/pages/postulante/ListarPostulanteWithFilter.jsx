@@ -8,7 +8,7 @@ import { Form, Row, Col } from 'react-bootstrap'
 import { useSelector } from "react-redux";
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye  } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faPencil  } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import DeletePostulanteModal from '../../components/DeletePostulanteModal';
 import { Button } from 'primereact/button';
@@ -160,10 +160,11 @@ const ListarPostulante = () => {
             <Column field="apellido" header="Apellido" className='columna-ajuste'/>
             <Column field="nro_documento" header="Nro. de Documento" className='columna-ajuste'/>
             <Column field="estado.estado" header="Estado" className='columna-ajuste'/>
-            <Column field="convocatoria.tittle" header="Convocatoria" className='columna-ajuste'/>
+            <Column field="convocatoria.title" header="Convocatoria" className='columna-ajuste'/>
             <Column header="Acciones" body={(rowData) => (
                             <div >
                                 <Button icon={<FontAwesomeIcon icon={faEye} />}onClick={() => navigate(`/postulante/${rowData.id_postulante}`)} className="btn btn-primary" />
+                                <Button icon={<FontAwesomeIcon icon={faPencil} />}onClick={() => navigate(`/editarPostulante/${rowData.id_postulante}`)} className="btn btn-dark" />
                                 <DeletePostulanteModal postulante={rowData} />
                             </div>
                         )} className='columna-ajuste'/>
