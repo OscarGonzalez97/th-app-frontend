@@ -101,7 +101,7 @@ const ListarPostulante = () => {
         );
       }
     if (convocatoriaFilter) {
-        filteredData = filteredData.filter(postulante => postulante.convocatoria.title.includes(estadoFilter));
+        filteredData = filteredData.filter(postulante => postulante.convocatoria.title.includes(convocatoriaFilter));
     }
 
     setFilteredPostulantes(filteredData);
