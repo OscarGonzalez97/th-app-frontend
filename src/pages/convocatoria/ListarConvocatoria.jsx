@@ -90,9 +90,9 @@ const ListarConvocatoria = () => {
                         <Column header="Acciones" body={(rowData) => (
                             <div >
                                 <Link to={`/convocatoria/${rowData.id_convocatoria}`} target="_blank" rel="noopener noreferrer">
-                                    <Button icon={<FontAwesomeIcon icon={faLink} />} className="p-button-outlined" />
+                                    <Button className="boton-enlace" icon={<FontAwesomeIcon icon={faLink} />} className="p-button-outlined" />
                                 </Link>
-                                <Button label="Eliminar" className="btn btn-danger" onClick={() => handleEliminarConvocatoria(rowData.id_convocatoria)} />
+                                <Button label="Eliminar" className="btn btn-danger boton-eliminar" onClick={() => handleEliminarConvocatoria(rowData.id_convocatoria)} />
                             </div>
                         )} className='columna-ajuste'/>
                     </DataTable>
