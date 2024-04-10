@@ -6,8 +6,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './PostulanteForm.css';
 import './EditarPostulante.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
+import { faCheckCircle , faTrash} from '@fortawesome/free-solid-svg-icons';
+import { ColorRing } from 'react-loader-spinner'
 import { Layout } from "../../components/layouts/Layout";
 
 
@@ -38,8 +38,43 @@ function EditarPostulante() {
 
     const [showAlert, setShowAlert] = useState(false);
 
+    const [loading, setLoading] = useState(false); // Estado para controlar si se está cargando o no
+
+
     // Agrega más estados según sea necesario para otros campos del formulario
 
+    const showFile = (file) => {
+        // Verifica si el archivo está presente en la lista de archivos
+        return files.some(f => f.id_files === file.id_files);
+    };
+
+    // Función para obtener los datos del postulante desde la API
+    async function fetchData() {
+        try {
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/postulante/${id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            setDatosAPI(response.data); // Almacenar todos los datos en la variable de estado
+            setNombre(response.data.nombre);
+            setApellido(response.data.apellido);
+            setCorreo(response.data.correo);
+            setTipoDeDocumento(response.data.tipo_documento); //nose va poder cambiar
+            setNumeroDeDocumento(response.data.nro_documento);
+            setDireccion(response.data.direccion);
+            setTelefono(response.data.nro_telefono);
+            setFechaNacimiento(response.data.fecha_nacimiento);
+            setNivelIngles(response.data.nivel_ingles);
+            setCiudadSeleccionada(response.data.ciudad.id_ciudad);
+            setEstadoSeleccionado(response.data.estado.id_estado);
+            setConvocatoria(response.data.convocatoria.id_convocatoria);
+            setComentarioRRHH(response.data.comentario_rrhh);
+            setFiles(response.data.files);
+        } catch (error) {
+            console.error('Error al obtener los datos de la API:', error);
+        }
+    }
     
     useEffect(() => {
         axios.get(`${import.meta.env.VITE_API_URL}/v1/ciudades`)
@@ -52,33 +87,6 @@ function EditarPostulante() {
     },[]);
     
     useEffect(() => {
-        // Función para obtener los datos del postulante desde la API
-        async function fetchData() {
-            try {
-                const response = await axios.get(`${import.meta.env.VITE_API_URL}/v1/postulante/${id}`, {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
-                });
-                setDatosAPI(response.data); // Almacenar todos los datos en la variable de estado
-                setNombre(response.data.nombre);
-                setApellido(response.data.apellido);
-                setCorreo(response.data.correo);
-                setTipoDeDocumento(response.data.tipo_documento); //nose va poder cambiar
-                setNumeroDeDocumento(response.data.nro_documento);
-                setDireccion(response.data.direccion);
-                setTelefono(response.data.nro_telefono);
-                setFechaNacimiento(response.data.fecha_nacimiento);
-                setNivelIngles(response.data.nivel_ingles);
-                setCiudadSeleccionada(response.data.ciudad.id_ciudad);
-                setEstadoSeleccionado(response.data.estado.id_estado);
-                setConvocatoria(response.data.convocatoria.id_convocatoria);
-                setComentarioRRHH(response.data.comentario_rrhh);
-                setFiles(response.data.files);
-            } catch (error) {
-                console.error('Error al obtener los datos de la API:', error);
-            }
-        }
         async function fetchEstados() {
             axios.get(`${import.meta.env.VITE_API_URL}/v1/estados`, {
                 headers: {
@@ -122,29 +130,55 @@ function EditarPostulante() {
                 formData.append('estudios', "");
                 formData.append('tecnologias_id', "[]");
                 formData.append('referencias_personales', "");
-
+                setLoading(true); 
                 const response = await axios.put(`${import.meta.env.VITE_API_URL}/v1/postulante/${id}`, formData, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'multipart/form-data'
 
                     }
+                }).then(() =>{
+                    fetchData();
+                    setUpdatedFiles([]);
+
                 });
-
-                console.log('Respuesta del servidor:', response.data);
-                console.log(formData);
-
+                setLoading(false);
                 setShowAlert(true);
                 setTimeout(() => setShowAlert(false), 5000);
 
             } catch (error) {
+                setLoading(false);
                 console.error('Error al enviar el pedido POST:', error);
             }
            
     }
+
+
+    const deleteFile = async (id) => {
+        // Eliminar el archivo
+        axios.delete(`${import.meta.env.VITE_API_URL}/v1/eliminarfile/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            }
+        })
+        .then(() => {
+            fetchData();
+        })
+        
+        .catch((error) => {
+            // Manejar el error al eliminar el archivo
+            console.error("Error al eliminar el archivo:", error);
+        });
+    };
+    
+    
+
+
+
     return (
         <Layout>
-            <div className="postulante-container ">                
+            <div className="postulante-container "> 
+            <h1>Editar Postulantes</h1>               
             <form className="row g-3 form-container"  onSubmit={handleSubmit}>
                 {datosAPI ? (
                     <>
@@ -245,10 +279,22 @@ function EditarPostulante() {
 
                         <div className="col-md-12">
                             <label htmlFor="files" className="form-label">Archivos *</label>
-                            {files && <ul>
-                                {files.map(file => (<li><a href={file.linkToFile} className='linkToFile'>{file.linkToFile}</a></li>))}        
-                            </ul>
-                            }
+                            {files && (
+                                <ul>
+                                    {files.map(file => (
+                                        <li key={file.id_files}>
+                                            {showFile(file) && (
+                                                <div className='d-flex gap-1' >
+                                                    <a href={file.linkToFile} className='linkToFile'>{file.linkToFile}</a>
+                                                    <div type='button' onClick={() => deleteFile(file.id_files)}>
+                                                        <FontAwesomeIcon icon={faTrash} style={{ color: "#fcfcfc",marginTop:'15px', marginLeft: 'auto'}} />
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                             <input type="file" multiple className="form-control" id="filesUpdated" name="filesUpdated"
                                 onChange={(e) => setUpdatedFiles(e.target.files[0])}
                             />
@@ -276,7 +322,16 @@ function EditarPostulante() {
                         </div>
 
                         <button type="submit">Guardar</button>
-
+                        <div className="loader-container">
+                        { loading && <ColorRing
+                            visible={true}
+                            width="auto"
+                            ariaLabel="color-ring-loading"
+                            wrapperStyle={{}}
+                            wrapperClass="color-ring-wrapper"
+                            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+                        />}
+                    </div>
                     </>
                 ):(
                     <p style= {{textAlign: 'center', fontSize:'25px', margin: '100px auto 0' }}>No hay datos disponibles para actualizar</p>
