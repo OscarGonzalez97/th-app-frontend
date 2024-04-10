@@ -110,29 +110,9 @@ const ListarPostulante = () => {
   return (
     <Layout>
       <div className="listarPostulantes container">
-
-        {/* Muestra la tabla de postulantes */}
-        <div className="container mt-5">
-
-          <div className="row">
-            <div className='col d-flex gap-2'>
-            <FontAwesomeIcon icon={faUser} style={{ fontSize: '15px', color: "white" }} />
-
-              <h1 className='h6 fw-bold'>Listado de postulantes</h1>
-            </div>
-          </div>
-
-
-          <div className="row mt-3 border-bottom pb-2 fs">
-            <div className="col d-flex align-items-center">Nombre</div>
-            <div className="col d-flex align-items-center">Apellido</div>
-            <div className="col d-flex align-items-center">Nro. Documento</div>
-            <div className="col d-flex align-items-center">Estado</div>
-
-            <div className="col d-flex align-items-center">Tecnologia</div>
-            <div className="col d-flex align-items-center">Convocatoria</div>
-
-          </div>
+        <div className="container-fluid">
+          <h1>Listar Postulantes</h1>
+          <br />
           <Form>
           <Row className="mb-3 pb-4 pt-4 ">
             <Col>
@@ -174,33 +154,20 @@ const ListarPostulante = () => {
                 </select>
             </Col>
           </Row>
-        </Form>
-
-          {filteredPostulantes ? (
-            filteredPostulantes.map(postulante => (
-              <div className="row mt-3 border-bottom pb-2 fs" key={postulante.id_postulante}>
-                <div className="col d-flex align-items-center">{postulante.nombre.toUpperCase()}</div>
-                <div className="col d-flex align-items-center">{postulante.apellido.toUpperCase()}</div>
-                <div className="col d-flex align-items-center">{postulante.nro_documento}</div>
-                <div className="col d-flex align-items-center">{postulante.estado.estado}</div>
-                <div className="col d-flex align-items-center ">
-                    {postulante.tecnologiasasignadas.length > 0 && (
-                        <span key={postulante.tecnologiasasignadas[0].id_tecnologia} className='badge bg-secondary me-1 mt-1'>
-                            {postulante.tecnologiasasignadas[0].nombre}
-                        </span>
-                    )}
-                </div>
-                <div className="col d-flex align-items-center">{postulante.convocatoria.title}</div>
-                <div className='col-1 d-flex justify-content-end gap-3'>
-                  <span role='button' onClick={() => navigate(`/postulante/${postulante.id_postulante}`)}>
-                    <FontAwesomeIcon icon={faBook} style={{ fontSize: '20px', color: "white" }} />
-                  </span>
-                  <DeletePostulanteModal postulante={postulante} />                </div>
-              </div>
-            ))
-          ) : (
-            <p>Loading ...</p>
-          )}
+          </Form>
+          <DataTable paginator rows={20} value={filteredPostulantes} stripedRows>
+            <Column field="nombre" header="Nombre" className='columna-ajuste'/>
+            <Column field="apellido" header="Apellido" className='columna-ajuste'/>
+            <Column field="nro_documento" header="Nro. de Documento" className='columna-ajuste'/>
+            <Column field="estado.estado" header="Estado" className='columna-ajuste'/>
+            <Column field="convocatoria.tittle" header="Convocatoria" className='columna-ajuste'/>
+            <Column header="Acciones" body={(rowData) => (
+                            <div >
+                                <Button icon={<FontAwesomeIcon icon={faEye} />}onClick={() => navigate(`/postulante/${rowData.id_postulante}`)} className="btn btn-primary" />
+                                <DeletePostulanteModal postulante={rowData} />
+                            </div>
+                        )} className='columna-ajuste'/>
+          </DataTable>            
         </div>
       </div>
       
