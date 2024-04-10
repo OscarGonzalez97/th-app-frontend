@@ -46,9 +46,15 @@ const PostulanteInfo = () => {
                             <p className='fw-bold'>Postulante</p>
                             <p className='h5 fw-bold'>{postulante.nombre.toUpperCase()} {postulante.apellido.toUpperCase()}</p>
                         </div>
-                        <div className='d-flex flex-column align-items-start'>
-                            <p className='fw-bold'>Convocatoria</p>
-                            <p className='h5 fw-bold'>{postulante.convocatoria.title}</p>
+                        <div className='d-flex gap-5'>
+                            <div className='d-flex flex-column align-items-start'>
+                                <p className='fw-bold'>Convocatoria</p>
+                                <p className='h5 fw-bold'>{postulante.convocatoria.title}</p>
+                            </div>
+                            <div className='d-flex flex-column align-items-start'>
+                                <p className='fw-bold'>Estado</p>
+                                <p className='h5 fw-bold'>{postulante.estado.estado}</p>
+                            </div>
                         </div>
                         <div className='d-flex flex-column align-items-start'>
                             <p className='fw-bold '>Datos Personales</p>
@@ -81,6 +87,11 @@ const PostulanteInfo = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <div>
+                        <p className='fw-bold'>Comentario RRHH</p>
+                        <p className='information-item'>{postulante.comentario_rrhh}</p>
                         </div>
 
                         {postulante.tecnologiasasignadas.length > 0 && (
@@ -167,13 +178,13 @@ const PostulanteInfo = () => {
 
                        {postulante.files.length != 0 &&
                             <div className='d-flex flex-column align-items-start'>
-                                <p className='fw-bold'>CV</p>
+                                <p className='fw-bold'>Archivos adjuntos</p>
                                 <div className='d-flex gap-2 flex-wrap'>
-                                    {postulante.files.map(file => (
+                                    {postulante.files.map((file, index) => (
                                         <>
                                             <div className="card" style={{ maxWidth: '12rem' }} key={file.id_files}>
                                                 <div className="card-body">
-                                                    <a href={file.linkToFile}>Mirar CV</a>
+                                                    <a href={file.linkToFile}>Adjunto {index+1}</a>
                                                 </div>
                                             </div>
                                         </>

@@ -90,6 +90,14 @@ const ListarConvocatoria = () => {
                 <div className="container-fluid">
                     <h1>Listar convocatorias</h1>
                     <br />
+
+                    {showAlert && (
+                        <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px'}}>
+                            <FontAwesomeIcon icon={faCheckCircle} className="me-5" />
+                            Link copiado al portapapeles
+                        </div>
+                        )}
+
                     <DataTable paginator rows={20} value={convocatorias} stripedRows>
                         <Column field="id_convocatoria" header="#" className='columna-ajuste'/>
                         <Column field="title" header="Titulo" className='columna-ajuste'/>
@@ -104,12 +112,7 @@ const ListarConvocatoria = () => {
                         )} className='columna-ajuste'/>
                     </DataTable>
                 </div>
-                {showAlert && (
-                <div className="alert alert-success position-relative" role="alert" style={{ marginTop: '20px'}}>
-                    <FontAwesomeIcon icon={faCheckCircle} className="me-5" />
-                    Link copiado al portapapeles
-                </div>
-                )}
+
             </div>
 
          
