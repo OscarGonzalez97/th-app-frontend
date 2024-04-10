@@ -11,7 +11,7 @@ function EditarPostulante() {
         // Función para obtener todos los datos de la API
         async function fetchData() {
         try {
-            const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante/{id}`;
+            const response = await axios.post(`${import.meta.env.VITE_API_URL}/v1/postulante/{id}`);
             setDatosAPI(response.data); // Almacenar todos los datos en la variable de estado
         } catch (error) {
             console.error('Error al obtener los datos de la API:', error);

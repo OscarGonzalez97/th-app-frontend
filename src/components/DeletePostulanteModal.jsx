@@ -2,7 +2,7 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { Button } from 'primereact/button';
 import { useNavigate } from 'react-router-dom';
 
 import Modal from 'react-bootstrap/Modal';
@@ -30,9 +30,8 @@ function DeletePostulanteModal({ postulante }) {
 
   return (
     <>
-      <span role='button' onClick={handleShow}>
-        <FontAwesomeIcon icon={faTrashCan} style={{ fontSize: '20px', color: "#cc6d66" }} />
-      </span>
+      
+      <Button icon={<FontAwesomeIcon icon={faTrashCan} />} className="btn btn-danger ml-2" onClick={handleShow}/>
 
 
       <Modal show={show} onHide={handleClose}>
@@ -41,12 +40,13 @@ function DeletePostulanteModal({ postulante }) {
           <p className='h6'>Deseas elminar a <span className='h6 fw-bold'>{postulante.nombre} {postulante.apellido}</span>?</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
+        <Button className="btn btn-danger" variant="secondary" onClick={handleDelete}>
             Eliminar
           </Button>
+          <Button className="btn btn-secondary" variant="secondary" onClick={handleClose}>
+            Cancelar
+          </Button>
+          
         </Modal.Footer>
       </Modal>
     </>

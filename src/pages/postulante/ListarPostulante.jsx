@@ -193,7 +193,7 @@ const ListarPostulante = () => {
           <div className="container mt-5">
             <div className='row'>
             </div>
-            {postulantes ? (
+            {/* {postulantes ? (
               postulantes.map(postulante => (
               <div className="row mt-3 border-bottom pb-2 fs" key={postulante.id_postulante}>
                 <div className="col-8 d-flex align-items-center">{postulante.apellido.toUpperCase()}, {postulante.nombre.toUpperCase()}</div>
@@ -209,7 +209,9 @@ const ListarPostulante = () => {
             )
             : (
               <p>Loading ...</p>
-            )}
+            )} */}
+
+            
           </div>
 
 
