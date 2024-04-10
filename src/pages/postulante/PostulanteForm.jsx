@@ -143,7 +143,7 @@ const PostulanteForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        if (validateForm()) {
+        if (validateForm()) { 
 
             try {
                 const formData = new FormData();
